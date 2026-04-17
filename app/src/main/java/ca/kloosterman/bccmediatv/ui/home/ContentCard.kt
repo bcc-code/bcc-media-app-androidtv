@@ -1,0 +1,324 @@
+package ca.kloosterman.bccmediatv.ui.home
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.tv.material3.Border
+import androidx.tv.material3.Button
+import androidx.tv.material3.ButtonDefaults
+import androidx.tv.material3.Card
+import androidx.tv.material3.CardDefaults
+import androidx.tv.material3.ExperimentalTvMaterial3Api
+import androidx.tv.material3.Icon
+import androidx.tv.material3.MaterialTheme
+import androidx.tv.material3.Text
+import coil.compose.AsyncImage
+
+enum class CardStyle {
+    LANDSCAPE,  // 16:9, 240dp wide — default
+    POSTER,     // 2:3, 160dp wide — for poster/portrait content
+    SQUARE,     // 1:1, 180dp wide — for icons/avatars
+}
+
+@OptIn(ExperimentalTvMaterial3Api::class)
+@Composable
+fun AvatarCard(
+    name: String,
+    imageUrl: String?,
+    focusRequester: FocusRequester? = null,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
+    Column(
+        modifier = modifier.width(96.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Card(
+            onClick = onClick,
+            shape = CardDefaults.shape(shape = CircleShape),
+            modifier = Modifier
+                .size(96.dp)
+                .let { if (focusRequester != null) it.focusRequester(focusRequester) else it }
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.surfaceVariant),
+                contentAlignment = Alignment.Center
+            ) {
+                if (imageUrl != null) {
+                    AsyncImage(
+                        model = imageUrl,
+                        contentDescription = name,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                } else {
+                    Text(
+                        text = name.take(1),
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+        }
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = name,
+            style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.Center,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.width(96.dp)
+        )
+    }
+}
+
+/** Compact text-only card for Page-type items that have no image (e.g. category links). */
+@OptIn(ExperimentalTvMaterial3Api::class)
+@Composable
+fun PageLinkCard(
+    title: String,
+    focusRequester: FocusRequester? = null,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.colors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+            focusedContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        ),
+        border = ButtonDefaults.border(
+            border = Border.None,
+            focusedBorder = Border(
+                border = androidx.compose.foundation.BorderStroke(
+                    2.dp, MaterialTheme.colorScheme.primary
+                ),
+                shape = RoundedCornerShape(8.dp)
+            )
+        ),
+        shape = ButtonDefaults.shape(shape = RoundedCornerShape(8.dp)),
+        scale = ButtonDefaults.scale(scale = 1f, focusedScale = 1.05f),
+        glow = ButtonDefaults.glow(),
+        modifier = modifier
+            .width(240.dp)
+            .height(48.dp)
+            .let { if (focusRequester != null) it.focusRequester(focusRequester) else it }
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleLarge,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+private fun CardStyle.cardWidth(): Dp = when (this) {
+    CardStyle.LANDSCAPE -> 240.dp
+    CardStyle.POSTER    -> 160.dp
+    CardStyle.SQUARE    -> 180.dp
+}
+
+private fun CardStyle.cardAspectRatio(): Float = when (this) {
+    CardStyle.LANDSCAPE -> 16f / 9f
+    CardStyle.POSTER    -> 2f / 3f
+    CardStyle.SQUARE    -> 1f
+}
+
+@OptIn(ExperimentalTvMaterial3Api::class)
+@Composable
+fun ContentCard(
+    title: String,
+    imageUrl: String?,
+    subtitle: String? = null,
+    badge: String? = null,
+    watched: Boolean = false,
+    progressFraction: Float? = null,
+    description: String? = null,
+    style: CardStyle = CardStyle.LANDSCAPE,
+    scale: Float = 1f,
+    focusRequester: FocusRequester? = null,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
+    val cardWidth = style.cardWidth() * scale
+    Card(
+        onClick = onClick,
+        modifier = modifier
+            .width(cardWidth)
+            .aspectRatio(style.cardAspectRatio())
+            .let { if (focusRequester != null) it.focusRequester(focusRequester) else it }
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            // Background placeholder
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.surfaceVariant)
+            )
+
+            if (imageUrl != null) {
+                AsyncImage(
+                    model = imageUrl,
+                    contentDescription = title,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            } else {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = title.take(1),
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+
+            // Badge chip — show title — top-left corner
+            if (badge != null) {
+                Text(
+                    text = badge,
+                    fontSize = (10 * scale).sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    color = Color.White,
+                    modifier = Modifier
+                        .align(Alignment.TopStart)
+                        .padding(6.dp)
+                        .background(Color(0xFF1565C0), shape = RoundedCornerShape(4.dp))
+                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                )
+            }
+
+            // Watched checkmark — top-right corner
+            if (watched) {
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(6.dp)
+                        .size(22.dp)
+                        .background(Color(0xFF43A047), CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Check,
+                        contentDescription = "Watched",
+                        tint = Color.White,
+                        modifier = Modifier.size(14.dp)
+                    )
+                }
+            }
+
+            // Gradient scrim — extends up 50% of the card height
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.5f)
+                    .align(Alignment.BottomStart)
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(Color.Transparent, Color(0xCC000000))
+                        )
+                    )
+            )
+            // Text overlay on top of the gradient
+            val centered = description != null
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomStart)
+                    .padding(horizontal = 10.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(2.dp),
+                horizontalAlignment = if (centered) Alignment.CenterHorizontally else Alignment.Start
+            ) {
+                if (subtitle != null) {
+                    Text(
+                        text = subtitle,
+                        fontSize = (11 * scale).sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        color = Color.White.copy(alpha = 0.75f),
+                        textAlign = if (centered) TextAlign.Center else TextAlign.Start
+                    )
+                }
+                Text(
+                    text = title,
+                    fontSize = (14 * scale).sp,
+                    lineHeight = (20 * scale).sp,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    color = Color.White,
+                    fontWeight = if (centered) androidx.compose.ui.text.font.FontWeight.Bold else null,
+                    textAlign = if (centered) TextAlign.Center else TextAlign.Start
+                )
+                if (description != null) {
+                    Text(
+                        text = description,
+                        fontSize = (10 * scale).sp,
+                        lineHeight = (14 * scale).sp,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        color = Color.White.copy(alpha = 0.75f),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+
+            // Progress bar — shown above the bottom edge so the TV focus ring doesn't cover it
+            if (progressFraction != null) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(5.dp)
+                        .align(Alignment.BottomStart)
+                        .padding(bottom = 3.dp)
+                        .background(Color.White.copy(alpha = 0.3f))
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(progressFraction)
+                            .fillMaxHeight()
+                            .background(Color(0xFFE53935))
+                    )
+                }
+            }
+        }
+    }
+}

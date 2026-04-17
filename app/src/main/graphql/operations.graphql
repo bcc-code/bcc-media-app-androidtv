@@ -1,0 +1,541 @@
+query GetApplication {
+  application {
+    code
+    page { code title }
+    searchPage { code title }
+  }
+}
+
+query GetPage($code: String!, $first: Int, $offset: Int) {
+  page(code: $code) {
+    id
+    title
+    code
+    sections(first: $first, offset: $offset) {
+      total
+      offset
+      first
+      items {
+        __typename
+        id
+        title
+        description
+        ... on ItemSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+              }
+            }
+          }
+        }
+        ... on FeaturedSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+              }
+            }
+          }
+        }
+        ... on DefaultSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+              }
+            }
+          }
+        }
+        ... on PosterSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+              }
+            }
+          }
+        }
+        ... on CardSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+              }
+            }
+          }
+        }
+        ... on CardListSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+              }
+            }
+          }
+        }
+        ... on ListSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+              }
+            }
+          }
+        }
+        ... on IconSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+              }
+            }
+          }
+        }
+        ... on LabelSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+              }
+            }
+          }
+        }
+        ... on AvatarSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+                ... on Person { id }
+              }
+            }
+          }
+        }
+        ... on DefaultGridSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+              }
+            }
+          }
+        }
+        ... on PosterGridSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+              }
+            }
+          }
+        }
+        ... on IconGridSection {
+          metadata { myList }
+          items(first: 20) {
+            total
+            items {
+              id
+              image
+              title
+              description
+              item {
+                __typename
+                ... on Episode { id uuid duration progress watched season { title show { title } } }
+                ... on Season { id title show { id } }
+                ... on Show { id title description }
+                ... on Page { code title }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query Search($queryString: String!, $first: Int, $offset: Int) {
+  search(queryString: $queryString, first: $first, offset: $offset) {
+    hits
+    result {
+      __typename
+      id
+      title
+      description
+      image
+      ... on EpisodeSearchItem {
+        showTitle
+        seasonTitle
+        duration
+      }
+      ... on SeasonSearchItem {
+        seasonShowTitle: showTitle
+      }
+    }
+  }
+}
+
+query GetEpisodeDetail($episodeId: ID!) {
+  episode(id: $episodeId) {
+    id
+    uuid
+    title
+    description
+    image
+    publishDate
+    productionDate
+    duration
+    number
+    progress
+    watched
+    locked
+    ageRating
+    season {
+      id
+      title
+      number
+      show { id type title }
+    }
+    chapters { id title start duration }
+  }
+}
+
+query GetEpisodeForAutoplay($episodeId: ID!) {
+  episode(id: $episodeId) {
+    id
+    title
+    number
+    season {
+      id
+      episodes(first: 100) {
+        total
+        items {
+          id
+          title
+          number
+        }
+      }
+    }
+  }
+}
+
+query GetEpisodeStreams($id: ID!) {
+  episode(id: $id) {
+    title
+    description
+    number
+    duration
+    image
+    season { title number show { title } }
+    chapters { title start duration }
+    streams {
+      url
+      type
+      audioLanguages
+      subtitleLanguages
+      videoLanguage
+    }
+  }
+}
+
+query GetSeasonEpisodes($seasonId: ID!, $firstEpisodes: Int) {
+  season(id: $seasonId) {
+    id
+    title
+    image
+    number
+    show { id title }
+    episodes(first: $firstEpisodes) {
+      total
+      items {
+        id
+        uuid
+        title
+        image
+        publishDate
+        duration
+        number
+        progress
+        watched
+        description
+        ageRating
+      }
+    }
+  }
+}
+
+query GetShow($showId: ID!) {
+  show(id: $showId) {
+    id
+    title
+    description
+    image
+    seasons(first: 20) {
+      items {
+        id
+        title
+        number
+        image
+        episodes(first: 50) {
+          total
+          items {
+            id
+            uuid
+            title
+            image
+            duration
+            number
+            progress
+            watched
+            publishDate
+          }
+        }
+      }
+    }
+  }
+}
+
+query GetMe {
+  me {
+    analytics { anonymousId }
+    bccMember
+  }
+}
+
+mutation SetEpisodeProgress($id: ID!, $progress: Int!, $duration: Int!) {
+  setEpisodeProgress(id: $id, progress: $progress, duration: $duration) {
+    id
+    progress
+    watched
+  }
+}
+
+query GetMyList {
+  myList {
+    id
+    entries(first: 100) {
+      items {
+        id
+        item {
+          __typename
+          ... on Episode {
+            id
+            title
+            image
+            duration
+            progress
+            watched
+          }
+          ... on Show {
+            id
+            title
+            image
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation AddEpisodeToMyList($episodeId: ID!) {
+  addEpisodeToMyList(episodeId: $episodeId) {
+    entryId
+  }
+}
+
+mutation AddShowToMyList($showId: ID!) {
+  addShowToMyList(showId: $showId) {
+    entryId
+  }
+}
+
+mutation RemoveFromMyList($entryId: UUID!) {
+  removeEntryFromMyList(entryId: $entryId) {
+    id
+  }
+}
+
+
+query GetPersonContributions($id: ID!, $contentTypes: [String!]) {
+  person(id: $id) {
+    contributions(first: 100, contentTypes: $contentTypes) {
+      total
+      items {
+        item {
+          __typename
+          ... on Episode {
+            id
+            title
+            image
+            duration
+            progress
+            watched
+            season { title show { title } }
+          }
+          ... on Chapter {
+            id
+            title
+            duration
+            start
+            episode { id title image season { title show { title } } }
+          }
+        }
+      }
+    }
+  }
+}
+
+query GetPerson($id: ID!) {
+  person(id: $id) {
+    id
+    name
+    image
+    contributionContentTypes {
+      type { code title }
+      count
+    }
+    contributions(first: 100) {
+      total
+      items {
+        item {
+          __typename
+          ... on Episode {
+            id
+            title
+            image
+            duration
+            progress
+            watched
+            season { title show { title } }
+          }
+          ... on Chapter {
+            id
+            title
+            duration
+            start
+            episode { id title image season { title show { title } } }
+          }
+        }
+      }
+    }
+  }
+}

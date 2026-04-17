@@ -1,0 +1,373 @@
+scalar UUID
+
+type Query {
+  application: Application!
+  page(code: String!): Page
+  episode(id: ID!): Episode
+  season(id: ID!): Season
+  show(id: ID!): Show
+  me: Me
+  search(queryString: String!, first: Int, offset: Int): SearchResult!
+  myList: UserCollection!
+  person(id: ID!): Person
+}
+
+type Mutation {
+  setEpisodeProgress(id: ID!, progress: Int!, duration: Int!): EpisodeProgressPayload
+  addEpisodeToMyList(episodeId: ID!): AddToCollectionResult!
+  addShowToMyList(showId: ID!): AddToCollectionResult!
+  removeEntryFromMyList(entryId: UUID!): UserCollection!
+}
+
+type UserCollection {
+  id: ID!
+  title: String!
+  entries(first: Int, offset: Int): UserCollectionEntryConnection!
+}
+
+type UserCollectionEntryConnection {
+  total: Int!
+  items: [UserCollectionEntry!]!
+}
+
+type UserCollectionEntry {
+  id: ID!
+  item: UserCollectionEntryItem
+}
+
+union UserCollectionEntryItem = Episode | Show
+
+type AddToCollectionResult {
+  entryId: ID!
+}
+
+type EpisodeProgressPayload {
+  id: ID!
+  progress: Float
+  watched: Boolean
+}
+
+type SearchResult {
+  hits: Int!
+  result: [SearchResultItem!]!
+}
+
+interface SearchResultItem {
+  id: String!
+  title: String!
+  description: String
+  image: String
+}
+
+type EpisodeSearchItem implements SearchResultItem {
+  id: String!
+  title: String!
+  description: String
+  image: String
+  showTitle: String
+  seasonTitle: String
+  duration: Int
+}
+
+type SeasonSearchItem implements SearchResultItem {
+  id: String!
+  title: String!
+  description: String
+  image: String
+  showTitle: String!
+  seasonShowTitle: String
+}
+
+type ShowSearchItem implements SearchResultItem {
+  id: String!
+  title: String!
+  description: String
+  image: String
+}
+
+type Application {
+  code: String!
+  page: ApplicationPage
+  searchPage: ApplicationPage
+}
+
+type ApplicationPage {
+  code: String!
+  title: String
+}
+
+type Page {
+  id: ID!
+  title: String!
+  code: String!
+  sections(first: Int, offset: Int): SectionConnection!
+}
+
+type SectionConnection {
+  total: Int!
+  offset: Int!
+  first: Int!
+  items: [Section!]!
+}
+
+type ItemSectionMetadata {
+  myList: Boolean
+  continueWatching: Boolean
+}
+
+interface Section {
+  id: ID!
+  title: String
+  description: String
+}
+
+type ItemSection implements Section {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type FeaturedSection implements Section {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type DefaultSection implements Section {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type PosterSection implements Section {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type CardSection implements Section {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type CardListSection implements Section {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type ListSection implements Section {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+interface GridSection implements Section {
+  id: ID!
+  title: String
+  description: String
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type DefaultGridSection implements Section & GridSection {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type PosterGridSection implements Section & GridSection {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type IconGridSection implements Section & GridSection {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type IconSection implements Section {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type LabelSection implements Section {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type AvatarSection implements Section {
+  id: ID!
+  title: String
+  description: String
+  metadata: ItemSectionMetadata
+  items(first: Int, offset: Int): SectionItemConnection!
+}
+
+type WebSection implements Section {
+  id: ID!
+  title: String
+  description: String
+  url: String
+}
+
+type MessageSection implements Section {
+  id: ID!
+  title: String
+  description: String
+}
+
+type SectionItemConnection {
+  total: Int!
+  items: [SectionItem!]!
+}
+
+type SectionItem {
+  id: ID!
+  image: String
+  title: String!
+  description: String
+  item: SectionItemContent
+}
+
+union SectionItemContent = Episode | Season | Show | Page | Playlist | Link | Person
+
+type Episode {
+  id: ID!
+  uuid: String!
+  title: String!
+  description: String
+  image: String
+  publishDate: String
+  productionDate: String
+  duration: Int
+  number: Int
+  progress: Float
+  watched: Boolean
+  locked: Boolean
+  ageRating: String
+  season: Season
+  chapters: [Chapter!]
+  streams: [EpisodeStream!]
+}
+
+type Season {
+  id: ID!
+  title: String!
+  image: String
+  number: Int
+  show: Show
+  episodes(first: Int): EpisodeConnection
+}
+
+type EpisodeConnection {
+  total: Int!
+  items: [Episode!]!
+}
+
+type Show {
+  id: ID!
+  type: String
+  title: String!
+  description: String
+  image: String
+  seasons(first: Int, offset: Int): SeasonConnection
+}
+
+type SeasonConnection {
+  total: Int!
+  items: [Season!]!
+}
+
+type EpisodeStream {
+  url: String!
+  type: String!
+  audioLanguages: [String!]
+  subtitleLanguages: [String!]
+  videoLanguage: String
+}
+
+type Chapter {
+  id: ID!
+  title: String!
+  start: Int!
+  image: String
+  duration: Int
+  episode: Episode
+}
+
+type Playlist {
+  id: ID!
+  title: String
+}
+
+type Link {
+  id: ID!
+  url: String
+}
+
+type Me {
+  analytics: MeAnalytics
+  bccMember: Boolean
+}
+
+type MeAnalytics {
+  anonymousId: String
+}
+
+type Person {
+  id: ID!
+  name: String!
+  image: String
+  contributions(first: Int, offset: Int, contentTypes: [String!]): ContributionsPagination!
+  contributionContentTypes: [ContributionTypeCount!]!
+}
+
+type ContributionTypeCount {
+  type: ContentType!
+  count: Int!
+}
+
+type ContentType {
+  code: String!
+  title: String!
+}
+
+type ContributionsPagination {
+  total: Int!
+  items: [Contribution!]!
+}
+
+type Contribution {
+  item: ContributionItem!
+}
+
+union ContributionItem = Episode | Chapter

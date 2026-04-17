@@ -1,0 +1,283 @@
+package ca.kloosterman.bccmediatv.ui.home
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import ca.kloosterman.bccmediatv.data.LanguageRepository
+import ca.kloosterman.bccmediatv.data.PreviewChannelHelper
+import ca.kloosterman.bccmediatv.data.PreviewProgramData
+import ca.kloosterman.bccmediatv.graphql.GetApplicationQuery
+import ca.kloosterman.bccmediatv.graphql.GetPageQuery
+import ca.kloosterman.bccmediatv.graphql.SearchQuery
+import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.api.Optional
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import ca.kloosterman.bccmediatv.R
+import javax.inject.Inject
+
+data class NavItem(
+    val code: String,
+    val title: String,
+    val icon: NavIcon
+)
+
+const val MY_LIST_CODE = "__mylist__"
+
+sealed class NavIcon {
+    object HOME : NavIcon()
+    object SEARCH : NavIcon()
+    object SETTINGS : NavIcon()
+    object BOOKMARK : NavIcon()
+    data class Drawable(@androidx.annotation.DrawableRes val resId: Int) : NavIcon()
+    data class Url(val url: String) : NavIcon()
+}
+
+private fun localNavIcon(code: String): NavIcon? = when (code) {
+    "kids"      -> NavIcon.Drawable(R.drawable.ic_nav_kids)
+    "shortfilm" -> NavIcon.Drawable(R.drawable.ic_nav_shortfilm)
+    "event"     -> NavIcon.Drawable(R.drawable.ic_nav_event)
+    "series"    -> NavIcon.Drawable(R.drawable.ic_nav_series)
+    "studies"   -> NavIcon.Drawable(R.drawable.ic_nav_studies)
+    "music"     -> NavIcon.Drawable(R.drawable.ic_nav_music)
+    else        -> null
+}
+
+private fun GetPageQuery.Item.isMyListSection(): Boolean =
+    onItemSection?.metadata?.myList == true ||
+    onFeaturedSection?.metadata?.myList == true ||
+    onDefaultSection?.metadata?.myList == true ||
+    onPosterSection?.metadata?.myList == true ||
+    onCardSection?.metadata?.myList == true ||
+    onCardListSection?.metadata?.myList == true ||
+    onListSection?.metadata?.myList == true ||
+    onDefaultGridSection?.metadata?.myList == true ||
+    onPosterGridSection?.metadata?.myList == true ||
+    onIconGridSection?.metadata?.myList == true ||
+    onAvatarSection?.metadata?.myList == true
+
+data class PageState(
+    val sections: List<GetPageQuery.Item> = emptyList(),
+    val pageTitle: String? = null,
+    val isLoading: Boolean = true,
+    val error: String? = null
+)
+
+data class HomeUiState(
+    val navItems: List<NavItem> = emptyList(),
+    val categoryNavItems: List<NavItem> = emptyList(),
+    val myListTitle: String = "Watchlist",
+    val selectedCode: String = "",
+    val searchPageCode: String = "",
+    val pages: Map<String, PageState> = emptyMap(),
+    val isBootstrapping: Boolean = true,
+    val error: String? = null,
+    val searchQuery: String = "",
+    val searchResults: List<SearchQuery.Result> = emptyList(),
+    val isSearching: Boolean = false,
+    val searchError: String? = null,
+    val language: String = "en"
+)
+
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val apollo: ApolloClient,
+    private val languageRepository: LanguageRepository,
+    private val previewChannelHelper: PreviewChannelHelper
+) : ViewModel() {
+
+    private val _state = MutableStateFlow(HomeUiState())
+    val state: StateFlow<HomeUiState> = _state
+
+    private var searchJob: Job? = null
+    private var homePageCode: String = ""
+    private var resumeCount = 0
+
+    init {
+        _state.value = _state.value.copy(language = languageRepository.getLanguage())
+        bootstrap()
+        // Reload all pages when the content language changes
+        viewModelScope.launch {
+            languageRepository.languageChanged.collect {
+                _state.value = _state.value.copy(language = languageRepository.getLanguage())
+                reloadAllPages()
+            }
+        }
+    }
+
+    private fun bootstrap() {
+        viewModelScope.launch {
+            val result = runCatching {
+                apollo.query(GetApplicationQuery()).execute().dataOrThrow()
+            }
+            result.onFailure { e ->
+                _state.value = _state.value.copy(
+                    isBootstrapping = false,
+                    error = e.message
+                )
+                return@launch
+            }
+            val data = result.getOrThrow()
+            val app = data.application
+
+            val items = buildList {
+                app.page?.let { add(NavItem(it.code, "Home", NavIcon.HOME)) }
+                app.searchPage?.let { add(NavItem(it.code, it.title ?: "Search", NavIcon.SEARCH)) }
+                add(NavItem(MY_LIST_CODE, _state.value.myListTitle, NavIcon.BOOKMARK))
+            }
+
+            val firstCode = items.firstOrNull()?.code ?: ""
+            val searchCode = items.find { it.icon == NavIcon.SEARCH }?.code ?: ""
+            homePageCode = firstCode
+            _state.value = _state.value.copy(
+                navItems = items,
+                selectedCode = firstCode,
+                searchPageCode = searchCode,
+                isBootstrapping = false
+            )
+
+            if (firstCode.isNotEmpty()) loadPage(firstCode)
+        }
+    }
+
+    /** Called each time HomeScreen becomes visible. Skips the initial open; refreshes on return. */
+    fun onScreenResumed() {
+        resumeCount++
+        if (resumeCount == 1) return  // initial open — bootstrap already loading
+        val code = _state.value.selectedCode
+        if (code.isNotEmpty() && code != MY_LIST_CODE) loadPage(code, silent = true)
+    }
+
+    fun selectPage(code: String) {
+        _state.value = _state.value.copy(selectedCode = code, searchQuery = "", searchResults = emptyList())
+        if (code != MY_LIST_CODE && _state.value.pages[code] == null) loadPage(code)
+    }
+
+    fun onSearchQuery(query: String) {
+        _state.value = _state.value.copy(searchQuery = query)
+        searchJob?.cancel()
+        if (query.isBlank()) {
+            _state.value = _state.value.copy(searchResults = emptyList(), isSearching = false)
+            return
+        }
+        searchJob = viewModelScope.launch {
+            delay(300)
+            _state.value = _state.value.copy(isSearching = true, searchError = null)
+            val response = runCatching {
+                apollo.query(
+                    SearchQuery(
+                        queryString = query,
+                        first = Optional.present(20),
+                        offset = Optional.absent()
+                    )
+                ).execute()
+            }.getOrElse { e ->
+                _state.value = _state.value.copy(isSearching = false, searchError = "Network error: ${e.message}")
+                return@launch
+            }
+            val data = response.data
+            if (data != null) {
+                _state.value = _state.value.copy(
+                    searchResults = data.search.result,
+                    isSearching = false,
+                    searchError = null
+                )
+            } else {
+                val errors = response.errors?.joinToString("; ") { it.message } ?: "Unknown error"
+                _state.value = _state.value.copy(isSearching = false, searchError = errors)
+            }
+        }
+    }
+
+    /** Called when the content language changes — clears cached pages and reloads the current one. */
+    private fun reloadAllPages() {
+        // Clear cached page data but keep categoryNavItems so the nav rail stays intact during reload
+        _state.value = _state.value.copy(pages = emptyMap())
+        val currentCode = _state.value.selectedCode
+        if (currentCode.isNotEmpty()) loadPage(currentCode)
+        // Also reload the home page if it isn't the current page, so category icons refresh
+        if (homePageCode.isNotEmpty() && homePageCode != currentCode) loadPage(homePageCode)
+    }
+
+    private fun loadPage(code: String, silent: Boolean = false) {
+        if (!silent) {
+            _state.value = _state.value.copy(
+                pages = _state.value.pages + (code to PageState(isLoading = true))
+            )
+        }
+        viewModelScope.launch {
+            runCatching {
+                apollo.query(
+                    GetPageQuery(
+                        code = code,
+                        first = Optional.present(50),
+                        offset = Optional.present(0)
+                    )
+                ).execute().dataOrThrow()
+            }.onSuccess { data ->
+                val allSections = data.page?.sections?.items ?: emptyList()
+                // Filter out sections where metadata.myList == true (shown in nav instead)
+                val sections = allSections.filter { !it.isMyListSection() }
+                _state.value = _state.value.copy(
+                    pages = _state.value.pages + (code to PageState(
+                        sections = sections,
+                        pageTitle = data.page?.title,
+                        isLoading = false
+                    ))
+                )
+                // Extract IconSection items from the home page as category nav items
+                // Also extract the My List section title for the nav item
+                if (code == homePageCode) {
+                    // Populate the Google TV preview channel with featured episodes
+                    val featuredSection = allSections.firstOrNull { it.onFeaturedSection != null }
+                    val previewPrograms = featuredSection?.onFeaturedSection?.items?.items
+                        ?.mapNotNull { si ->
+                            val ep = si.item?.onEpisode ?: return@mapNotNull null
+                            PreviewProgramData(
+                                episodeId = ep.id,
+                                title = si.title,
+                                showTitle = ep.season?.show?.title,
+                                description = si.description?.takeIf { it.isNotBlank() },
+                                imageUrl = si.image,
+                                durationMs = ep.duration?.let { it * 1000L }
+                            )
+                        } ?: emptyList()
+                    if (previewPrograms.isNotEmpty()) {
+                        viewModelScope.launch { previewChannelHelper.updateChannel(previewPrograms) }
+                    }
+                    val myListSection = allSections.firstOrNull { it.isMyListSection() }
+                    myListSection?.title?.let { apiTitle ->
+                        val displayTitle = if (languageRepository.getLanguage() == "en") "Watchlist" else apiTitle
+                        val updatedNavItems = _state.value.navItems.map { item ->
+                            if (item.code == MY_LIST_CODE) item.copy(title = displayTitle) else item
+                        }
+                        _state.value = _state.value.copy(
+                            myListTitle = displayTitle,
+                            navItems = updatedNavItems
+                        )
+                    }
+                    val categoryItems = buildList {
+                        sections.forEach { section ->
+                            section.onIconSection?.items?.items?.forEach { si ->
+                                val pageCode = si.item?.onPage?.code ?: return@forEach
+                                val icon = localNavIcon(pageCode)
+                                    ?: NavIcon.Url(si.image ?: return@forEach)
+                                add(NavItem(pageCode, si.title, icon))
+                            }
+                        }
+                    }
+                    if (categoryItems.isNotEmpty()) {
+                        _state.value = _state.value.copy(categoryNavItems = categoryItems)
+                    }
+                }
+            }.onFailure { e ->
+                _state.value = _state.value.copy(
+                    pages = _state.value.pages + (code to PageState(isLoading = false, error = e.message))
+                )
+            }
+        }
+    }
+}

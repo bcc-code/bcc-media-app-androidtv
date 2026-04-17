@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">BCC Media</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_bookmarks">Watchlist</string>
+
+    <!-- Playback / episode detail -->
+    <string name="play">Play</string>
+    <string name="open">Open</string>
+    <string name="continue_from">Continue from %s</string>
+    <string name="play_from">Play from %s</string>
+    <string name="start_over">Start Over</string>
+    <string name="add_to_bookmarks">Add to Watchlist</string>
+    <string name="in_bookmarks">In Watchlist</string>
+    <string name="chapters">Chapters (%d)</string>
+    <string name="chapters_title">Chapters</string>
+    <string name="chapter_fallback">Chapter %d</string>
+    <string name="season_label">Season %d</string>
+
+    <!-- Auto-play next episode -->
+    <string name="up_next_label">Up next</string>
+    <string name="playing_in_seconds">Playing in %ds</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Auto-play settings -->
+    <string name="settings_autoplay">Auto-play</string>
+    <string name="settings_autoplay_delay">Auto-play delay</string>
+    <string name="settings_autoplay_on">On</string>
+    <string name="settings_autoplay_off">Off</string>
+    <string name="autoplay_delay_seconds">%d seconds</string>
+
+    <!-- Generic states -->
+    <string name="loading">Loading…</string>
+    <string name="error_prefix">Error: %s</string>
+    <string name="no_results">No results for \"%s\"</string>
+    <string name="search_placeholder">Search…</string>
+    <string name="searching">Searching…</string>
+    <string name="search_error">Search error: %s</string>
+    <string name="your_list_is_empty">Your list is empty.</string>
+    <string name="play_random">Play Random</string>
+    <string name="contributions_count">Contributions (%d items)</string>
+    <string name="no_contributions">No contributions available</string>
+    <string name="contributions_count_label">%d contribution</string>
+    <string name="contributions_count_label_plural">%d contributions</string>
+    <string name="filter_all">All (%d)</string>
+    <string name="time_remaining">%d min left</string>
+    <string name="results_count">%d result</string>
+    <string name="results_count_plural">%d results</string>
+
+    <!-- Splash screen -->
+    <string name="splash_skip_hint">Press OK to skip</string>
+
+    <!-- Login screen -->
+    <string name="login_sign_in_title">Sign in to BCC Media</string>
+    <string name="login_scan_qr">Scan the QR code, or go to:</string>
+    <string name="login_site">web.brunstad.tv/tvlogin</string>
+    <string name="login_enter_code">And enter this code:</string>
+    <string name="login_failed">Login failed: %s</string>
+    <string name="login_try_again">Try again</string>
+    <string name="login_connecting">Connecting…</string>
+
+    <!-- Settings screen -->
+    <string name="settings_app_language">App Language</string>
+    <string name="settings_preferred_audio">Preferred Audio Language</string>
+    <string name="settings_subtitles">Subtitles</string>
+    <string name="settings_subtitles_off">Off</string>
+    <string name="settings_log_out">Log out</string>
+    <string name="settings_switch_account">Switch Account</string>
+    <string name="settings_remove_account">Remove Account</string>
+
+    <!-- Profile picker -->
+    <string name="profile_picker_title">Who\'s watching?</string>
+    <string name="profile_add_account">Add Account</string>
+</resources>
