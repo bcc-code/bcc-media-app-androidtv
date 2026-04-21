@@ -34,12 +34,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="bccmediatv" android:host="episode" />
+                <data android:scheme="tv.brunstad.app" android:host="episode" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="bccmediatv" android:host="home" />
+                <data android:scheme="tv.brunstad.app" android:host="home" />
             </intent-filter>
         </activity>
 

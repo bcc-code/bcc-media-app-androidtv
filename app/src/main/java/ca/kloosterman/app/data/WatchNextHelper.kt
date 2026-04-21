@@ -36,7 +36,7 @@ class WatchNextHelper @Inject constructor(
                 .setInternalProviderId(episodeId)
                 .setLastPlaybackPositionMillis(positionMs.toInt())
                 .setLastEngagementTimeUtcMillis(System.currentTimeMillis())
-                .setIntentUri(Uri.parse("bccmediatv://episode/$episodeId"))
+                .setIntentUri(Uri.parse("tv.brunstad.app://episode/$episodeId"))
 
             showTitle?.let { builder.setEpisodeTitle(title).setTitle(it) }
             description?.let { builder.setDescription(it) }

@@ -53,7 +53,7 @@ class PreviewChannelHelper @Inject constructor(
 
         val builder = PreviewChannel.Builder()
             .setDisplayName(context.getString(R.string.app_name))
-            .setAppLinkIntentUri(Uri.parse("bccmediatv://home"))
+            .setAppLinkIntentUri(Uri.parse("tv.brunstad.app://home"))
         logo?.let { builder.setLogo(it) }
 
         val uri = resolver.insert(TvContractCompat.Channels.CONTENT_URI, builder.build().toContentValues())
@@ -83,7 +83,7 @@ class PreviewChannelHelper @Inject constructor(
             val builder = PreviewProgram.Builder()
                 .setChannelId(channelId)
                 .setType(TvContractCompat.PreviewPrograms.TYPE_TV_EPISODE)
-                .setIntentUri(Uri.parse("bccmediatv://episode/${program.episodeId}"))
+                .setIntentUri(Uri.parse("tv.brunstad.app://episode/${program.episodeId}"))
             if (program.showTitle != null) {
                 builder.setTitle(program.showTitle).setEpisodeTitle(program.title)
             } else {
