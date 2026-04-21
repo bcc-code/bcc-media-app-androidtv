@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -22,7 +24,7 @@ android {
         versionName = "1.0"
     }
 
-    val localProps = java.util.Properties().also { props ->
+    val localProps = Properties().also { props ->
         rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use { props.load(it) }
     }
     signingConfigs {
