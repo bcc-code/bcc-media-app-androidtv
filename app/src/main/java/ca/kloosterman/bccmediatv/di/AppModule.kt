@@ -44,7 +44,7 @@ object AppModule {
                 val lang = languageRepository.getLanguage()
                 val request = chain.request().newBuilder()
                     .apply { if (token != null) header("Authorization", "Bearer $token") }
-                    .header("X-Application", "bccm-android")
+                    .header("X-Application", "bccm-androidtv")
                     .header("X-Session-Id", sessionId)
                     .header("Accept-Language", lang)
                     .build()

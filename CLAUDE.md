@@ -94,7 +94,7 @@ Single endpoint: `https://api.brunstad.tv/query`
 All requests are HTTP POST with `Content-Type: application/json`. Required headers on every request:
 ```
 Authorization:    Bearer <access_token>
-X-Application:    bccm-android
+X-Application:    bccm-androidtv
 X-Session-Id:     <timestamp-ms>      (generate once per app session)
 Accept-Language:  <ISO 639-1 code>    (e.g. "en", "no")
 ```
