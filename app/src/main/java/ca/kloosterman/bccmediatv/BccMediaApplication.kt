@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv
+package tv.brunstad.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

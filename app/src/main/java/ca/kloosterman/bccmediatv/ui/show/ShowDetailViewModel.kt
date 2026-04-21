@@ -1,10 +1,10 @@
-package ca.kloosterman.bccmediatv.ui.show
+package tv.brunstad.app.ui.show
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ca.kloosterman.bccmediatv.data.MyListRepository
-import ca.kloosterman.bccmediatv.graphql.GetShowQuery
+import tv.brunstad.app.data.MyListRepository
+import tv.brunstad.app.graphql.GetShowQuery
 import com.apollographql.apollo.ApolloClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

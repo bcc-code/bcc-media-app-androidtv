@@ -1,11 +1,11 @@
-package ca.kloosterman.bccmediatv.ui.episode
+package tv.brunstad.app.ui.episode
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ca.kloosterman.bccmediatv.data.LanguageRepository
-import ca.kloosterman.bccmediatv.data.MyListRepository
-import ca.kloosterman.bccmediatv.graphql.GetEpisodeDetailQuery
+import tv.brunstad.app.data.LanguageRepository
+import tv.brunstad.app.data.MyListRepository
+import tv.brunstad.app.graphql.GetEpisodeDetailQuery
 import com.apollographql.apollo.ApolloClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job

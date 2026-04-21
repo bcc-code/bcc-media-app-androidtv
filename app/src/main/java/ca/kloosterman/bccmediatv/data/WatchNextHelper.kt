@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.data
+package tv.brunstad.app.data
 
 import android.content.ContentUris
 import android.content.ContentValues

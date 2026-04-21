@@ -1,6 +1,6 @@
 @file:OptIn(androidx.media3.common.util.UnstableApi::class)
 
-package ca.kloosterman.bccmediatv.ui.player
+package tv.brunstad.app.ui.player
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
@@ -25,7 +25,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import ca.kloosterman.bccmediatv.R
+import tv.brunstad.app.R
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel

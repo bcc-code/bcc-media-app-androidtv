@@ -1,9 +1,9 @@
-package ca.kloosterman.bccmediatv.ui.page
+package tv.brunstad.app.ui.page
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ca.kloosterman.bccmediatv.graphql.GetPageQuery
+import tv.brunstad.app.graphql.GetPageQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Optional
 import dagger.hilt.android.lifecycle.HiltViewModel

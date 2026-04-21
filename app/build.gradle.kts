@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "ca.kloosterman.bccmediatv"
+    namespace = "tv.brunstad.app"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -17,7 +17,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "ca.kloosterman.bccmediatv"
+        applicationId = "tv.brunstad.app"
         minSdk = 23
         targetSdk = 36
         versionCode = 1
@@ -64,7 +64,7 @@ android {
 
 apollo {
     service("bccmedia") {
-        packageName.set("ca.kloosterman.bccmediatv.graphql")
+        packageName.set("tv.brunstad.app.graphql")
         mapScalarToKotlinString("UUID")
     }
 }

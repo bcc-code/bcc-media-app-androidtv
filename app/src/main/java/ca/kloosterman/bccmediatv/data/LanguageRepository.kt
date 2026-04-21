@@ -1,7 +1,7 @@
-package ca.kloosterman.bccmediatv.data
+package tv.brunstad.app.data
 
 import android.content.SharedPreferences
-import ca.kloosterman.bccmediatv.auth.ProfileStore
+import tv.brunstad.app.auth.ProfileStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import javax.inject.Inject

@@ -1,11 +1,11 @@
-package ca.kloosterman.bccmediatv.ui.person
+package tv.brunstad.app.ui.person
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ca.kloosterman.bccmediatv.graphql.GetPersonContributionsQuery
-import ca.kloosterman.bccmediatv.graphql.GetPersonQuery
+import tv.brunstad.app.graphql.GetPersonContributionsQuery
+import tv.brunstad.app.graphql.GetPersonQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Optional
 import dagger.hilt.android.lifecycle.HiltViewModel

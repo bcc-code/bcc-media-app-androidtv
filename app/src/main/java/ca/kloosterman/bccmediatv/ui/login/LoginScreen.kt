@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.ui.login
+package tv.brunstad.app.ui.login
 
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -26,14 +26,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ca.kloosterman.bccmediatv.R
+import tv.brunstad.app.R
 import androidx.tv.material3.Button
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Surface
 import androidx.tv.material3.Text
-import ca.kloosterman.bccmediatv.auth.LoginUiState
-import ca.kloosterman.bccmediatv.auth.LoginViewModel
+import tv.brunstad.app.auth.LoginUiState
+import tv.brunstad.app.auth.LoginViewModel
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.QRCodeWriter

@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.ui.theme
+package tv.brunstad.app.ui.theme
 
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily

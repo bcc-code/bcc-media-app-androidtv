@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.util
+package tv.brunstad.app.util
 
 /**
  * Words that are lowercase in English title case (Chicago Manual of Style rules)

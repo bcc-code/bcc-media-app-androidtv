@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.auth
+package tv.brunstad.app.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

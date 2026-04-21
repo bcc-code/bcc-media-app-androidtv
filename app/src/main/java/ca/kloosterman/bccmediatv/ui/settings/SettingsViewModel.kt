@@ -1,10 +1,10 @@
-package ca.kloosterman.bccmediatv.ui.settings
+package tv.brunstad.app.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ca.kloosterman.bccmediatv.auth.AuthRepository
-import ca.kloosterman.bccmediatv.data.LanguageRepository
-import ca.kloosterman.bccmediatv.graphql.GetMeQuery
+import tv.brunstad.app.auth.AuthRepository
+import tv.brunstad.app.data.LanguageRepository
+import tv.brunstad.app.graphql.GetMeQuery
 import com.apollographql.apollo.ApolloClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

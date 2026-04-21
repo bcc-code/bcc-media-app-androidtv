@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.ui.page
+package tv.brunstad.app.ui.page
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
@@ -15,12 +15,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ca.kloosterman.bccmediatv.R
+import tv.brunstad.app.R
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Surface
 import androidx.tv.material3.Text
-import ca.kloosterman.bccmediatv.ui.home.PageContent
+import tv.brunstad.app.ui.home.PageContent
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable

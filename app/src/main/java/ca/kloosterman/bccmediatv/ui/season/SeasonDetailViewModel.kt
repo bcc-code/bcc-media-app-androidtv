@@ -1,9 +1,9 @@
-package ca.kloosterman.bccmediatv.ui.season
+package tv.brunstad.app.ui.season
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ca.kloosterman.bccmediatv.graphql.GetSeasonEpisodesQuery
+import tv.brunstad.app.graphql.GetSeasonEpisodesQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Optional
 import dagger.hilt.android.lifecycle.HiltViewModel

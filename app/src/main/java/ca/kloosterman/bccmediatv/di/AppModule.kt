@@ -1,9 +1,9 @@
-package ca.kloosterman.bccmediatv.di
+package tv.brunstad.app.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import ca.kloosterman.bccmediatv.auth.AuthRepository
-import ca.kloosterman.bccmediatv.data.LanguageRepository
+import tv.brunstad.app.auth.AuthRepository
+import tv.brunstad.app.data.LanguageRepository
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.network.okHttpClient
 import dagger.Module

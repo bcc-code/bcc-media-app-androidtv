@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.auth
+package tv.brunstad.app.auth
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences

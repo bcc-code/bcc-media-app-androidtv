@@ -1,10 +1,10 @@
-package ca.kloosterman.bccmediatv.ui.mylist
+package tv.brunstad.app.ui.mylist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ca.kloosterman.bccmediatv.data.MyListRepository
-import ca.kloosterman.bccmediatv.data.ShowBookmarkItem
-import ca.kloosterman.bccmediatv.graphql.GetMyListQuery
+import tv.brunstad.app.data.MyListRepository
+import tv.brunstad.app.data.ShowBookmarkItem
+import tv.brunstad.app.graphql.GetMyListQuery
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

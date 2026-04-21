@@ -1,13 +1,13 @@
-package ca.kloosterman.bccmediatv.ui.player
+package tv.brunstad.app.ui.player
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ca.kloosterman.bccmediatv.data.LanguageRepository
-import ca.kloosterman.bccmediatv.data.WatchNextHelper
-import ca.kloosterman.bccmediatv.graphql.GetEpisodeForAutoplayQuery
-import ca.kloosterman.bccmediatv.graphql.GetEpisodeStreamsQuery
-import ca.kloosterman.bccmediatv.graphql.SetEpisodeProgressMutation
+import tv.brunstad.app.data.LanguageRepository
+import tv.brunstad.app.data.WatchNextHelper
+import tv.brunstad.app.graphql.GetEpisodeForAutoplayQuery
+import tv.brunstad.app.graphql.GetEpisodeStreamsQuery
+import tv.brunstad.app.graphql.SetEpisodeProgressMutation
 import com.apollographql.apollo.ApolloClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

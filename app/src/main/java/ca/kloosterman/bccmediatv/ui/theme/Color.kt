@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.ui.theme
+package tv.brunstad.app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

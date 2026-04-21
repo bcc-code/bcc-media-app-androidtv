@@ -1,11 +1,11 @@
-package ca.kloosterman.bccmediatv.data
+package tv.brunstad.app.data
 
 import android.content.SharedPreferences
 import android.util.Log
-import ca.kloosterman.bccmediatv.graphql.AddEpisodeToMyListMutation
-import ca.kloosterman.bccmediatv.graphql.AddShowToMyListMutation
-import ca.kloosterman.bccmediatv.graphql.GetMyListQuery
-import ca.kloosterman.bccmediatv.graphql.RemoveFromMyListMutation
+import tv.brunstad.app.graphql.AddEpisodeToMyListMutation
+import tv.brunstad.app.graphql.AddShowToMyListMutation
+import tv.brunstad.app.graphql.GetMyListQuery
+import tv.brunstad.app.graphql.RemoveFromMyListMutation
 import com.apollographql.apollo.ApolloClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

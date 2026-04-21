@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.data
+package tv.brunstad.app.data
 
 import android.content.ContentUris
 import android.content.Context
@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.tvprovider.media.tv.PreviewChannel
 import androidx.tvprovider.media.tv.PreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
-import ca.kloosterman.bccmediatv.R
+import tv.brunstad.app.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton

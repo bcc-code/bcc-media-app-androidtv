@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.ui.home
+package tv.brunstad.app.ui.home
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
@@ -52,7 +52,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
-import ca.kloosterman.bccmediatv.R
+import tv.brunstad.app.R
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
@@ -90,13 +90,13 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
-import ca.kloosterman.bccmediatv.data.ShowBookmarkItem
-import ca.kloosterman.bccmediatv.graphql.GetMyListQuery
-import ca.kloosterman.bccmediatv.graphql.GetPageQuery
-import ca.kloosterman.bccmediatv.graphql.SearchQuery
-import ca.kloosterman.bccmediatv.ui.mylist.MyListViewModel
-import ca.kloosterman.bccmediatv.ui.profile.ProfilePickerViewModel
-import ca.kloosterman.bccmediatv.util.titleCaseForLanguage
+import tv.brunstad.app.data.ShowBookmarkItem
+import tv.brunstad.app.graphql.GetMyListQuery
+import tv.brunstad.app.graphql.GetPageQuery
+import tv.brunstad.app.graphql.SearchQuery
+import tv.brunstad.app.ui.mylist.MyListViewModel
+import tv.brunstad.app.ui.profile.ProfilePickerViewModel
+import tv.brunstad.app.util.titleCaseForLanguage
 
 internal data class CardData(val title: String, val imageUrl: String?, val episodeId: String?, val pageCode: String? = null, val seasonId: String? = null, val showId: String? = null, val badge: String? = null, val progressFraction: Float? = null, val description: String? = null, val subtitle: String? = null, val watched: Boolean = false, val durationSeconds: Int? = null)
 

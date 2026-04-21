@@ -1,9 +1,9 @@
-package ca.kloosterman.bccmediatv.ui.profile
+package tv.brunstad.app.ui.profile
 
 import androidx.lifecycle.ViewModel
-import ca.kloosterman.bccmediatv.auth.Profile
-import ca.kloosterman.bccmediatv.auth.ProfileStore
-import ca.kloosterman.bccmediatv.data.LanguageRepository
+import tv.brunstad.app.auth.Profile
+import tv.brunstad.app.auth.ProfileStore
+import tv.brunstad.app.data.LanguageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

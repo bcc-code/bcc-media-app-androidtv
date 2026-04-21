@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.ui.show
+package tv.brunstad.app.ui.show
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
@@ -45,7 +45,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ca.kloosterman.bccmediatv.R
+import tv.brunstad.app.R
 import androidx.tv.foundation.lazy.list.TvLazyColumn
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.items
@@ -56,9 +56,9 @@ import androidx.tv.material3.Icon
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Surface
 import androidx.tv.material3.Text
-import ca.kloosterman.bccmediatv.graphql.GetShowQuery
-import ca.kloosterman.bccmediatv.ui.home.CardStyle
-import ca.kloosterman.bccmediatv.ui.home.ContentCard
+import tv.brunstad.app.graphql.GetShowQuery
+import tv.brunstad.app.ui.home.CardStyle
+import tv.brunstad.app.ui.home.ContentCard
 import coil.compose.AsyncImage
 
 @OptIn(ExperimentalTvMaterial3Api::class)

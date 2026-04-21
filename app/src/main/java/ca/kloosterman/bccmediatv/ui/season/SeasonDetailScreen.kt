@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.ui.season
+package tv.brunstad.app.ui.season
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ca.kloosterman.bccmediatv.R
+import tv.brunstad.app.R
 import androidx.tv.foundation.lazy.list.TvLazyColumn
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.items
@@ -33,9 +33,9 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Surface
 import androidx.tv.material3.Text
-import ca.kloosterman.bccmediatv.graphql.GetSeasonEpisodesQuery
-import ca.kloosterman.bccmediatv.ui.home.CardStyle
-import ca.kloosterman.bccmediatv.ui.home.ContentCard
+import tv.brunstad.app.graphql.GetSeasonEpisodesQuery
+import tv.brunstad.app.ui.home.CardStyle
+import tv.brunstad.app.ui.home.ContentCard
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable

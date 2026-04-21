@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.ui.settings
+package tv.brunstad.app.ui.settings
 
 import android.app.Activity
 import androidx.activity.compose.BackHandler
@@ -37,7 +37,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ca.kloosterman.bccmediatv.R
+import tv.brunstad.app.R
 import androidx.tv.material3.Button
 import androidx.tv.material3.ButtonDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
@@ -45,7 +45,7 @@ import androidx.tv.material3.Icon
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Surface
 import androidx.tv.material3.Text
-import ca.kloosterman.bccmediatv.data.LanguageRepository
+import tv.brunstad.app.data.LanguageRepository
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable

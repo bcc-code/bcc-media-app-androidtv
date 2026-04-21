@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.ui.home
+package tv.brunstad.app.ui.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CircleShape

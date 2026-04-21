@@ -1,13 +1,13 @@
-package ca.kloosterman.bccmediatv.ui.home
+package tv.brunstad.app.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ca.kloosterman.bccmediatv.data.LanguageRepository
-import ca.kloosterman.bccmediatv.data.PreviewChannelHelper
-import ca.kloosterman.bccmediatv.data.PreviewProgramData
-import ca.kloosterman.bccmediatv.graphql.GetApplicationQuery
-import ca.kloosterman.bccmediatv.graphql.GetPageQuery
-import ca.kloosterman.bccmediatv.graphql.SearchQuery
+import tv.brunstad.app.data.LanguageRepository
+import tv.brunstad.app.data.PreviewChannelHelper
+import tv.brunstad.app.data.PreviewProgramData
+import tv.brunstad.app.graphql.GetApplicationQuery
+import tv.brunstad.app.graphql.GetPageQuery
+import tv.brunstad.app.graphql.SearchQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Optional
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import ca.kloosterman.bccmediatv.R
+import tv.brunstad.app.R
 import javax.inject.Inject
 
 data class NavItem(

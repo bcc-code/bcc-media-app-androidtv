@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.ui.splash
+package tv.brunstad.app.ui.splash
 
 import android.media.MediaPlayer
 import androidx.compose.animation.core.Animatable
@@ -18,7 +18,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import ca.kloosterman.bccmediatv.R
+import tv.brunstad.app.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

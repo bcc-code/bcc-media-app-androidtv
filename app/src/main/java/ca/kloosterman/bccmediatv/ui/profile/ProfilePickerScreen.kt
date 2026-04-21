@@ -1,4 +1,4 @@
-package ca.kloosterman.bccmediatv.ui.profile
+package tv.brunstad.app.ui.profile
 
 import android.app.Activity
 import android.content.ContextWrapper
@@ -43,8 +43,8 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
-import ca.kloosterman.bccmediatv.R
-import ca.kloosterman.bccmediatv.auth.Profile
+import tv.brunstad.app.R
+import tv.brunstad.app.auth.Profile
 
 private fun android.content.Context.findActivity(): Activity? {
     var ctx = this
