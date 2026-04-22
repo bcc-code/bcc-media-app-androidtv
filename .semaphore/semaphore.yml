@@ -15,7 +15,7 @@ blocks:
       prologue:
         commands:
           - checkout
-          - sem-version java 25
+          - sem-version java 21
       jobs:
         - name: Build release AAB
           commands:
