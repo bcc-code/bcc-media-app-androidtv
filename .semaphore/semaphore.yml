@@ -11,7 +11,7 @@ blocks:
     task:
       secrets:
         - name: android-keystore-bcc-media-apps
-        - name: android-play-store-api
+        - name: android-play-store-api-linux
       prologue:
         commands:
           - checkout
@@ -50,7 +50,7 @@ blocks:
     dependencies: [Build]
     task:
       secrets:
-        - name: android-play-store-api
+        - name: android-play-store-api-linux
       jobs:
         - name: Upload to Google Play Internal
           commands:
