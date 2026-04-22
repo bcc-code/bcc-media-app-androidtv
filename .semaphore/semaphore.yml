@@ -12,6 +12,7 @@ blocks:
       secrets:
         - name: android-keystore-bcc-media-apps
         - name: android-play-store-api-linux
+        - name: android-npaw
       prologue:
         commands:
           - checkout
@@ -39,6 +40,7 @@ blocks:
               signing.storePassword=$KEYSTORE_PASSWORD
               signing.keyAlias=$KEY_ALIAS
               signing.keyPassword=$KEY_PASSWORD
+              npaw.accountCode=$NPAW_ACCOUNT_CODE
               EOF
 
             # Install Android SDK (cached across runs)
