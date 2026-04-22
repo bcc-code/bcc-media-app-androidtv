@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import tv.brunstad.app.data.LanguageRepository
+import tv.brunstad.app.data.NpawManager
 import tv.brunstad.app.data.WatchNextHelper
 import tv.brunstad.app.graphql.GetEpisodeForAutoplayQuery
 import tv.brunstad.app.graphql.GetEpisodeStreamsQuery
@@ -47,10 +48,12 @@ class PlayerViewModel @Inject constructor(
     private val apollo: ApolloClient,
     private val languageRepository: LanguageRepository,
     private val watchNextHelper: WatchNextHelper,
+    val npawManager: NpawManager,
+    private val analyticsManager: tv.brunstad.app.data.AnalyticsManager,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val episodeId: String = checkNotNull(savedStateHandle["episodeId"])
+    val episodeId: String = checkNotNull(savedStateHandle["episodeId"])
     val startProgressSeconds: Int = savedStateHandle["progress"] ?: 0
 
     private val _uiState = MutableStateFlow(PlayerUiState())
@@ -136,6 +139,25 @@ class PlayerViewModel @Inject constructor(
 
     fun onPlaybackEnded() {
         _uiState.value = _uiState.value.copy(episodeEnded = true)
+    }
+
+    fun trackPlaybackStarted(positionMs: Long, durationMs: Long) {
+        analyticsManager.trackPlaybackStarted(
+            sessionId = tv.brunstad.app.di.AppModule.sessionId,
+            contentPodId = episodeId,
+            position = positionMs / 1000,
+            totalLength = durationMs / 1000
+        )
+        analyticsManager.trackVideoPlayed(videoId = episodeId, referenceId = episodeId)
+    }
+
+    fun trackPlaybackPaused(positionMs: Long, durationMs: Long) {
+        analyticsManager.trackPlaybackPaused(
+            sessionId = tv.brunstad.app.di.AppModule.sessionId,
+            contentPodId = episodeId,
+            position = positionMs / 1000,
+            totalLength = durationMs / 1000
+        )
     }
 
     fun selectAudioLanguage(language: String) {

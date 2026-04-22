@@ -36,6 +36,10 @@ android {
             keyPassword = localProps.getProperty("signing.keyPassword")
         }
     }
+    defaultConfig.buildConfigField("String", "NPAW_ACCOUNT_CODE", "\"${localProps.getProperty("npaw.accountCode", "")}\"")
+    defaultConfig.buildConfigField("String", "RUDDERSTACK_WRITE_KEY", "\"${localProps.getProperty("rudderstack.writeKey", "")}\"")
+    defaultConfig.buildConfigField("String", "RUDDERSTACK_DATA_PLANE_URL", "\"${localProps.getProperty("rudderstack.dataPlaneUrl", "")}\"")
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -52,6 +56,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     lint {
@@ -120,6 +125,16 @@ dependencies {
 
     // Google TV Continue Watching
     implementation(libs.tvprovider)
+
+    // Rudderstack Analytics
+    implementation(libs.rudderstack.android)
+
+    // NPAW Video Analytics
+    implementation(libs.npaw.plugin)
+    implementation(libs.npaw.media3.exoplayer) {
+        exclude(group = "androidx.media3", module = "media3-exoplayer")
+        exclude(group = "androidx.media3", module = "media3-datasource")
+    }
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

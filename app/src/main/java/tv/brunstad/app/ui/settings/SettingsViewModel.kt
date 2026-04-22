@@ -16,7 +16,8 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val apollo: ApolloClient,
     private val authRepository: AuthRepository,
-    private val languageRepository: LanguageRepository
+    private val languageRepository: LanguageRepository,
+    private val analyticsManager: tv.brunstad.app.data.AnalyticsManager
 ) : ViewModel() {
 
     data class UiState(
@@ -53,8 +54,14 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun setLanguage(code: String) {
+        val previousLanguage = languageRepository.getLanguage()
         languageRepository.setLanguage(code)
         _state.value = _state.value.copy(selectedLanguage = code)
+        analyticsManager.trackLanguageChanged(
+            pageCode = "settings",
+            languageFrom = previousLanguage,
+            languageTo = code
+        )
     }
 
     fun setAudioLanguage(code: String) {

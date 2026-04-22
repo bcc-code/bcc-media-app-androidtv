@@ -121,11 +121,17 @@ fun HomeScreen(
     onPersonClick: (String) -> Unit = {},
     onSettingsClick: () -> Unit = {},
     onProfileClick: () -> Unit = {},
+    onAuthRequired: () -> Unit = {},
     viewModel: HomeViewModel = hiltViewModel(),
     myListViewModel: MyListViewModel = hiltViewModel(),
     profileViewModel: ProfilePickerViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(state.authExpired) {
+        if (state.authExpired) onAuthRequired()
+    }
+
     val profileState by profileViewModel.state.collectAsState()
     val activeInitials = profileState.profiles.find { it.userId == profileState.activeProfileId }?.initials
     var navExpanded by remember { mutableStateOf(false) }
@@ -285,7 +291,10 @@ fun HomeScreen(
                         onPageClick = onPageClick,
                         onSeasonClick = onSeasonClick,
                         onShowClick = onShowClick,
-                        onPersonClick = onPersonClick
+                        onPersonClick = onPersonClick,
+                        onSearchResultClicked = { position, type, id ->
+                            viewModel.trackSearchResultClicked(position, type, id, "search")
+                        }
                     )
                 }
                 else -> {
@@ -304,7 +313,10 @@ fun HomeScreen(
                         onPageClick = onPageClick,
                         onSeasonClick = onSeasonClick,
                         onShowClick = onShowClick,
-                        onPersonClick = onPersonClick
+                        onPersonClick = onPersonClick,
+                        onSectionItemClicked = { sectionIndex, sectionId, sectionName, sectionType, elementIndex, elementType, elementId, elementName ->
+                            viewModel.trackSectionClicked(sectionId, sectionName, sectionIndex, sectionType, elementIndex, elementType, elementId, elementName)
+                        }
                     )
                 }
             }
@@ -821,7 +833,8 @@ internal fun PageContent(
     onPageClick: (String) -> Unit = {},
     onSeasonClick: (String) -> Unit = {},
     onShowClick: (String) -> Unit = {},
-    onPersonClick: (String) -> Unit = {}
+    onPersonClick: (String) -> Unit = {},
+    onSectionItemClicked: ((sectionIndex: Int, sectionId: String, sectionName: String, sectionType: String, elementIndex: Int, elementType: String, elementId: String, elementName: String) -> Unit)? = null
 ) {
     // If the first section is a FeaturedSection, render it as a full-bleed hero panel
     val heroCards = sections.getOrNull(0)?.onFeaturedSection?.items?.items?.mapNotNull { si ->
@@ -891,11 +904,12 @@ internal fun PageContent(
         }
         items(sections.size - sectionStart) { relIndex ->
             val index = relIndex + sectionStart
+            val sec = sections[index]
             SectionRow(
-                section = sections[index],
+                section = sec,
                 language = language,
-                cardScale = if (sections[index].onFeaturedSection != null || (index == 0 && !hasHero)) 1.5f else 1f,
-                showDescription = sections[index].onFeaturedSection != null || (index == 0 && !hasHero),
+                cardScale = if (sec.onFeaturedSection != null || (index == 0 && !hasHero)) 1.5f else 1f,
+                showDescription = sec.onFeaturedSection != null || (index == 0 && !hasHero),
                 preferGrid = preferGrid,
                 firstCardFocusRequester = sectionFocusRequesters.getOrNull(index),
                 onFocused = { onSectionFocused(index) },
@@ -903,7 +917,12 @@ internal fun PageContent(
                 onPageClick = onPageClick,
                 onSeasonClick = onSeasonClick,
                 onShowClick = onShowClick,
-                onPersonClick = onPersonClick
+                onPersonClick = onPersonClick,
+                onSectionItemClicked = onSectionItemClicked?.let { cb ->
+                    { elementIndex, elementType, elementId, elementName ->
+                        cb(index, sec.id, sec.title ?: "", sec.__typename, elementIndex, elementType, elementId, elementName)
+                    }
+                }
             )
         }
     }
@@ -924,9 +943,22 @@ internal fun SectionRow(
     onPageClick: (String) -> Unit = {},
     onSeasonClick: (String) -> Unit = {},
     onShowClick: (String) -> Unit = {},
-    onPersonClick: (String) -> Unit = {}
+    onPersonClick: (String) -> Unit = {},
+    onSectionItemClicked: ((elementIndex: Int, elementType: String, elementId: String, elementName: String) -> Unit)? = null
 ) {
     val context = LocalContext.current
+
+    fun trackCardClick(card: CardData, index: Int) {
+        val (type, id) = when {
+            card.episodeId != null -> "episode" to card.episodeId
+            card.pageCode != null -> "page" to card.pageCode
+            card.seasonId != null -> "season" to card.seasonId
+            card.showId != null -> "show" to card.showId
+            else -> return
+        }
+        onSectionItemClicked?.invoke(index, type, id, card.title)
+    }
+
     // IconSection items are shown in the nav rail instead
     if (section.onIconSection != null) return
 
@@ -1227,6 +1259,7 @@ internal fun SectionRow(
                         scale = cardScale,
                         focusRequester = if (index == 0) firstCardFocusRequester else null,
                         onClick = {
+                            trackCardClick(card, index)
                             card.episodeId?.let(onEpisodeClick)
                                 ?: card.pageCode?.let(onPageClick)
                                 ?: card.seasonId?.let(onSeasonClick)
@@ -1275,6 +1308,7 @@ internal fun SectionRow(
                         scale = cardScale,
                         focusRequester = if (index == 0) firstCardFocusRequester else null,
                         onClick = {
+                            trackCardClick(card, index)
                             card.episodeId?.let(onEpisodeClick)
                                 ?: card.pageCode?.let(onPageClick)
                                 ?: card.seasonId?.let(onSeasonClick)
@@ -1303,7 +1337,8 @@ private fun SearchContent(
     onPageClick: (String) -> Unit,
     onSeasonClick: (String) -> Unit,
     onShowClick: (String) -> Unit,
-    onPersonClick: (String) -> Unit = {}
+    onPersonClick: (String) -> Unit = {},
+    onSearchResultClicked: ((position: Int, type: String, id: String) -> Unit)? = null
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         SearchBar(query = query, onQueryChange = onQueryChange, focusRequester = searchBarFocusRequester)
@@ -1326,7 +1361,8 @@ private fun SearchContent(
                 results = searchResults,
                 onEpisodeClick = onEpisodeClick,
                 onSeasonClick = onSeasonClick,
-                onShowClick = onShowClick
+                onShowClick = onShowClick,
+                onSearchResultClicked = onSearchResultClicked
             )
         }
     }
@@ -1450,7 +1486,8 @@ private fun SearchResults(
     results: List<SearchQuery.Result>,
     onEpisodeClick: (String) -> Unit,
     onSeasonClick: (String) -> Unit = {},
-    onShowClick: (String) -> Unit = {}
+    onShowClick: (String) -> Unit = {},
+    onSearchResultClicked: ((position: Int, type: String, id: String) -> Unit)? = null
 ) {
     TvLazyColumn(
         contentPadding = PaddingValues(vertical = 8.dp),
@@ -1466,14 +1503,21 @@ private fun SearchResults(
         }
         item {
             TvLazyRow(contentPadding = PaddingValues(horizontal = 48.dp)) {
-                items(results) { result ->
+                items(results.size) { index ->
+                    val result = results[index]
                     val subtitle = result.onEpisodeSearchItem?.showTitle
                         ?: result.onSeasonSearchItem?.seasonShowTitle
+                    val elementType = when {
+                        result.onEpisodeSearchItem != null -> "episode"
+                        result.onSeasonSearchItem != null -> "season"
+                        else -> "show"
+                    }
                     ContentCard(
                         title = result.title.stripHtml(),
                         imageUrl = result.image,
                         subtitle = subtitle,
                         onClick = {
+                            onSearchResultClicked?.invoke(index, elementType, result.id)
                             when {
                                 result.onEpisodeSearchItem != null -> onEpisodeClick(result.id)
                                 result.onSeasonSearchItem != null -> onSeasonClick(result.id)

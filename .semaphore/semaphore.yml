@@ -12,6 +12,8 @@ blocks:
       secrets:
         - name: android-keystore-bcc-media-apps
         - name: android-play-store-api-linux
+        - name: android-npaw
+        - name: android-rudderstack
       prologue:
         commands:
           - checkout
@@ -39,6 +41,9 @@ blocks:
               signing.storePassword=$KEYSTORE_PASSWORD
               signing.keyAlias=$KEY_ALIAS
               signing.keyPassword=$KEY_PASSWORD
+              npaw.accountCode=$NPAW_ACCOUNT_CODE
+              rudderstack.writeKey=$RUDDERSTACK_WRITE_KEY
+              rudderstack.dataPlaneUrl=$RUDDERSTACK_DATA_PLANE_URL
               EOF
 
             # Install Android SDK (cached across runs)

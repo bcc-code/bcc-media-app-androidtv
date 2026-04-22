@@ -19,6 +19,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://artifact.plugin.npaw.com/artifactory/plugins/android") }
     }
 }
 

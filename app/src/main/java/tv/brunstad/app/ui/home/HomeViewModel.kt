@@ -75,6 +75,7 @@ data class HomeUiState(
     val pages: Map<String, PageState> = emptyMap(),
     val isBootstrapping: Boolean = true,
     val error: String? = null,
+    val authExpired: Boolean = false,
     val searchQuery: String = "",
     val searchResults: List<SearchQuery.Result> = emptyList(),
     val isSearching: Boolean = false,
@@ -86,7 +87,10 @@ data class HomeUiState(
 class HomeViewModel @Inject constructor(
     private val apollo: ApolloClient,
     private val languageRepository: LanguageRepository,
-    private val previewChannelHelper: PreviewChannelHelper
+    private val previewChannelHelper: PreviewChannelHelper,
+    private val authRepository: tv.brunstad.app.auth.AuthRepository,
+    private val npawManager: tv.brunstad.app.data.NpawManager,
+    private val analyticsManager: tv.brunstad.app.data.AnalyticsManager
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeUiState())
@@ -114,9 +118,11 @@ class HomeViewModel @Inject constructor(
                 apollo.query(GetApplicationQuery()).execute().dataOrThrow()
             }
             result.onFailure { e ->
+                val tokenValid = authRepository.getValidAccessToken() != null
                 _state.value = _state.value.copy(
                     isBootstrapping = false,
-                    error = e.message
+                    error = e.message,
+                    authExpired = !tokenValid
                 )
                 return@launch
             }
@@ -140,6 +146,28 @@ class HomeViewModel @Inject constructor(
             )
 
             if (firstCode.isNotEmpty()) loadPage(firstCode)
+
+            // Update NPAW + Rudderstack analytics with user info
+            runCatching {
+                apollo.query(tv.brunstad.app.graphql.GetMeQuery()).execute().dataOrThrow()
+            }.onSuccess { data ->
+                val userInfo = authRepository.fetchUserInfo()
+                val anonymousId = data.me?.analytics?.anonymousId
+                npawManager.updateUserOptions(
+                    anonymousId = anonymousId,
+                    sessionId = tv.brunstad.app.di.AppModule.sessionId,
+                    ageGroup = userInfo.ageGroup
+                )
+                if (anonymousId != null) {
+                    analyticsManager.identify(anonymousId, kotlinx.serialization.json.buildJsonObject {
+                        put("tv", kotlinx.serialization.json.JsonPrimitive(true))
+                        userInfo.ageGroup?.let { put("ageGroup", kotlinx.serialization.json.JsonPrimitive(it)) }
+                        userInfo.country?.let { put("country", kotlinx.serialization.json.JsonPrimitive(it)) }
+                        userInfo.churchId?.let { put("churchId", kotlinx.serialization.json.JsonPrimitive(it)) }
+                        userInfo.gender?.let { put("gender", kotlinx.serialization.json.JsonPrimitive(it)) }
+                    })
+                }
+            }
         }
     }
 
@@ -154,6 +182,7 @@ class HomeViewModel @Inject constructor(
     fun selectPage(code: String) {
         _state.value = _state.value.copy(selectedCode = code, searchQuery = "", searchResults = emptyList())
         if (code != MY_LIST_CODE && _state.value.pages[code] == null) loadPage(code)
+        analyticsManager.screen(code)
     }
 
     fun onSearchQuery(query: String) {
@@ -166,6 +195,7 @@ class HomeViewModel @Inject constructor(
         searchJob = viewModelScope.launch {
             delay(300)
             _state.value = _state.value.copy(isSearching = true, searchError = null)
+            val searchStart = System.currentTimeMillis()
             val response = runCatching {
                 apollo.query(
                     SearchQuery(
@@ -178,12 +208,18 @@ class HomeViewModel @Inject constructor(
                 _state.value = _state.value.copy(isSearching = false, searchError = "Network error: ${e.message}")
                 return@launch
             }
+            val searchLatency = (System.currentTimeMillis() - searchStart) / 1000.0
             val data = response.data
             if (data != null) {
                 _state.value = _state.value.copy(
                     searchResults = data.search.result,
                     isSearching = false,
                     searchError = null
+                )
+                analyticsManager.trackSearchPerformed(
+                    searchText = query,
+                    searchLatency = searchLatency,
+                    searchResultCount = data.search.result.size
                 )
             } else {
                 val errors = response.errors?.joinToString("; ") { it.message } ?: "Unknown error"
@@ -279,5 +315,43 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun trackSectionClicked(
+        sectionId: String,
+        sectionName: String,
+        sectionPosition: Int,
+        sectionType: String,
+        elementPosition: Int,
+        elementType: String,
+        elementId: String,
+        elementName: String
+    ) {
+        analyticsManager.trackSectionClicked(
+            sectionId = sectionId,
+            sectionName = sectionName,
+            sectionPosition = sectionPosition,
+            sectionType = sectionType,
+            elementPosition = elementPosition,
+            elementType = elementType,
+            elementId = elementId,
+            elementName = elementName,
+            pageCode = _state.value.selectedCode
+        )
+    }
+
+    fun trackSearchResultClicked(
+        elementPosition: Int,
+        elementType: String,
+        elementId: String,
+        group: String
+    ) {
+        analyticsManager.trackSearchResultClicked(
+            searchText = _state.value.searchQuery,
+            elementPosition = elementPosition,
+            elementType = elementType,
+            elementId = elementId,
+            group = group
+        )
     }
 }

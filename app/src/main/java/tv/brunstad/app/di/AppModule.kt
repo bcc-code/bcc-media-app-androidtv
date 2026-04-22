@@ -20,7 +20,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    private val sessionId = System.currentTimeMillis().toString()
+    val sessionId = System.currentTimeMillis().toString()
 
     @Provides
     @Singleton

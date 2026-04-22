@@ -25,8 +25,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import android.app.Activity
+import android.content.ContextWrapper
 import tv.brunstad.app.R
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.media3.common.MediaItem
@@ -64,6 +65,27 @@ fun PlayerScreen(
     val player = remember {
         ExoPlayer.Builder(context).setTrackSelector(trackSelector).build()
     }
+    val npawManager = viewModel.npawManager
+
+    // Bind NPAW video adapter to the player
+    DisposableEffect(player) {
+        npawManager.startVideoAdapter(context, player)
+        onDispose { npawManager.stopVideoAdapter() }
+    }
+
+    // Update NPAW content metadata when episode info is available
+    LaunchedEffect(uiState.episodeTitle, uiState.selectedAudioLanguage, uiState.selectedSubtitleLanguage) {
+        if (uiState.streamUrl == null) return@LaunchedEffect
+        npawManager.updateContentMetadata(
+            contentId = viewModel.episodeId,
+            episodeTitle = uiState.episodeTitle,
+            showTitle = uiState.showTitle,
+            seasonTitle = uiState.seasonTitle ?: uiState.seasonNumber?.toString(),
+            audioLanguage = uiState.selectedAudioLanguage,
+            subtitleLanguage = uiState.selectedSubtitleLanguage
+        )
+    }
+
     val startProgressSeconds = viewModel.startProgressSeconds
     var controlsVisible by remember { mutableStateOf(true) }
     var currentChapterTitle by remember { mutableStateOf<String?>(null) }
@@ -118,6 +140,15 @@ fun PlayerScreen(
     LaunchedEffect(uiState.streamUrl) {
         val url = uiState.streamUrl ?: return@LaunchedEffect
         player.setMediaItem(MediaItem.fromUri(url))
+        // Set NPAW content metadata before prepare() so the "start" event includes it
+        npawManager.updateContentMetadata(
+            contentId = viewModel.episodeId,
+            episodeTitle = uiState.episodeTitle,
+            showTitle = uiState.showTitle,
+            seasonTitle = uiState.seasonTitle ?: uiState.seasonNumber?.toString(),
+            audioLanguage = uiState.selectedAudioLanguage,
+            subtitleLanguage = uiState.selectedSubtitleLanguage
+        )
         if (startProgressSeconds > 0) {
             var seekDone = false
             val listener = object : Player.Listener {
@@ -135,6 +166,7 @@ fun PlayerScreen(
         }
         player.prepare()
         player.playWhenReady = true
+        viewModel.trackPlaybackStarted(startProgressSeconds * 1000L, uiState.episodeDurationSeconds?.times(1000L) ?: 0L)
     }
 
     // Save progress every 10 seconds while playing
@@ -156,7 +188,10 @@ fun PlayerScreen(
                 if (!isPlaying) {
                     val pos = player.currentPosition
                     val dur = player.duration
-                    if (pos > 0 && dur > 0) viewModel.saveProgress((pos / 1000).toInt(), (dur / 1000).toInt())
+                    if (pos > 0 && dur > 0) {
+                        viewModel.saveProgress((pos / 1000).toInt(), (dur / 1000).toInt())
+                        viewModel.trackPlaybackPaused(pos, dur)
+                    }
                 }
             }
             override fun onPlaybackStateChanged(playbackState: Int) {
