@@ -181,7 +181,12 @@ class MainActivity : ComponentActivity() {
                                 onShowClick = { id -> navController.navigate("show/$id") },
                                 onPersonClick = { id -> navController.navigate("person/$id") },
                                 onSettingsClick = { navController.navigate("settings") },
-                                onProfileClick = { navController.navigate("profile_picker") }
+                                onProfileClick = { navController.navigate("profile_picker") },
+                                onAuthRequired = {
+                                    navController.navigate("login") {
+                                        popUpTo(0) { inclusive = true }
+                                    }
+                                }
                             )
                         }
                         composable("settings") {

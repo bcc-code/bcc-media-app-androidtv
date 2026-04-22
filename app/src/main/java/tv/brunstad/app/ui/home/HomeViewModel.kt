@@ -75,6 +75,7 @@ data class HomeUiState(
     val pages: Map<String, PageState> = emptyMap(),
     val isBootstrapping: Boolean = true,
     val error: String? = null,
+    val authExpired: Boolean = false,
     val searchQuery: String = "",
     val searchResults: List<SearchQuery.Result> = emptyList(),
     val isSearching: Boolean = false,
@@ -86,7 +87,8 @@ data class HomeUiState(
 class HomeViewModel @Inject constructor(
     private val apollo: ApolloClient,
     private val languageRepository: LanguageRepository,
-    private val previewChannelHelper: PreviewChannelHelper
+    private val previewChannelHelper: PreviewChannelHelper,
+    private val authRepository: tv.brunstad.app.auth.AuthRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeUiState())
@@ -114,9 +116,11 @@ class HomeViewModel @Inject constructor(
                 apollo.query(GetApplicationQuery()).execute().dataOrThrow()
             }
             result.onFailure { e ->
+                val tokenValid = authRepository.getValidAccessToken() != null
                 _state.value = _state.value.copy(
                     isBootstrapping = false,
-                    error = e.message
+                    error = e.message,
+                    authExpired = !tokenValid
                 )
                 return@launch
             }

@@ -121,11 +121,17 @@ fun HomeScreen(
     onPersonClick: (String) -> Unit = {},
     onSettingsClick: () -> Unit = {},
     onProfileClick: () -> Unit = {},
+    onAuthRequired: () -> Unit = {},
     viewModel: HomeViewModel = hiltViewModel(),
     myListViewModel: MyListViewModel = hiltViewModel(),
     profileViewModel: ProfilePickerViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(state.authExpired) {
+        if (state.authExpired) onAuthRequired()
+    }
+
     val profileState by profileViewModel.state.collectAsState()
     val activeInitials = profileState.profiles.find { it.userId == profileState.activeProfileId }?.initials
     var navExpanded by remember { mutableStateOf(false) }
