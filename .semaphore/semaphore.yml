@@ -58,7 +58,7 @@ blocks:
             - cache restore gradle-$(checksum gradle/libs.versions.toml),gradle
             - ./gradlew bundleRelease -PbuildNumber=$BUILD_NUMBER --no-daemon --console=plain --warning-mode=summary
             - cache store gradle-$(checksum gradle/libs.versions.toml) ~/.gradle/caches
-            - artifact push workflow app/build/outputs/bundle/release/app-release.aab
+            - artifact push workflow app/build/outputs/bundle/release/app-release.aab -d app-release.aab
 
   - name: Deploy
     dependencies: [Build]
