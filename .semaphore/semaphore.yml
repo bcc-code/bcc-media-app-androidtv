@@ -70,7 +70,6 @@ blocks:
           commands:
             - checkout
             - cp /home/semaphore/google-play-service-account.json fastlane/google-play-service-account.json
-            - mkdir -p app/build/outputs/bundle/release
-            - artifact pull workflow app-release.aab -d app/build/outputs/bundle/release/
+            - artifact pull workflow app-release.aab -d app/build/outputs/bundle/release/app-release.aab
             - bundle install
             - bundle exec fastlane internal
