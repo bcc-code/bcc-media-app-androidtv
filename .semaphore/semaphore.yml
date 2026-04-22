@@ -42,7 +42,7 @@ blocks:
               EOF
 
             - cache restore gradle-$(checksum gradle/libs.versions.toml),gradle
-            - ./gradlew bundleRelease -PbuildNumber=$BUILD_NUMBER --no-daemon
+            - ./gradlew bundleRelease -PbuildNumber=$BUILD_NUMBER --no-daemon --console=plain --warning-mode=summary
             - cache store gradle-$(checksum gradle/libs.versions.toml) ~/.gradle/caches
             - artifact push workflow app/build/outputs/bundle/release/app-release.aab
 
