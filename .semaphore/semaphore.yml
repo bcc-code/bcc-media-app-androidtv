@@ -1,0 +1,61 @@
+version: v1.0
+name: BCC Media Android TV
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2404
+
+blocks:
+  - name: Build
+    task:
+      secrets:
+        - name: android-keystore
+        - name: android-play-store-api
+      prologue:
+        commands:
+          - checkout
+          - sem-version java 25
+      jobs:
+        - name: Build release AAB
+          commands:
+            - cp /home/semaphore/google-play-service-account.json fastlane/google-play-service-account.json
+            - bundle install
+
+            # Play Console is the source of truth for versionCode.
+            # next_version_code lane writes max(all tracks) + 1 to .next_version_code
+            # (or 1 if every track is empty — brand-new listing).
+            - bundle exec fastlane next_version_code
+            - export BUILD_NUMBER=$(cat fastlane/.next_version_code)
+            - echo "Using versionCode=$BUILD_NUMBER"
+            - test -n "$BUILD_NUMBER" && test "$BUILD_NUMBER" -gt 0
+
+            - keystore_path="$(pwd)/release.keystore"
+            - echo "$KEYSTORE_FILE" | base64 -d > "$keystore_path"
+
+            - |
+              cat >> local.properties << EOF
+              signing.storeFile=$keystore_path
+              signing.storePassword=$KEYSTORE_PASSWORD
+              signing.keyAlias=$KEY_ALIAS
+              signing.keyPassword=$KEY_PASSWORD
+              EOF
+
+            - cache restore gradle-$(checksum gradle/libs.versions.toml),gradle
+            - ./gradlew bundleRelease -PbuildNumber=$BUILD_NUMBER --no-daemon
+            - cache store gradle-$(checksum gradle/libs.versions.toml) ~/.gradle/caches
+            - artifact push workflow app/build/outputs/bundle/release/app-release.aab
+
+  - name: Deploy
+    dependencies: [Build]
+    task:
+      secrets:
+        - name: android-play-store-api
+      jobs:
+        - name: Upload to Google Play Internal
+          commands:
+            - checkout
+            - cp /home/semaphore/google-play-service-account.json fastlane/google-play-service-account.json
+            - mkdir -p app/build/outputs/bundle/release
+            - artifact pull workflow app-release.aab -d app/build/outputs/bundle/release/
+            - bundle install
+            - bundle exec fastlane internal

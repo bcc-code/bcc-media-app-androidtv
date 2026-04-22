@@ -1,0 +1,32 @@
+default_platform(:android)
+
+platform :android do
+  desc "Print the next versionCode: max across all Play Console tracks + 1"
+  lane :next_version_code do
+    codes = %w[internal alpha beta production].flat_map do |track|
+      begin
+        Array(google_play_track_version_codes(track: track)).map(&:to_i)
+      rescue => e
+        UI.important "Track '#{track}' not queryable: #{e.message}"
+        []
+      end
+    end
+    next_code = (codes.max || 0) + 1
+    UI.message "Next versionCode: #{next_code}"
+    File.write('.next_version_code', next_code.to_s)
+  end
+
+  desc "Submit a new Internal Build to Google Play"
+  lane :internal do
+    upload_to_play_store(
+      track: 'internal',
+      aab: 'app/build/outputs/bundle/release/app-release.aab',
+      json_key: 'fastlane/google-play-service-account.json',
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_metadata: true,
+      skip_upload_apk: true
+    )
+  end
+end

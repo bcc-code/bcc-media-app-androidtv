@@ -1,0 +1,1244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 9.1.0" type="baseline" client="gradle" dependencies="false" name="AGP (9.1.0)" variant="all" version="9.1.0">
+
+    <issue
+        id="ApplySharedPref"
+        message="Consider using `apply()` instead; `commit` writes its data to persistent storage immediately, whereas `apply` will handle it in the background"
+        errorLine1="        prefs.edit().putString(key(KEY), code).commit()"
+        errorLine2="                                               ~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/LanguageRepository.kt"
+            line="77"
+            column="48"/>
+    </issue>
+
+    <issue
+        id="ApplySharedPref"
+        message="Consider using `apply()` instead; `commit` writes its data to persistent storage immediately, whereas `apply` will handle it in the background"
+        errorLine1="        set(value) { prefs.edit().putString(KEY_ACTIVE_PROFILE_ID, value).commit() }"
+        errorLine2="                                                                          ~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/auth/ProfileStore.kt"
+            line="34"
+            column="75"/>
+    </issue>
+
+    <issue
+        id="ApplySharedPref"
+        message="Consider using `apply()` instead; `commit` writes its data to persistent storage immediately, whereas `apply` will handle it in the background"
+        errorLine1="        prefs.edit().putString(KEY_PROFILES, arr.toString()).commit()"
+        errorLine2="                                                             ~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/auth/ProfileStore.kt"
+            line="83"
+            column="62"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `localeConfig` is only used in API level 33 and higher (current min is 23)"
+        errorLine1="            android:localeConfig=&quot;@xml/locale_config&quot;>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="28"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="                (LayoutInflater.from(ctx).inflate(R.layout.player_view, null) as PlayerView).apply {"
+        errorLine2="                                                                        ~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="188"
+            column="73"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of Gradle than 9.3.1 is available: 9.4.1"
+        errorLine1="distributionUrl=https\://services.gradle.org/distributions/gradle-9.3.1-bin.zip"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/wrapper/gradle-wrapper.properties"
+            line="5"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.application than 9.1.0 is available: 9.1.1"
+        errorLine1="agp = &quot;9.1.0&quot;"
+        errorLine2="      ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="2"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.core:core-ktx than 1.10.1 is available: 1.18.0"
+        errorLine1="coreKtx = &quot;1.10.1&quot;"
+        errorLine2="          ~~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="3"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.appcompat:appcompat than 1.6.1 is available: 1.7.1"
+        errorLine1="appcompat = &quot;1.6.1&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="4"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.compose:compose-bom than 2024.09.00 is available: 2026.03.01"
+        errorLine1="composeBom = &quot;2024.09.00&quot;"
+        errorLine2="             ~~~~~~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="7"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.tv:tv-foundation than 1.0.0-alpha11 is available: 1.0.0-rc01"
+        errorLine1="tvFoundation = &quot;1.0.0-alpha11&quot;"
+        errorLine2="               ~~~~~~~~~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="8"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.tv:tv-material than 1.0.0 is available: 1.0.1"
+        errorLine1="tvMaterial = &quot;1.0.0&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="9"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-runtime-ktx than 2.6.1 is available: 2.10.0"
+        errorLine1="lifecycleRuntimeKtx = &quot;2.6.1&quot;"
+        errorLine2="                      ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="10"
+            column="23"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.activity:activity-compose than 1.8.0 is available: 1.13.0"
+        errorLine1="activityCompose = &quot;1.8.0&quot;"
+        errorLine2="                  ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="11"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.hilt:hilt-navigation-compose than 1.2.0 is available: 1.3.0"
+        errorLine1="hiltNavigationCompose = &quot;1.2.0&quot;"
+        errorLine2="                        ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="13"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-exoplayer than 1.4.1 is available: 1.10.0"
+        errorLine1="media3 = &quot;1.4.1&quot;"
+        errorLine2="         ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="16"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-exoplayer-hls than 1.4.1 is available: 1.10.0"
+        errorLine1="media3 = &quot;1.4.1&quot;"
+        errorLine2="         ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="16"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.media3:media3-ui than 1.4.1 is available: 1.10.0"
+        errorLine1="media3 = &quot;1.4.1&quot;"
+        errorLine2="         ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="16"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation:navigation-compose than 2.8.0 is available: 2.9.7"
+        errorLine1="navigationCompose = &quot;2.8.0&quot;"
+        errorLine2="                    ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="17"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.security:security-crypto than 1.1.0-alpha06 is available: 1.1.0"
+        errorLine1="securityCrypto = &quot;1.1.0-alpha06&quot;"
+        errorLine2="                 ~~~~~~~~~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="19"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlin.android than 2.2.10 is available: 2.3.20"
+        errorLine1="kotlin = &quot;2.2.10&quot;"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="5"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlin.plugin.compose than 2.2.10 is available: 2.3.20"
+        errorLine1="kotlin = &quot;2.2.10&quot;"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="5"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.apollographql.apollo than 4.4.1 is available: 4.4.3"
+        errorLine1="apollo = &quot;4.4.1&quot;"
+        errorLine2="         ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="14"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.apollographql.apollo:apollo-runtime than 4.4.1 is available: 4.4.3"
+        errorLine1="apollo = &quot;4.4.1&quot;"
+        errorLine2="         ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="14"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlinx:kotlinx-coroutines-android than 1.9.0 is available: 1.10.2"
+        errorLine1="coroutines = &quot;1.9.0&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="18"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.squareup.okhttp3:okhttp than 4.12.0 is available: 5.3.2"
+        errorLine1="okhttp = &quot;4.12.0&quot;"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="20"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.google.zxing:core than 3.5.3 is available: 3.5.4"
+        errorLine1="zxing = &quot;3.5.3&quot;"
+        errorLine2="        ~~~~~~~">
+        <location
+            file="$HOME/prog/bcc.media/bcc-media-app-androidtv/gradle/libs.versions.toml"
+            line="21"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="ComponentActivity.dispatchKeyEvent can only be called from within the same library group prefix (referenced groupId=`androidx.core` with prefix androidx from groupId=`BCC Media TV`)"
+        errorLine1="    override fun dispatchKeyEvent(event: KeyEvent): Boolean {"
+        errorLine2="                 ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/MainActivity.kt"
+            line="84"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="ComponentActivity.dispatchKeyEvent can only be called from within the same library group prefix (referenced groupId=`androidx.core` with prefix androidx from groupId=`BCC Media TV`)"
+        errorLine1="        return super.dispatchKeyEvent(event)"
+        errorLine2="                     ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/MainActivity.kt"
+            line="93"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="PreviewChannel.toContentValues can only be called from within the same library group prefix (referenced groupId=`androidx.tvprovider` with prefix androidx from groupId=`BCC Media TV`)"
+        errorLine1="        val uri = resolver.insert(TvContractCompat.Channels.CONTENT_URI, builder.build().toContentValues())"
+        errorLine2="                                                                                         ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="59"
+            column="90"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="                .setType(TvContractCompat.PreviewPrograms.TYPE_TV_EPISODE)"
+        errorLine2="                 ~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="85"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="                .setType(TvContractCompat.PreviewPrograms.TYPE_TV_EPISODE)"
+        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="85"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setIntentUri can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="                .setIntentUri(Uri.parse(&quot;bccmediatv://episode/${program.episodeId}&quot;))"
+        errorLine2="                 ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="86"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setEpisodeTitle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="                builder.setTitle(program.showTitle).setEpisodeTitle(program.title)"
+        errorLine2="                                                    ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="88"
+            column="53"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setTitle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="                builder.setTitle(program.showTitle).setEpisodeTitle(program.title)"
+        errorLine2="                        ~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="88"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setTitle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="                builder.setTitle(program.title)"
+        errorLine2="                        ~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="90"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setDescription can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="            program.description?.let { builder.setDescription(it) }"
+        errorLine2="                                               ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="92"
+            column="48"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPosterArtUri can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="            program.imageUrl?.let { builder.setPosterArtUri(Uri.parse(it)) }"
+        errorLine2="                                            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="93"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setDurationMillis can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="            program.durationMs?.let { builder.setDurationMillis(it.toInt()) }"
+        errorLine2="                                              ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="94"
+            column="47"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="                .setType(TvContractCompat.WatchNextPrograms.TYPE_TV_EPISODE)"
+        errorLine2="                 ~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="33"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setType can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="                .setType(TvContractCompat.WatchNextPrograms.TYPE_TV_EPISODE)"
+        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="33"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setTitle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="                .setTitle(title)"
+        errorLine2="                 ~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="35"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setInternalProviderId can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="                .setInternalProviderId(episodeId)"
+        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="36"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setLastPlaybackPositionMillis can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="                .setLastPlaybackPositionMillis(positionMs.toInt())"
+        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="37"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setIntentUri can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="                .setIntentUri(Uri.parse(&quot;bccmediatv://episode/$episodeId&quot;))"
+        errorLine2="                 ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="39"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setEpisodeTitle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="            showTitle?.let { builder.setEpisodeTitle(title).setTitle(it) }"
+        errorLine2="                                     ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="41"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setTitle can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="            showTitle?.let { builder.setEpisodeTitle(title).setTitle(it) }"
+        errorLine2="                                                            ~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="41"
+            column="61"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setDescription can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="            description?.let { builder.setDescription(it) }"
+        errorLine2="                                       ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="42"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setPosterArtUri can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="            imageUrl?.let { builder.setPosterArtUri(Uri.parse(it)) }"
+        errorLine2="                                    ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="43"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="RestrictedApi"
+        message="Builder.setDurationMillis can only be called from within the same library (androidx.tvprovider:tvprovider)"
+        errorLine1="            durationMs?.let { builder.setDurationMillis(it.toInt()) }"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="44"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="@file:OptIn(androidx.media3.common.util.UnstableApi::class)"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="1"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="    val trackSelector = remember { DefaultTrackSelector(context) }"
+        errorLine2="        ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="63"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="    val trackSelector = remember { DefaultTrackSelector(context) }"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="63"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="        ExoPlayer.Builder(context).setTrackSelector(trackSelector).build()"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="65"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="        trackSelector.setParameters("
+        errorLine2="                      ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="93"
+            column="23"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="            trackSelector.buildUponParameters().setPreferredAudioLanguage(lang)"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="94"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="            trackSelector.buildUponParameters().setPreferredAudioLanguage(lang)"
+        errorLine2="                                                ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="94"
+            column="49"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="            trackSelector.setParameters("
+        errorLine2="                          ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="101"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="                trackSelector.buildUponParameters()"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="102"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="                    .setPreferredTextLanguage(lang)"
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="103"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="                    .setIgnoredTextSelectionFlags(0)"
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="104"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="            trackSelector.setParameters("
+        errorLine2="                          ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="107"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="                trackSelector.buildUponParameters()"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="108"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="                    .setPreferredTextLanguage(null)"
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="109"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="                    .setIgnoredTextSelectionFlags("
+        errorLine2="                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="110"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="UnsafeOptInUsageError"
+        message="This declaration is opt-in and its usage should be marked with `@androidx.media3.common.util.UnstableApi` or `@OptIn(markerClass = androidx.media3.common.util.UnstableApi.class)`"
+        errorLine1="                    setShowSubtitleButton(true)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/player/PlayerScreen.kt"
+            line="192"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="DiscouragedApi"
+        message="Fixed screen orientations will be ignored in most cases, starting from Android 16. Android is moving toward a model where apps are expected to adapt to various orientations, display sizes, and aspect ratios."
+        errorLine1="            android:screenOrientation=&quot;landscape&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="27"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MissingTranslation"
+        message="&quot;splash_skip_hint&quot; is not translated in &quot;de&quot; (German), &quot;no&quot; (Norwegian), &quot;fi&quot; (Finnish), &quot;ru&quot; (Russian), &quot;pt&quot; (Portuguese), &quot;bg&quot; (Bulgarian), &quot;hr&quot; (Croatian), &quot;it&quot; (Italian), &quot;fr&quot; (French), &quot;hu&quot; (Hungarian), &quot;ta&quot; (Tamil), &quot;es&quot; (Spanish), &quot;sl&quot; (Slovenian), &quot;pl&quot; (Polish), &quot;ro&quot; (Romanian), &quot;nl&quot; (Dutch), &quot;tr&quot; (Turkish)"
+        errorLine1="    &lt;string name=&quot;splash_skip_hint&quot;>Press OK to skip&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="54"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;seconds&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;autoplay_delay_seconds&quot;>%d seconds&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="33"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;contributions_count&quot;>Contributions (%d items)&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="44"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;contribution&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;contributions_count_label&quot;>%d contribution&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="46"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;contributions&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;contributions_count_label_plural&quot;>%d contributions&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="47"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;result&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;results_count&quot;>%d result&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="50"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;results&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;results_count_plural&quot;>%d results&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="51"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (4369 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="        android:pathData=&quot;M121.44,15.18C121.16,15.07 120.95,14.91 120.81,14.69C120.67,14.47 120.6,14.21 120.6,13.89C120.6,13.36 120.8,12.95 121.21,12.65C121.61,12.35 122.17,12.14 122.89,12.03C123.62,11.92 124.46,11.87 125.42,11.87V12.59C125.42,13 125.34,13.37 125.19,13.71C125.03,14.05 124.82,14.34 124.56,14.59C124.3,14.83 123.98,15.02 123.61,15.15C123.24,15.28 122.85,15.35 122.42,15.35C122.04,15.35 121.71,15.29 121.44,15.18ZM123.35,16.94C123.81,16.81 124.22,16.62 124.57,16.38C124.93,16.14 125.23,15.85 125.48,15.53H125.6C125.66,15.84 125.77,16.11 125.93,16.36C126.08,16.6 126.29,16.79 126.55,16.92C126.81,17.05 127.12,17.12 127.5,17.12C127.83,17.12 128.13,17.08 128.38,17.02C128.62,16.95 128.83,16.88 129,16.81V15.35H128.25C128.07,15.35 127.91,15.29 127.78,15.18C127.65,15.07 127.58,14.88 127.58,14.62V9.05C127.58,8.34 127.42,7.74 127.1,7.24C126.78,6.74 126.31,6.35 125.68,6.08C125.04,5.81 124.26,5.68 123.31,5.68C122.44,5.68 121.67,5.8 121,6.03C120.33,6.27 119.82,6.61 119.45,7.06C119.08,7.51 118.89,8.07 118.89,8.72V8.97C118.89,9.04 118.9,9.11 118.92,9.18H121V8.87C121,8.62 121.07,8.38 121.2,8.17C121.33,7.95 121.56,7.77 121.88,7.62C122.21,7.48 122.67,7.41 123.25,7.41C123.83,7.41 124.28,7.48 124.59,7.64C124.91,7.79 125.12,8 125.24,8.28C125.36,8.56 125.42,8.88 125.42,9.24V10.32C124.39,10.32 123.44,10.38 122.57,10.49C121.71,10.6 120.96,10.8 120.33,11.07C119.71,11.35 119.22,11.73 118.87,12.22C118.53,12.71 118.35,13.33 118.35,14.08C118.35,14.71 118.46,15.23 118.69,15.63C118.91,16.02 119.2,16.33 119.55,16.56C119.9,16.78 120.28,16.93 120.69,17.01C121.09,17.1 121.46,17.14 121.81,17.14C122.38,17.14 122.89,17.07 123.35,16.94ZM116.25,5.93H114.08V16.89H116.25V5.93ZM116.25,1.82H114.08V4.03H116.25V1.82ZM104.86,14.89C104.46,14.64 104.17,14.25 103.97,13.71C103.78,13.18 103.68,12.48 103.68,11.62V11.24C103.68,10.38 103.78,9.68 103.96,9.14C104.15,8.59 104.44,8.19 104.85,7.94C105.25,7.68 105.77,7.55 106.41,7.55C106.83,7.55 107.2,7.62 107.54,7.76C107.87,7.9 108.15,8.12 108.39,8.42C108.63,8.72 108.81,9.1 108.93,9.57C109.06,10.05 109.12,10.62 109.12,11.28V11.58C109.12,12.37 109.02,13.04 108.83,13.59C108.63,14.14 108.34,14.55 107.94,14.84C107.54,15.12 107.03,15.27 106.39,15.27C105.76,15.26 105.25,15.14 104.86,14.89ZM107.74,16.7C108.32,16.41 108.8,15.97 109.16,15.39H109.31L109.52,16.89H111.29V1.82H109.12V7.26H108.98C108.75,6.9 108.48,6.6 108.15,6.36C107.83,6.13 107.46,5.96 107.04,5.84C106.62,5.73 106.17,5.68 105.68,5.68C104.85,5.68 104.11,5.88 103.47,6.28C102.84,6.68 102.34,7.3 101.97,8.14C101.61,8.97 101.43,10.05 101.43,11.37C101.43,12.72 101.61,13.81 101.96,14.66C102.32,15.51 102.82,16.13 103.47,16.54C104.13,16.94 104.9,17.14 105.79,17.14C106.49,17.14 107.14,16.99 107.74,16.7ZM92.57,8.71C92.8,8.27 93.11,7.95 93.52,7.74C93.93,7.53 94.43,7.43 95.01,7.43C95.4,7.43 95.75,7.48 96.06,7.59C96.36,7.69 96.63,7.86 96.85,8.1C97.07,8.33 97.24,8.64 97.36,9C97.48,9.37 97.54,9.83 97.54,10.37H92.16C92.21,9.7 92.35,9.15 92.57,8.71ZM96.95,16.87C97.53,16.69 98.04,16.43 98.46,16.09C98.89,15.75 99.21,15.33 99.43,14.83C99.65,14.33 99.76,13.75 99.76,13.1H97.64C97.64,13.46 97.58,13.78 97.45,14.07C97.33,14.35 97.15,14.59 96.93,14.79C96.71,15 96.44,15.15 96.12,15.25C95.8,15.36 95.44,15.41 95.03,15.41C94.38,15.41 93.84,15.29 93.42,15.04C93,14.8 92.68,14.42 92.47,13.9C92.26,13.38 92.14,12.73 92.12,11.95H99.81V11.12C99.81,9.89 99.63,8.88 99.27,8.08C98.9,7.27 98.37,6.67 97.67,6.27C96.97,5.88 96.1,5.68 95.06,5.68C93.92,5.68 92.97,5.88 92.2,6.29C91.44,6.7 90.86,7.33 90.47,8.17C90.08,9.01 89.89,10.09 89.89,11.41C89.89,12.72 90.08,13.79 90.47,14.64C90.86,15.49 91.43,16.11 92.19,16.52C92.95,16.93 93.89,17.14 95.01,17.14C95.72,17.14 96.37,17.05 96.95,16.87ZM75.38,16.89V9.05C75.38,8.66 75.37,8.22 75.36,7.73C75.35,7.24 75.34,6.75 75.33,6.26C75.32,5.77 75.31,5.36 75.3,5.03H75.46C75.53,5.34 75.62,5.68 75.72,6.05C75.81,6.43 75.91,6.79 76.01,7.16C76.11,7.52 76.2,7.83 76.28,8.09L79.17,16.89H81.24L84.13,8.07C84.23,7.77 84.34,7.41 84.45,6.99C84.56,6.57 84.66,6.18 84.77,5.81C84.87,5.44 84.94,5.18 84.97,5.03H85.14C85.14,5.16 85.13,5.44 85.11,5.88C85.1,6.33 85.09,6.84 85.07,7.41C85.06,7.98 85.05,8.52 85.05,9.05V16.89H87.37V2.59H83.78L80.99,11.24C80.9,11.52 80.82,11.82 80.75,12.14C80.67,12.46 80.6,12.76 80.53,13.05C80.46,13.35 80.41,13.6 80.38,13.8H80.22C80.18,13.58 80.12,13.32 80.04,13.03C79.96,12.74 79.88,12.43 79.8,12.12C79.72,11.79 79.63,11.51 79.55,11.26L76.78,2.59H73.13V16.89H75.38V16.89Z&quot;"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/bcc_logo.xml"
+            line="22"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.bcc_app_icon` appears to be unused">
+        <location
+            file="src/main/res/drawable/bcc_app_icon.webp"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.raw.bcc_logo` appears to be unused">
+        <location
+            file="src/main/res/raw/bcc_logo.svg"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_banner` appears to be unused">
+        <location
+            file="src/main/res/drawable/ic_banner.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.chapters` appears to be unused"
+        errorLine1="    &lt;string name=&quot;chapters&quot;>Chapters (%d)&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="18"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.up_next_label` appears to be unused"
+        errorLine1="    &lt;string name=&quot;up_next_label&quot;>Up next&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="24"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_autoplay_delay` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_autoplay_delay&quot;>Auto-play delay&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="30"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_autoplay_on` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_autoplay_on&quot;>On&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="31"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.splash_skip_hint` appears to be unused"
+        errorLine1="    &lt;string name=&quot;splash_skip_hint&quot;>Press OK to skip&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="54"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.settings_log_out` appears to be unused"
+        errorLine1="    &lt;string name=&quot;settings_log_out&quot;>Log out&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="70"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="IconLauncherShape"
+        message="Launcher icon used as round icon did not have a circular shape">
+        <location
+            file="src/main/res/mipmap-hdpi/ic_launcher_round.png"/>
+    </issue>
+
+    <issue
+        id="IconLauncherShape"
+        message="Launcher icon used as round icon did not have a circular shape">
+        <location
+            file="src/main/res/mipmap-mdpi/ic_launcher_round.png"/>
+    </issue>
+
+    <issue
+        id="IconLauncherShape"
+        message="Launcher icon used as round icon did not have a circular shape">
+        <location
+            file="src/main/res/mipmap-xhdpi/ic_launcher_round.png"/>
+    </issue>
+
+    <issue
+        id="IconLauncherShape"
+        message="Launcher icon used as round icon did not have a circular shape">
+        <location
+            file="src/main/res/mipmap-xxhdpi/ic_launcher_round.png"/>
+    </issue>
+
+    <issue
+        id="IconLauncherShape"
+        message="Launcher icon used as round icon did not have a circular shape">
+        <location
+            file="src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"/>
+    </issue>
+
+    <issue
+        id="IconDipSize"
+        message="The image `ic_launcher.png` varies significantly in its density-independent (dip) size across the various density versions: mipmap-hdpi/ic_launcher.png: 48x48 dp (72x72 px), mipmap-mdpi/ic_launcher.png: 48x48 dp (48x48 px), mipmap-xhdpi/ic_launcher.png: 48x48 dp (96x96 px), mipmap-xxhdpi/ic_launcher.png: 48x48 dp (144x144 px), mipmap-xxxhdpi/ic_launcher.png: 66x66 dp (264x264 px)">
+        <location
+            file="src/main/res/mipmap-xxhdpi/ic_launcher.png"/>
+        <location
+            file="src/main/res/mipmap-xhdpi/ic_launcher.png"/>
+        <location
+            file="src/main/res/mipmap-mdpi/ic_launcher.png"/>
+        <location
+            file="src/main/res/mipmap-hdpi/ic_launcher.png"/>
+        <location
+            file="src/main/res/mipmap-xxxhdpi/ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="IconDipSize"
+        message="The image `ic_launcher_round.png` varies significantly in its density-independent (dip) size across the various density versions: mipmap-hdpi/ic_launcher_round.png: 72x72 dp (108x108 px), mipmap-mdpi/ic_launcher_round.png: 72x72 dp (72x72 px), mipmap-xhdpi/ic_launcher_round.png: 108x108 dp (216x216 px), mipmap-xxhdpi/ic_launcher_round.png: 54x54 dp (162x162 px), mipmap-xxxhdpi/ic_launcher_round.png: 66x66 dp (264x264 px)">
+        <location
+            file="src/main/res/mipmap-xxhdpi/ic_launcher_round.png"/>
+        <location
+            file="src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"/>
+        <location
+            file="src/main/res/mipmap-mdpi/ic_launcher_round.png"/>
+        <location
+            file="src/main/res/mipmap-hdpi/ic_launcher_round.png"/>
+        <location
+            file="src/main/res/mipmap-xhdpi/ic_launcher_round.png"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/bcc_app_icon.webp` in densityless folder">
+        <location
+            file="src/main/res/drawable/bcc_app_icon.webp"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/ic_banner.png` in densityless folder">
+        <location
+            file="src/main/res/drawable/ic_banner.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        message="The following unrelated icon files have identical contents: ic_launcher.png, ic_launcher_round.png">
+        <location
+            file="src/main/res/mipmap-mdpi/ic_launcher_round.png"/>
+        <location
+            file="src/main/res/mipmap-hdpi/ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        message="The following unrelated icon files have identical contents: ic_launcher.png, ic_launcher_round.png">
+        <location
+            file="src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"/>
+        <location
+            file="src/main/res/mipmap-xxxhdpi/ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="            val editor = prefs.edit()"
+        errorLine2="                         ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/LanguageRepository.kt"
+            line="57"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit().remove(key(KEY)).apply()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/LanguageRepository.kt"
+            line="73"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit().putString(key(KEY), code).commit()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/LanguageRepository.kt"
+            line="77"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit().putString(key(AUDIO_KEY), code).apply()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/LanguageRepository.kt"
+            line="84"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit().putString(key(SUBTITLE_KEY), code ?: &quot;&quot;).apply()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/LanguageRepository.kt"
+            line="90"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit().putInt(key(AUTOPLAY_DELAY_KEY), seconds).apply()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/LanguageRepository.kt"
+            line="96"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX function `createBitmap` instead?"
+        errorLine1="        val bmp = Bitmap.createBitmap(matrix.width, matrix.height, Bitmap.Config.RGB_565)"
+        errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/login/LoginScreen.kt"
+            line="118"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `Bitmap.set` instead?"
+        errorLine1="                bmp.setPixel(x, y, if (matrix[x, y]) Color.BLACK else Color.WHITE)"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/ui/login/LoginScreen.kt"
+            line="121"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        val editor = prefs.edit()"
+        errorLine2="                     ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/MyListRepository.kt"
+            line="148"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/MyListRepository.kt"
+            line="166"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="            .setAppLinkIntentUri(Uri.parse(&quot;bccmediatv://home&quot;))"
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="56"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit().putLong(&quot;channel_id&quot;, id).apply()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="65"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="                .setIntentUri(Uri.parse(&quot;bccmediatv://episode/${program.episodeId}&quot;))"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="86"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="            program.imageUrl?.let { builder.setPosterArtUri(Uri.parse(it)) }"
+        errorLine2="                                                            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/PreviewChannelHelper.kt"
+            line="93"
+            column="61"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        set(value) { prefs.edit().putString(KEY_ACTIVE_PROFILE_ID, value).commit() }"
+        errorLine2="                     ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/auth/ProfileStore.kt"
+            line="34"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit().putString(KEY_PROFILES, arr.toString()).commit()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/auth/ProfileStore.kt"
+            line="83"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/auth/TokenStore.kt"
+            line="35"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/auth/TokenStore.kt"
+            line="52"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `SharedPreferences.edit` instead?"
+        errorLine1="        prefs.edit()"
+        errorLine2="        ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/auth/TokenStore.kt"
+            line="70"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="                .setIntentUri(Uri.parse(&quot;bccmediatv://episode/$episodeId&quot;))"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="39"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="UseKtx"
+        message="Use the KTX extension function `String.toUri` instead?"
+        errorLine1="            imageUrl?.let { builder.setPosterArtUri(Uri.parse(it)) }"
+        errorLine2="                                                    ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/ca/kloosterman/bccmediatv/data/WatchNextHelper.kt"
+            line="43"
+            column="53"/>
+    </issue>
+
+</issues>

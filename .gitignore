@@ -17,3 +17,12 @@ app/release/
 .cxx
 local.properties
 .claude/
+
+# Fastlane / Bundler
+/fastlane/google-play-service-account.json
+/fastlane/report.xml
+/fastlane/README.md
+/release.keystore
+/.bundle/
+vendor/bundle/
+/fastlane/.next_version_code

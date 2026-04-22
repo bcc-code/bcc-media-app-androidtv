@@ -1,0 +1,2 @@
+package_name("tv.brunstad.app")
+json_key_file("fastlane/google-play-service-account.json")

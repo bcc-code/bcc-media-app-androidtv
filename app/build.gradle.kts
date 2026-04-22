@@ -20,8 +20,8 @@ android {
         applicationId = "tv.brunstad.app"
         minSdk = 23
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = (findProperty("buildNumber") as? String)?.toInt() ?: 2300258
+        versionName = "5.6.98"
     }
 
     val localProps = Properties().also { props ->
@@ -51,6 +51,10 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
     }
 
     bundle {
