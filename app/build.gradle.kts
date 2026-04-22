@@ -20,8 +20,9 @@ android {
         applicationId = "tv.brunstad.app"
         minSdk = 23
         targetSdk = 36
-        versionCode = (findProperty("buildNumber") as? String)?.toInt() ?: 2300258
-        versionName = "5.6.98"
+        val buildNumber = (findProperty("buildNumber") as? String)?.toInt() ?: 2300258
+        versionCode = buildNumber
+        versionName = "1.0.$buildNumber-tv"
     }
 
     val localProps = Properties().also { props ->
