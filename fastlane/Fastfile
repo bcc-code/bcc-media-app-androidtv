@@ -12,7 +12,7 @@ platform :android do
     require 'supply/client'
 
     package_name = 'tv.brunstad.app'
-    json_key = 'fastlane/google-play-service-account.json'
+    json_key = File.join(__dir__, 'google-play-service-account.json')
 
     Supply.config = FastlaneCore::Configuration.create(
       Supply::Options.available_options,
