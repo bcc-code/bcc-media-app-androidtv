@@ -37,6 +37,8 @@ android {
         }
     }
     defaultConfig.buildConfigField("String", "NPAW_ACCOUNT_CODE", "\"${localProps.getProperty("npaw.accountCode", "")}\"")
+    defaultConfig.buildConfigField("String", "RUDDERSTACK_WRITE_KEY", "\"${localProps.getProperty("rudderstack.writeKey", "")}\"")
+    defaultConfig.buildConfigField("String", "RUDDERSTACK_DATA_PLANE_URL", "\"${localProps.getProperty("rudderstack.dataPlaneUrl", "")}\"")
 
     buildTypes {
         release {
@@ -123,6 +125,9 @@ dependencies {
 
     // Google TV Continue Watching
     implementation(libs.tvprovider)
+
+    // Rudderstack Analytics
+    implementation(libs.rudderstack.android)
 
     // NPAW Video Analytics
     implementation(libs.npaw.plugin)

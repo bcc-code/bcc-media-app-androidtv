@@ -166,6 +166,7 @@ fun PlayerScreen(
         }
         player.prepare()
         player.playWhenReady = true
+        viewModel.trackPlaybackStarted(startProgressSeconds * 1000L, uiState.episodeDurationSeconds?.times(1000L) ?: 0L)
     }
 
     // Save progress every 10 seconds while playing
@@ -187,7 +188,10 @@ fun PlayerScreen(
                 if (!isPlaying) {
                     val pos = player.currentPosition
                     val dur = player.duration
-                    if (pos > 0 && dur > 0) viewModel.saveProgress((pos / 1000).toInt(), (dur / 1000).toInt())
+                    if (pos > 0 && dur > 0) {
+                        viewModel.saveProgress((pos / 1000).toInt(), (dur / 1000).toInt())
+                        viewModel.trackPlaybackPaused(pos, dur)
+                    }
                 }
             }
             override fun onPlaybackStateChanged(playbackState: Int) {

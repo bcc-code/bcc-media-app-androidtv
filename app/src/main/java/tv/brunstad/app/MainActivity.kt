@@ -62,6 +62,9 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var languageRepository: LanguageRepository
 
+    @Inject
+    lateinit var analyticsManager: tv.brunstad.app.data.AnalyticsManager
+
     private val audioManager by lazy { getSystemService(AUDIO_SERVICE) as AudioManager }
     private var navController: NavController? = null
 
@@ -72,6 +75,7 @@ class MainActivity : ComponentActivity() {
 
     private fun handleDeepLinkIntent(intent: Intent?, nav: NavController?) {
         val uri = intent?.data ?: return
+        analyticsManager.trackDeepLinkOpened(uri.toString())
         if (uri.scheme == "bccmediatv" && uri.host == "episode") {
             val episodeId = uri.lastPathSegment ?: return
             nav?.navigate("episode/$episodeId") {
@@ -137,6 +141,13 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+        val openReason = when {
+            intent?.data != null -> "deep_link"
+            savedInstanceState == null -> "cold_start"
+            else -> "warm_start"
+        }
+        analyticsManager.trackApplicationOpened(openReason, coldStart = savedInstanceState == null)
 
         setContent {
             BCCMediaTVTheme {

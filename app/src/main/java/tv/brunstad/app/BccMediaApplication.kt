@@ -5,6 +5,7 @@ import com.npaw.NpawPluginProvider
 import com.npaw.core.options.AnalyticsOptions
 import com.npaw.core.util.extensions.Log
 import dagger.hilt.android.HiltAndroidApp
+import tv.brunstad.app.data.AnalyticsManager
 
 @HiltAndroidApp
 class BccMediaApplication : Application() {
@@ -29,5 +30,12 @@ class BccMediaApplication : Application() {
         )
         // Set after initialize — setting in the options constructor may not persist
         NpawPluginProvider.getInstance()?.analyticsOptions?.appReleaseVersion = BuildConfig.VERSION_NAME
+
+        // Initialize Rudderstack analytics
+        AnalyticsManager.initialize(
+            BuildConfig.RUDDERSTACK_WRITE_KEY,
+            BuildConfig.RUDDERSTACK_DATA_PLANE_URL,
+            this
+        )
     }
 }

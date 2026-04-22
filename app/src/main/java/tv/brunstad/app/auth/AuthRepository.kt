@@ -239,19 +239,35 @@ class AuthRepository @Inject constructor(
         return extractClaimFromJwt(idToken, "locale")
     }
 
-    suspend fun fetchAgeGroup(): String? = withContext(Dispatchers.IO) {
-        val token = getValidAccessToken() ?: return@withContext null
+    data class UserInfo(
+        val ageGroup: String? = null,
+        val country: String? = null,
+        val churchId: Int? = null,
+        val gender: String? = null
+    )
+
+    suspend fun fetchUserInfo(): UserInfo = withContext(Dispatchers.IO) {
+        val token = getValidAccessToken() ?: return@withContext UserInfo()
         try {
             val request = Request.Builder()
                 .url("$DOMAIN/userinfo")
                 .header("Authorization", "Bearer $token")
                 .build()
-            val body = httpClient.newCall(request).execute().use { it.body?.string() } ?: return@withContext null
+            val body = httpClient.newCall(request).execute().use { it.body?.string() } ?: return@withContext UserInfo()
             val json = JSONObject(body)
-            val birthdate = json.optString("birthdate").ifEmpty { null } ?: return@withContext null
-            val age = calculateAge(birthdate) ?: return@withContext null
-            getAgeGroupLabel(age)
-        } catch (_: Exception) { null }
+
+            val birthdate = json.optString("birthdate").ifEmpty { null }
+            val ageGroup = birthdate?.let { calculateAge(it)?.let { age -> getAgeGroupLabel(age) } }
+            val gender = json.optString("gender").ifEmpty { null }
+            val country = json.optJSONObject("https://login.bcc.no/claims")
+                ?.optString("CountryIso2Code")?.ifEmpty { null }
+                ?: json.optString("https://login.bcc.no/claims/CountryIso2Code").ifEmpty { null }
+            val churchId = json.optJSONObject("https://members.bcc.no/app_metadata")
+                ?.optInt("churchId", -1)?.takeIf { it >= 0 }
+                ?: json.optInt("https://login.bcc.no/claims/churchId", -1).takeIf { it >= 0 }
+
+            UserInfo(ageGroup = ageGroup, country = country, churchId = churchId, gender = gender)
+        } catch (_: Exception) { UserInfo() }
     }
 
     private fun calculateAge(birthdate: String): Int? {

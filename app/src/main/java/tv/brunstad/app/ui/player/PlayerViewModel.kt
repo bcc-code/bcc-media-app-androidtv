@@ -49,6 +49,7 @@ class PlayerViewModel @Inject constructor(
     private val languageRepository: LanguageRepository,
     private val watchNextHelper: WatchNextHelper,
     val npawManager: NpawManager,
+    private val analyticsManager: tv.brunstad.app.data.AnalyticsManager,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -138,6 +139,25 @@ class PlayerViewModel @Inject constructor(
 
     fun onPlaybackEnded() {
         _uiState.value = _uiState.value.copy(episodeEnded = true)
+    }
+
+    fun trackPlaybackStarted(positionMs: Long, durationMs: Long) {
+        analyticsManager.trackPlaybackStarted(
+            sessionId = tv.brunstad.app.di.AppModule.sessionId,
+            contentPodId = episodeId,
+            position = positionMs / 1000,
+            totalLength = durationMs / 1000
+        )
+        analyticsManager.trackVideoPlayed(videoId = episodeId, referenceId = episodeId)
+    }
+
+    fun trackPlaybackPaused(positionMs: Long, durationMs: Long) {
+        analyticsManager.trackPlaybackPaused(
+            sessionId = tv.brunstad.app.di.AppModule.sessionId,
+            contentPodId = episodeId,
+            position = positionMs / 1000,
+            totalLength = durationMs / 1000
+        )
     }
 
     fun selectAudioLanguage(language: String) {
