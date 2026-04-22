@@ -239,6 +239,50 @@ class AuthRepository @Inject constructor(
         return extractClaimFromJwt(idToken, "locale")
     }
 
+    suspend fun fetchAgeGroup(): String? = withContext(Dispatchers.IO) {
+        val token = getValidAccessToken() ?: return@withContext null
+        try {
+            val request = Request.Builder()
+                .url("$DOMAIN/userinfo")
+                .header("Authorization", "Bearer $token")
+                .build()
+            val body = httpClient.newCall(request).execute().use { it.body?.string() } ?: return@withContext null
+            val json = JSONObject(body)
+            val birthdate = json.optString("birthdate").ifEmpty { null } ?: return@withContext null
+            val age = calculateAge(birthdate) ?: return@withContext null
+            getAgeGroupLabel(age)
+        } catch (_: Exception) { null }
+    }
+
+    private fun calculateAge(birthdate: String): Int? {
+        return try {
+            val parts = birthdate.split("-")
+            if (parts.size < 3) return null
+            val birthYear = parts[0].toInt()
+            val birthMonth = parts[1].toInt()
+            val birthDay = parts[2].substringBefore("T").toInt()
+            val now = java.util.Calendar.getInstance()
+            var age = now.get(java.util.Calendar.YEAR) - birthYear
+            val monthNow = now.get(java.util.Calendar.MONTH) + 1
+            val dayNow = now.get(java.util.Calendar.DAY_OF_MONTH)
+            if (monthNow < birthMonth || (monthNow == birthMonth && dayNow < birthDay)) age--
+            if (age < 0) null else age
+        } catch (_: Exception) { null }
+    }
+
+    private fun getAgeGroupLabel(age: Int): String {
+        return when {
+            age <= 9 -> "< 10"
+            age <= 12 -> "10 - 12"
+            age <= 18 -> "13 - 18"
+            age <= 25 -> "19 - 25"
+            age <= 36 -> "26 - 36"
+            age <= 50 -> "37 - 50"
+            age <= 64 -> "51 - 64"
+            else -> "65+"
+        }
+    }
+
     private fun extractClaimFromJwt(token: String, claim: String): String? {
         return try {
             val parts = token.split(".")

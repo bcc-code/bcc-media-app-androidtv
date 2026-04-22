@@ -150,9 +150,11 @@ class HomeViewModel @Inject constructor(
             runCatching {
                 apollo.query(tv.brunstad.app.graphql.GetMeQuery()).execute().dataOrThrow()
             }.onSuccess { data ->
+                val ageGroup = authRepository.fetchAgeGroup()
                 npawManager.updateUserOptions(
                     anonymousId = data.me?.analytics?.anonymousId,
-                    sessionId = tv.brunstad.app.di.AppModule.sessionId
+                    sessionId = tv.brunstad.app.di.AppModule.sessionId,
+                    ageGroup = ageGroup
                 )
             }
         }

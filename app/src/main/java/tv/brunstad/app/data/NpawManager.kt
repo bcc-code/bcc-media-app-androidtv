@@ -13,11 +13,14 @@ import javax.inject.Singleton
 class NpawManager @Inject constructor() {
 
     private var videoAdapter: VideoAdapter? = null
-
     private var sessionId: String? = null
+    private var anonymousId: String? = null
+    private var ageGroup: String? = null
 
-    fun updateUserOptions(anonymousId: String?, sessionId: String) {
+    fun updateUserOptions(anonymousId: String?, sessionId: String, ageGroup: String? = null) {
         this.sessionId = sessionId
+        this.anonymousId = anonymousId
+        this.ageGroup = ageGroup
         val opts = NpawPluginProvider.getInstance()?.analyticsOptions ?: return
         opts.username = anonymousId
     }
@@ -25,7 +28,6 @@ class NpawManager @Inject constructor() {
     fun startVideoAdapter(context: Context, player: ExoPlayer) {
         stopVideoAdapter()
         val plugin = NpawPluginProvider.getInstance() ?: return
-        plugin.analyticsOptions.appReleaseVersion = BuildConfig.VERSION_NAME
         videoAdapter = plugin.videoBuilder()
             .setPlayerAdapter(Media3ExoPlayerAdapter(context, player))
             .build()
@@ -42,17 +44,26 @@ class NpawManager @Inject constructor() {
         showTitle: String?,
         seasonTitle: String?,
         audioLanguage: String?,
-        subtitleLanguage: String?
+        subtitleLanguage: String?,
+        isLive: Boolean = false
     ) {
-        val opts = videoAdapter?.options ?: return
+        val plugin = NpawPluginProvider.getInstance() ?: return
+        val opts = plugin.analyticsOptions
+
+        // Content metadata
         opts.contentId = contentId
-        opts.title = episodeTitle
+        opts.contentTitle = episodeTitle
         opts.contentEpisodeTitle = episodeTitle
         opts.contentTvShow = showTitle
         opts.contentSeason = seasonTitle
         opts.contentLanguage = audioLanguage
         opts.contentSubtitles = subtitleLanguage
+        opts.live = isLive
+
+        // User/session metadata
+        opts.username = anonymousId
         opts.contentCustomDimension1 = sessionId
-        opts.live = false
+        opts.contentCustomDimension2 = ageGroup
+        opts.appReleaseVersion = BuildConfig.VERSION_NAME
     }
 }
