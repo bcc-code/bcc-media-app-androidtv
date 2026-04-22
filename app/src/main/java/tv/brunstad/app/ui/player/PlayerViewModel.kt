@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import tv.brunstad.app.data.LanguageRepository
+import tv.brunstad.app.data.NpawManager
 import tv.brunstad.app.data.WatchNextHelper
 import tv.brunstad.app.graphql.GetEpisodeForAutoplayQuery
 import tv.brunstad.app.graphql.GetEpisodeStreamsQuery
@@ -47,10 +48,11 @@ class PlayerViewModel @Inject constructor(
     private val apollo: ApolloClient,
     private val languageRepository: LanguageRepository,
     private val watchNextHelper: WatchNextHelper,
+    val npawManager: NpawManager,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val episodeId: String = checkNotNull(savedStateHandle["episodeId"])
+    val episodeId: String = checkNotNull(savedStateHandle["episodeId"])
     val startProgressSeconds: Int = savedStateHandle["progress"] ?: 0
 
     private val _uiState = MutableStateFlow(PlayerUiState())

@@ -25,8 +25,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import android.app.Activity
+import android.content.ContextWrapper
 import tv.brunstad.app.R
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.media3.common.MediaItem
@@ -64,6 +65,32 @@ fun PlayerScreen(
     val player = remember {
         ExoPlayer.Builder(context).setTrackSelector(trackSelector).build()
     }
+    val npawManager = viewModel.npawManager
+
+    // Initialize NPAW and bind to the player
+    LaunchedEffect(player) {
+        var ctx: android.content.Context = context
+        while (ctx is ContextWrapper) {
+            if (ctx is Activity) break
+            ctx = ctx.baseContext
+        }
+        (ctx as? Activity)?.let { npawManager.initialize(it) }
+        npawManager.createVideoAdapter(context, player)
+    }
+
+    // Update NPAW content metadata when episode info is available
+    LaunchedEffect(uiState.episodeTitle, uiState.selectedAudioLanguage, uiState.selectedSubtitleLanguage) {
+        if (uiState.streamUrl == null) return@LaunchedEffect
+        npawManager.updateContentMetadata(
+            contentId = viewModel.episodeId,
+            episodeTitle = uiState.episodeTitle,
+            showTitle = uiState.showTitle,
+            seasonTitle = uiState.seasonTitle ?: uiState.seasonNumber?.toString(),
+            audioLanguage = uiState.selectedAudioLanguage,
+            subtitleLanguage = uiState.selectedSubtitleLanguage
+        )
+    }
+
     val startProgressSeconds = viewModel.startProgressSeconds
     var controlsVisible by remember { mutableStateOf(true) }
     var currentChapterTitle by remember { mutableStateOf<String?>(null) }
