@@ -88,7 +88,8 @@ class HomeViewModel @Inject constructor(
     private val apollo: ApolloClient,
     private val languageRepository: LanguageRepository,
     private val previewChannelHelper: PreviewChannelHelper,
-    private val authRepository: tv.brunstad.app.auth.AuthRepository
+    private val authRepository: tv.brunstad.app.auth.AuthRepository,
+    private val npawManager: tv.brunstad.app.data.NpawManager
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeUiState())
@@ -144,6 +145,16 @@ class HomeViewModel @Inject constructor(
             )
 
             if (firstCode.isNotEmpty()) loadPage(firstCode)
+
+            // Update NPAW analytics options with user info
+            runCatching {
+                apollo.query(tv.brunstad.app.graphql.GetMeQuery()).execute().dataOrThrow()
+            }.onSuccess { data ->
+                npawManager.updateUserOptions(
+                    anonymousId = data.me?.analytics?.anonymousId,
+                    sessionId = tv.brunstad.app.di.AppModule.sessionId
+                )
+            }
         }
     }
 

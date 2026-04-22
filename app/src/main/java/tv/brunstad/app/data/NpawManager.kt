@@ -1,12 +1,9 @@
 package tv.brunstad.app.data
 
-import android.app.Activity
 import android.content.Context
 import androidx.media3.exoplayer.ExoPlayer
-import com.npaw.NpawPlugin
 import com.npaw.NpawPluginProvider
 import com.npaw.analytics.video.VideoAdapter
-import com.npaw.core.options.AnalyticsOptions
 import com.npaw.media3.exoplayer.Media3ExoPlayerAdapter
 import tv.brunstad.app.BuildConfig
 import javax.inject.Inject
@@ -15,31 +12,28 @@ import javax.inject.Singleton
 @Singleton
 class NpawManager @Inject constructor() {
 
-    private var plugin: NpawPlugin? = null
+    private var videoAdapter: VideoAdapter? = null
 
-    fun initialize(activity: Activity) {
-        if (plugin != null) return
-        val options = AnalyticsOptions().apply {
-            isAutoDetectBackground = false
-            isParseManifest = true
-            isEnabled = true
-            appName = "bccm-androidtv"
-            userObfuscateIp = true
-            deviceIsAnonymous = false
-        }
-        NpawPluginProvider.initialize(
-            ACCOUNT_CODE,
-            activity,
-            options
-        )
-        plugin = NpawPluginProvider.getInstance()
+    private var sessionId: String? = null
+
+    fun updateUserOptions(anonymousId: String?, sessionId: String) {
+        this.sessionId = sessionId
+        val opts = NpawPluginProvider.getInstance()?.analyticsOptions ?: return
+        opts.username = anonymousId
     }
 
-    fun createVideoAdapter(context: Context, player: ExoPlayer): VideoAdapter? {
-        val p = plugin ?: return null
-        return p.videoBuilder()
+    fun startVideoAdapter(context: Context, player: ExoPlayer) {
+        stopVideoAdapter()
+        val plugin = NpawPluginProvider.getInstance() ?: return
+        plugin.analyticsOptions.appReleaseVersion = BuildConfig.VERSION_NAME
+        videoAdapter = plugin.videoBuilder()
             .setPlayerAdapter(Media3ExoPlayerAdapter(context, player))
             .build()
+    }
+
+    fun stopVideoAdapter() {
+        videoAdapter?.destroy()
+        videoAdapter = null
     }
 
     fun updateContentMetadata(
@@ -50,17 +44,15 @@ class NpawManager @Inject constructor() {
         audioLanguage: String?,
         subtitleLanguage: String?
     ) {
-        val opts = plugin?.analyticsOptions ?: return
+        val opts = videoAdapter?.options ?: return
         opts.contentId = contentId
+        opts.title = episodeTitle
         opts.contentEpisodeTitle = episodeTitle
         opts.contentTvShow = showTitle
         opts.contentSeason = seasonTitle
         opts.contentLanguage = audioLanguage
         opts.contentSubtitles = subtitleLanguage
+        opts.contentCustomDimension1 = sessionId
         opts.live = false
-    }
-
-    companion object {
-        private val ACCOUNT_CODE = BuildConfig.NPAW_ACCOUNT_CODE
     }
 }

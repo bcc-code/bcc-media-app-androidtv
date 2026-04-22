@@ -67,15 +67,10 @@ fun PlayerScreen(
     }
     val npawManager = viewModel.npawManager
 
-    // Initialize NPAW and bind to the player
-    LaunchedEffect(player) {
-        var ctx: android.content.Context = context
-        while (ctx is ContextWrapper) {
-            if (ctx is Activity) break
-            ctx = ctx.baseContext
-        }
-        (ctx as? Activity)?.let { npawManager.initialize(it) }
-        npawManager.createVideoAdapter(context, player)
+    // Bind NPAW video adapter to the player
+    DisposableEffect(player) {
+        npawManager.startVideoAdapter(context, player)
+        onDispose { npawManager.stopVideoAdapter() }
     }
 
     // Update NPAW content metadata when episode info is available
@@ -145,6 +140,15 @@ fun PlayerScreen(
     LaunchedEffect(uiState.streamUrl) {
         val url = uiState.streamUrl ?: return@LaunchedEffect
         player.setMediaItem(MediaItem.fromUri(url))
+        // Set NPAW content metadata before prepare() so the "start" event includes it
+        npawManager.updateContentMetadata(
+            contentId = viewModel.episodeId,
+            episodeTitle = uiState.episodeTitle,
+            showTitle = uiState.showTitle,
+            seasonTitle = uiState.seasonTitle ?: uiState.seasonNumber?.toString(),
+            audioLanguage = uiState.selectedAudioLanguage,
+            subtitleLanguage = uiState.selectedSubtitleLanguage
+        )
         if (startProgressSeconds > 0) {
             var seekDone = false
             val listener = object : Player.Listener {
