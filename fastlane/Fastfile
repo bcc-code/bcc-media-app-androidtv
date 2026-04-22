@@ -1,17 +1,41 @@
 default_platform(:android)
 
 platform :android do
-  desc "Print the next versionCode: max across all Play Console tracks + 1"
+  desc "Print the next versionCode: max across ALL uploaded AABs/APKs + 1"
   lane :next_version_code do
-    codes = %w[internal alpha beta production].flat_map do |track|
-      begin
-        Array(google_play_track_version_codes(track: track)).map(&:to_i)
-      rescue => e
-        UI.important "Track '#{track}' not queryable: #{e.message}"
-        []
-      end
+    # Query every AAB/APK ever uploaded to this app, not just what's currently
+    # on a track's releases. Once a release is superseded, the old version code
+    # disappears from track queries but Google still considers it "used" and
+    # will reject an upload reusing it.
+    require 'supply'
+    require 'supply/options'
+    require 'supply/client'
+
+    package_name = 'tv.brunstad.app'
+    json_key = 'fastlane/google-play-service-account.json'
+
+    Supply.config = FastlaneCore::Configuration.create(
+      Supply::Options.available_options,
+      {
+        package_name: package_name,
+        json_key: json_key,
+        track: 'internal'
+      }
+    )
+
+    client = Supply::Client.make_from_config
+    client.begin_edit(package_name: package_name)
+    codes = []
+    begin
+      codes.concat(Array(client.aab_version_codes))
+      codes.concat(Array(client.apks_version_codes))
+    ensure
+      client.abort_current_edit
     end
+
+    codes = codes.compact.map(&:to_i)
     next_code = (codes.max || 0) + 1
+    UI.message "Found #{codes.size} previously uploaded version codes (max=#{codes.max || 'none'})"
     UI.message "Next versionCode: #{next_code}"
     File.write('.next_version_code', next_code.to_s)
   end
