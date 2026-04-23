@@ -3,3 +3,6 @@ signing.storeFile=/absolute/path/to/your.keystore
 signing.storePassword=CHANGE_ME
 signing.keyAlias=CHANGE_ME
 signing.keyPassword=CHANGE_ME
+npaw.accountCode=
+rudderstack.writeKey=
+rudderstack.dataPlaneUrl=https://rs.bcc.media/
