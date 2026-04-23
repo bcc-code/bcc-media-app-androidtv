@@ -45,6 +45,8 @@ blocks:
               rudderstack.writeKey=$RUDDERSTACK_WRITE_KEY
               rudderstack.dataPlaneUrl=$RUDDERSTACK_DATA_PLANE_URL
               EOF
+            - echo "NPAW_ACCOUNT_CODE is $([ -n \"$NPAW_ACCOUNT_CODE\" ] && echo 'set' || echo 'EMPTY')"
+            - grep npaw local.properties | sed 's/=.*/=***/'
 
             # Install Android SDK (cached across runs)
             - export ANDROID_HOME="$HOME/android-sdk"

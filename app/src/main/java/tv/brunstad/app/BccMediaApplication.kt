@@ -35,6 +35,8 @@ class BccMediaApplication : Application() {
             } catch (e: Exception) {
                 android.util.Log.e("BccMediaApplication", "NPAW initialization failed", e)
             }
+        } else {
+            android.util.Log.w("BccMediaApplication", "NPAW_ACCOUNT_CODE is empty, skipping NPAW initialization")
         }
 
         // Initialize Rudderstack analytics

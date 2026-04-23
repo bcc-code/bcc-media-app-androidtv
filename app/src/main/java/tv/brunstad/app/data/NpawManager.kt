@@ -17,16 +17,21 @@ class NpawManager @Inject constructor() {
     private var anonymousId: String? = null
     private var ageGroup: String? = null
 
+    private val isAvailable: Boolean
+        get() = NpawPluginProvider.getInstance() != null
+
     fun updateUserOptions(anonymousId: String?, sessionId: String, ageGroup: String? = null) {
         this.sessionId = sessionId
         this.anonymousId = anonymousId
         this.ageGroup = ageGroup
+        if (!isAvailable) return
         val opts = NpawPluginProvider.getInstance()?.analyticsOptions ?: return
         opts.username = anonymousId
     }
 
     fun startVideoAdapter(context: Context, player: ExoPlayer) {
         stopVideoAdapter()
+        if (!isAvailable) return
         val plugin = NpawPluginProvider.getInstance() ?: return
         try {
             videoAdapter = plugin.videoBuilder()
@@ -34,11 +39,16 @@ class NpawManager @Inject constructor() {
                 .build()
         } catch (e: Exception) {
             android.util.Log.e("NpawManager", "Failed to start video adapter", e)
+            videoAdapter = null
         }
     }
 
     fun stopVideoAdapter() {
-        videoAdapter?.destroy()
+        try {
+            videoAdapter?.destroy()
+        } catch (e: Exception) {
+            android.util.Log.e("NpawManager", "Failed to stop video adapter", e)
+        }
         videoAdapter = null
     }
 
@@ -51,6 +61,7 @@ class NpawManager @Inject constructor() {
         subtitleLanguage: String?,
         isLive: Boolean = false
     ) {
+        if (!isAvailable) return
         val plugin = NpawPluginProvider.getInstance() ?: return
         val opts = plugin.analyticsOptions
 
