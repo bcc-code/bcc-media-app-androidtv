@@ -17,23 +17,35 @@ class AnalyticsManager @Inject constructor(
 
     private fun track(eventName: String, properties: JsonObject) {
         val client = instance ?: return
-        val merged = buildJsonObject {
-            commonProperties().forEach { (k, v) -> put(k, v) }
-            properties.forEach { (k, v) -> put(k, v) }
+        try {
+            val merged = buildJsonObject {
+                commonProperties().forEach { (k, v) -> put(k, v) }
+                properties.forEach { (k, v) -> put(k, v) }
+            }
+            client.track(name = eventName, properties = merged)
+        } catch (e: Exception) {
+            android.util.Log.e("AnalyticsManager", "Failed to track event: $eventName", e)
         }
-        client.track(name = eventName, properties = merged)
     }
 
     fun screen(screenName: String) {
         val client = instance ?: return
-        client.screen(screenName = screenName, properties = buildJsonObject {
-            commonProperties().forEach { (k, v) -> put(k, v) }
-        })
+        try {
+            client.screen(screenName = screenName, properties = buildJsonObject {
+                commonProperties().forEach { (k, v) -> put(k, v) }
+            })
+        } catch (e: Exception) {
+            android.util.Log.e("AnalyticsManager", "Failed to track screen: $screenName", e)
+        }
     }
 
     fun identify(userId: String, traits: JsonObject) {
         val client = instance ?: return
-        client.identify(userId = userId, traits = traits)
+        try {
+            client.identify(userId = userId, traits = traits)
+        } catch (e: Exception) {
+            android.util.Log.e("AnalyticsManager", "Failed to identify user", e)
+        }
     }
 
     // --- Event methods ---
@@ -172,13 +184,17 @@ class AnalyticsManager @Inject constructor(
 
         fun initialize(writeKey: String, dataPlaneUrl: String, application: Application) {
             if (writeKey.isEmpty() || dataPlaneUrl.isEmpty()) return
-            instance = Analytics(
-                configuration = Configuration(
-                    writeKey = writeKey,
-                    application = application,
-                    dataPlaneUrl = dataPlaneUrl
+            try {
+                instance = Analytics(
+                    configuration = Configuration(
+                        writeKey = writeKey,
+                        application = application,
+                        dataPlaneUrl = dataPlaneUrl
+                    )
                 )
-            )
+            } catch (e: Exception) {
+                android.util.Log.e("AnalyticsManager", "Failed to initialize Rudderstack", e)
+            }
         }
     }
 }
