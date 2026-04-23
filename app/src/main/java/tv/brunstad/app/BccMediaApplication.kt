@@ -20,16 +20,22 @@ class BccMediaApplication : Application() {
             deviceIsAnonymous = false
             appReleaseVersion = BuildConfig.VERSION_NAME
         }
-        NpawPluginProvider.initialize(
-            BuildConfig.NPAW_ACCOUNT_CODE,
-            this,
-            options,
-            null,
-            null,
-            Log.Level.INFO
-        )
-        // Set after initialize — setting in the options constructor may not persist
-        NpawPluginProvider.getInstance()?.analyticsOptions?.appReleaseVersion = BuildConfig.VERSION_NAME
+        if (BuildConfig.NPAW_ACCOUNT_CODE.isNotEmpty()) {
+            try {
+                NpawPluginProvider.initialize(
+                    BuildConfig.NPAW_ACCOUNT_CODE,
+                    this,
+                    options,
+                    null,
+                    null,
+                    Log.Level.INFO
+                )
+                // Set after initialize — setting in the options constructor may not persist
+                NpawPluginProvider.getInstance()?.analyticsOptions?.appReleaseVersion = BuildConfig.VERSION_NAME
+            } catch (e: Exception) {
+                android.util.Log.e("BccMediaApplication", "NPAW initialization failed", e)
+            }
+        }
 
         // Initialize Rudderstack analytics
         AnalyticsManager.initialize(

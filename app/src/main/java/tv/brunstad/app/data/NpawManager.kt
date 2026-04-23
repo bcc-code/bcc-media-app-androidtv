@@ -28,9 +28,13 @@ class NpawManager @Inject constructor() {
     fun startVideoAdapter(context: Context, player: ExoPlayer) {
         stopVideoAdapter()
         val plugin = NpawPluginProvider.getInstance() ?: return
-        videoAdapter = plugin.videoBuilder()
-            .setPlayerAdapter(Media3ExoPlayerAdapter(context, player))
-            .build()
+        try {
+            videoAdapter = plugin.videoBuilder()
+                .setPlayerAdapter(Media3ExoPlayerAdapter(context, player))
+                .build()
+        } catch (e: Exception) {
+            android.util.Log.e("NpawManager", "Failed to start video adapter", e)
+        }
     }
 
     fun stopVideoAdapter() {
