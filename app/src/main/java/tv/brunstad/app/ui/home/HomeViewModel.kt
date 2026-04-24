@@ -248,8 +248,7 @@ class HomeViewModel @Inject constructor(
                         isLoading = false
                     ))
                 )
-                // Extract IconSection items from the home page as category nav items
-                // Also extract the My List section title for the nav item
+                // Extract the My List section title for the nav item
                 if (code == homePageCode) {
                     // Populate the Google TV preview channel with featured episodes
                     val featuredSection = allSections.firstOrNull { it.onFeaturedSection != null }

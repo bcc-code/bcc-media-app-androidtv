@@ -150,7 +150,7 @@ fun PageLinkCard(
 private fun CardStyle.cardWidth(): Dp = when (this) {
     CardStyle.LANDSCAPE -> 240.dp
     CardStyle.POSTER    -> 160.dp
-    CardStyle.SQUARE    -> 180.dp
+    CardStyle.SQUARE    -> 120.dp
 }
 
 private fun CardStyle.cardAspectRatio(): Float = when (this) {

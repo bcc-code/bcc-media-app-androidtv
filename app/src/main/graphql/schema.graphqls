@@ -239,10 +239,23 @@ type WebSection implements Section {
   url: String
 }
 
+type MessageStyle {
+  text: String!
+  background: String!
+  border: String!
+}
+
+type Message {
+  title: String!
+  content: String!
+  style: MessageStyle!
+}
+
 type MessageSection implements Section {
   id: ID!
   title: String
   description: String
+  messages: [Message!]
 }
 
 type SectionItemConnection {

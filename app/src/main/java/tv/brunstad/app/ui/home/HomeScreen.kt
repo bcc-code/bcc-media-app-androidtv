@@ -4,6 +4,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
@@ -101,6 +102,16 @@ import tv.brunstad.app.util.titleCaseForLanguage
 internal data class CardData(val title: String, val imageUrl: String?, val episodeId: String?, val pageCode: String? = null, val seasonId: String? = null, val showId: String? = null, val showTitle: String? = null, val progressFraction: Float? = null, val description: String? = null, val subtitle: String? = null, val watched: Boolean = false, val durationSeconds: Int? = null)
 
 private fun String.stripHtml(): String = replace(Regex("<[^>]*>"), "").trim()
+
+private fun parseHexColor(hex: String): androidx.compose.ui.graphics.Color {
+    val cleaned = hex.removePrefix("#")
+    val argb = when (cleaned.length) {
+        6 -> 0xFF000000 or cleaned.toLong(16)
+        8 -> cleaned.toLong(16)
+        else -> 0xFF888888
+    }
+    return androidx.compose.ui.graphics.Color(argb.toInt())
+}
 
 private fun NavIcon.vector(): ImageVector? = when (this) {
     NavIcon.HOME -> Icons.Default.Home
@@ -831,9 +842,8 @@ internal fun PageContent(
     val hasHero = heroCards.isNotEmpty() && heroHeight > 0.dp
     val sectionStart = if (hasHero) 1 else 0
 
-    // Find the first section index that SectionRow actually renders (skips IconSection etc.)
     val firstRenderedIndex = sections.indexOfFirst { s ->
-        s.onFeaturedSection == null && s.onIconSection == null
+        s.onFeaturedSection == null
     }.takeIf { it >= sectionStart } ?: sectionStart
 
     val listState = rememberTvLazyListState()
@@ -932,9 +942,6 @@ internal fun SectionRow(
         onSectionItemClicked?.invoke(index, type, id, card.title)
     }
 
-    // IconSection items are shown in the nav rail instead
-    if (section.onIconSection != null) return
-
     // PageDetailsSection carries the page title and description.
     if (section.__typename == "PageDetailsSection") {
         val title = section.title?.takeIf { it.isNotBlank() }
@@ -951,6 +958,46 @@ internal fun SectionRow(
                     style = MaterialTheme.typography.bodyLarge,
                     color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.7f)
                 )
+            }
+        }
+        return
+    }
+
+    // MessageSection — system/admin messages
+    if (section.onMessageSection != null) {
+        val messages = section.onMessageSection!!.messages ?: return
+        if (messages.isEmpty()) return
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 48.dp)
+                .onFocusChanged { if (it.hasFocus) onFocused() },
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            if (!section.title.isNullOrBlank()) {
+                Text(
+                    text = section.title!!.stripHtml().titleCaseForLanguage(language),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+            }
+            messages.forEach { message ->
+                if (message.content.isBlank()) return@forEach
+                val bgColor = parseHexColor(message.style.background)
+                val textColor = parseHexColor(message.style.text)
+                val borderColor = parseHexColor(message.style.border)
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .border(1.dp, borderColor, RoundedCornerShape(8.dp))
+                        .background(bgColor, RoundedCornerShape(8.dp))
+                        .padding(12.dp)
+                ) {
+                    Text(
+                        text = message.content,
+                        color = textColor,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         }
         return
