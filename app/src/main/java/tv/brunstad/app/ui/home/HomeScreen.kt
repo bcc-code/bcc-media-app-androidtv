@@ -107,8 +107,6 @@ private fun NavIcon.vector(): ImageVector? = when (this) {
     NavIcon.SEARCH -> Icons.Default.Search
     NavIcon.SETTINGS -> Icons.Default.Settings
     NavIcon.BOOKMARK -> Icons.Default.Bookmark
-    is NavIcon.Drawable -> null
-    is NavIcon.Url -> null
 }
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -162,13 +160,10 @@ fun HomeScreen(
     val searchBarFocusRequester = remember { FocusRequester() }
     val myListFocusRequester = remember { FocusRequester() }
 
-    // FocusRequesters for all selectable nav items: fixed (Home, Search) + dynamic categories.
-    // Keyed by combined size so it grows as categoryNavItems load in from the API.
-    val allNavItems = state.navItems + state.categoryNavItems
-    val navItemFocusRequesters = remember(allNavItems.size) {
-        List(allNavItems.size) { FocusRequester() }
+    val navItemFocusRequesters = remember(state.navItems.size) {
+        List(state.navItems.size) { FocusRequester() }
     }
-    val selectedNavIndex = allNavItems.indexOfFirst { it.code == state.selectedCode }
+    val selectedNavIndex = state.navItems.indexOfFirst { it.code == state.selectedCode }
 
     // One FocusRequester per section (points to the first card of that section row).
     val sections = state.pages[state.selectedCode]?.sections ?: emptyList()
@@ -371,18 +366,6 @@ fun HomeScreen(
                     expanded = itemsExpanded,
                     focusable = navExpanded || isSelected,
                     focusRequester = navItemFocusRequesters.getOrNull(index),
-                    onClick = { viewModel.selectPage(item.code) }
-                )
-            }
-            state.categoryNavItems.forEachIndexed { index, item ->
-                val isSelected = item.code == state.selectedCode
-                NavRailItem(
-                    title = item.title.titleCaseForLanguage(state.language),
-                    icon = item.icon,
-                    selected = isSelected,
-                    expanded = itemsExpanded,
-                    focusable = navExpanded || isSelected,
-                    focusRequester = navItemFocusRequesters.getOrNull(state.navItems.size + index),
                     onClick = { viewModel.selectPage(item.code) }
                 )
             }
@@ -600,25 +583,13 @@ private fun NavRailItem(
             modifier = Modifier.width(52.dp),
             contentAlignment = Alignment.Center
         ) {
-            when (icon) {
-                is NavIcon.Drawable -> androidx.compose.foundation.Image(
-                    painter = painterResource(icon.resId),
+            icon.vector()?.let {
+                Icon(
+                    imageVector = it,
                     contentDescription = title,
+                    tint = tint,
                     modifier = Modifier.size(28.dp)
                 )
-                is NavIcon.Url -> AsyncImage(
-                    model = icon.url,
-                    contentDescription = title,
-                    modifier = Modifier.size(28.dp)
-                )
-                else -> icon.vector()?.let {
-                    Icon(
-                        imageVector = it,
-                        contentDescription = title,
-                        tint = tint,
-                        modifier = Modifier.size(28.dp)
-                    )
-                }
             }
         }
         if (expanded) {

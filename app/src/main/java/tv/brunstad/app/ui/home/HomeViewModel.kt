@@ -32,18 +32,6 @@ sealed class NavIcon {
     object SEARCH : NavIcon()
     object SETTINGS : NavIcon()
     object BOOKMARK : NavIcon()
-    data class Drawable(@androidx.annotation.DrawableRes val resId: Int) : NavIcon()
-    data class Url(val url: String) : NavIcon()
-}
-
-private fun localNavIcon(code: String): NavIcon? = when (code) {
-    "kids"      -> NavIcon.Drawable(R.drawable.ic_nav_kids)
-    "shortfilm" -> NavIcon.Drawable(R.drawable.ic_nav_shortfilm)
-    "event"     -> NavIcon.Drawable(R.drawable.ic_nav_event)
-    "series"    -> NavIcon.Drawable(R.drawable.ic_nav_series)
-    "studies"   -> NavIcon.Drawable(R.drawable.ic_nav_studies)
-    "music"     -> NavIcon.Drawable(R.drawable.ic_nav_music)
-    else        -> null
 }
 
 private fun GetPageQuery.Item.isMyListSection(): Boolean =
@@ -68,7 +56,6 @@ data class PageState(
 
 data class HomeUiState(
     val navItems: List<NavItem> = emptyList(),
-    val categoryNavItems: List<NavItem> = emptyList(),
     val myListTitle: String = "Watchlist",
     val selectedCode: String = "",
     val searchPageCode: String = "",
@@ -230,12 +217,9 @@ class HomeViewModel @Inject constructor(
 
     /** Called when the content language changes — clears cached pages and reloads the current one. */
     private fun reloadAllPages() {
-        // Clear cached page data but keep categoryNavItems so the nav rail stays intact during reload
         _state.value = _state.value.copy(pages = emptyMap())
         val currentCode = _state.value.selectedCode
         if (currentCode.isNotEmpty()) loadPage(currentCode)
-        // Also reload the home page if it isn't the current page, so category icons refresh
-        if (homePageCode.isNotEmpty() && homePageCode != currentCode) loadPage(homePageCode)
     }
 
     private fun loadPage(code: String, silent: Boolean = false) {
@@ -294,19 +278,6 @@ class HomeViewModel @Inject constructor(
                             myListTitle = displayTitle,
                             navItems = updatedNavItems
                         )
-                    }
-                    val categoryItems = buildList {
-                        sections.forEach { section ->
-                            section.onIconSection?.items?.items?.forEach { si ->
-                                val pageCode = si.item?.onPage?.code ?: return@forEach
-                                val icon = localNavIcon(pageCode)
-                                    ?: NavIcon.Url(si.image ?: return@forEach)
-                                add(NavItem(pageCode, si.title, icon))
-                            }
-                        }
-                    }
-                    if (categoryItems.isNotEmpty()) {
-                        _state.value = _state.value.copy(categoryNavItems = categoryItems)
                     }
                 }
             }.onFailure { e ->
