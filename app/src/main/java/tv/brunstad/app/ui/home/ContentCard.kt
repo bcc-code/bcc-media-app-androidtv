@@ -165,7 +165,7 @@ fun ContentCard(
     title: String,
     imageUrl: String?,
     subtitle: String? = null,
-    badge: String? = null,
+    showTitle: String? = null,
     watched: Boolean = false,
     progressFraction: Float? = null,
     description: String? = null,
@@ -284,6 +284,15 @@ fun ContentCard(
                 .padding(top = 10.dp),
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
+            if (showTitle != null) {
+                Text(
+                    text = showTitle,
+                    fontSize = (11 * scale).sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    color = Color.White.copy(alpha = 0.5f)
+                )
+            }
             Text(
                 text = title,
                 fontSize = (14 * scale).sp,

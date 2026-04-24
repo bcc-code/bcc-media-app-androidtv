@@ -98,7 +98,7 @@ import tv.brunstad.app.ui.mylist.MyListViewModel
 import tv.brunstad.app.ui.profile.ProfilePickerViewModel
 import tv.brunstad.app.util.titleCaseForLanguage
 
-internal data class CardData(val title: String, val imageUrl: String?, val episodeId: String?, val pageCode: String? = null, val seasonId: String? = null, val showId: String? = null, val badge: String? = null, val progressFraction: Float? = null, val description: String? = null, val subtitle: String? = null, val watched: Boolean = false, val durationSeconds: Int? = null)
+internal data class CardData(val title: String, val imageUrl: String?, val episodeId: String?, val pageCode: String? = null, val seasonId: String? = null, val showId: String? = null, val showTitle: String? = null, val progressFraction: Float? = null, val description: String? = null, val subtitle: String? = null, val watched: Boolean = false, val durationSeconds: Int? = null)
 
 private fun String.stripHtml(): String = replace(Regex("<[^>]*>"), "").trim()
 
@@ -711,7 +711,7 @@ private fun HeroSection(
                 if (h > 0) "${h}h ${m}m" else "${m} min"
             }
             val metaLine = listOfNotNull(
-                card.badge?.takeIf { it.isNotBlank() },
+                card.showTitle?.takeIf { it.isNotBlank() },
                 card.subtitle?.takeIf { it.isNotBlank() }
             ).joinToString(" · ")
             if (metaLine.isNotBlank()) {
@@ -847,7 +847,7 @@ internal fun PageContent(
             pageCode = c.onPage?.code,
             seasonId = c.onSeason?.id?.takeIf { c.onSeason?.show?.id == null },
             showId = c.onShow?.id ?: c.onSeason?.show?.id,
-            badge = c.onEpisode?.season?.show?.title,
+            showTitle = c.onEpisode?.season?.show?.title,
             subtitle = c.onEpisode?.season?.title,
             description = si.description?.takeIf { it.isNotBlank() }
                 ?: c.onShow?.description,
@@ -1031,7 +1031,7 @@ internal fun SectionRow(
                 section.onItemSection!!.items.items.forEach { si ->
                     val c = si.item ?: return@forEach
                     val episodeId = c.onEpisode?.id; val pageCode = c.onPage?.code; val seasonId = c.onSeason?.id; val showId = c.onShow?.id
-                    val badge = c.onEpisode?.season?.show?.title
+                    val showTitle = c.onEpisode?.season?.show?.title
                     val dur = c.onEpisode?.duration?.toInt() ?: 0
                     val prog = c.onEpisode?.progress?.toInt() ?: 0
                     val effectivelyWatched = (c.onEpisode?.watched ?: false) &&
@@ -1039,13 +1039,13 @@ internal fun SectionRow(
                     val progressFraction = if (effectivelyWatched || dur <= 0 || prog <= 0) null
                         else (prog.toFloat() / dur).coerceIn(0f, 1f)
                     val description = if (showDescription) si.description else null
-                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, badge, progressFraction, description, null, effectivelyWatched, dur))
+                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, showTitle, progressFraction, description, null, effectivelyWatched, dur))
                 }
             section.onFeaturedSection != null ->
                 section.onFeaturedSection!!.items.items.forEach { si ->
                     val c = si.item ?: return@forEach
                     val episodeId = c.onEpisode?.id; val pageCode = c.onPage?.code; val seasonId = c.onSeason?.id; val showId = c.onShow?.id
-                    val badge = c.onEpisode?.season?.show?.title
+                    val showTitle = c.onEpisode?.season?.show?.title
                     val dur = c.onEpisode?.duration?.toInt() ?: 0
                     val prog = c.onEpisode?.progress?.toInt() ?: 0
                     val effectivelyWatched = (c.onEpisode?.watched ?: false) &&
@@ -1055,13 +1055,13 @@ internal fun SectionRow(
                     val timeRemaining = if (effectivelyWatched || dur <= 0 || prog <= 0) null
                         else { val mins = ((dur - prog) / 60).coerceAtLeast(1); context.getString(R.string.time_remaining, mins) }
                     val description = if (showDescription) si.description else null
-                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, badge, progressFraction, description, null, effectivelyWatched, dur))
+                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, showTitle, progressFraction, description, null, effectivelyWatched, dur))
                 }
             section.onDefaultSection != null ->
                 section.onDefaultSection!!.items.items.forEach { si ->
                     val c = si.item ?: return@forEach
                     val episodeId = c.onEpisode?.id; val pageCode = c.onPage?.code; val seasonId = c.onSeason?.id; val showId = c.onShow?.id
-                    val badge = c.onEpisode?.season?.show?.title
+                    val showTitle = c.onEpisode?.season?.show?.title
                     val dur = c.onEpisode?.duration?.toInt() ?: 0
                     val prog = c.onEpisode?.progress?.toInt() ?: 0
                     val effectivelyWatched = (c.onEpisode?.watched ?: false) &&
@@ -1069,13 +1069,13 @@ internal fun SectionRow(
                     val progressFraction = if (effectivelyWatched || dur <= 0 || prog <= 0) null
                         else (prog.toFloat() / dur).coerceIn(0f, 1f)
                     val description = if (showDescription) si.description else null
-                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, badge, progressFraction, description, null, effectivelyWatched, dur))
+                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, showTitle, progressFraction, description, null, effectivelyWatched, dur))
                 }
             section.onPosterSection != null ->
                 section.onPosterSection!!.items.items.forEach { si ->
                     val c = si.item ?: return@forEach
                     val episodeId = c.onEpisode?.id; val pageCode = c.onPage?.code; val seasonId = c.onSeason?.id; val showId = c.onShow?.id
-                    val badge = c.onEpisode?.season?.show?.title
+                    val showTitle = c.onEpisode?.season?.show?.title
                     val dur = c.onEpisode?.duration?.toInt() ?: 0
                     val prog = c.onEpisode?.progress?.toInt() ?: 0
                     val effectivelyWatched = (c.onEpisode?.watched ?: false) &&
@@ -1083,13 +1083,13 @@ internal fun SectionRow(
                     val progressFraction = if (effectivelyWatched || dur <= 0 || prog <= 0) null
                         else (prog.toFloat() / dur).coerceIn(0f, 1f)
                     val description = if (showDescription) si.description else null
-                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, badge, progressFraction, description, null, effectivelyWatched, dur))
+                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, showTitle, progressFraction, description, null, effectivelyWatched, dur))
                 }
             section.onCardSection != null ->
                 section.onCardSection!!.items.items.forEach { si ->
                     val c = si.item ?: return@forEach
                     val episodeId = c.onEpisode?.id; val pageCode = c.onPage?.code; val seasonId = c.onSeason?.id; val showId = c.onShow?.id
-                    val badge = c.onEpisode?.season?.show?.title
+                    val showTitle = c.onEpisode?.season?.show?.title
                     val dur = c.onEpisode?.duration?.toInt() ?: 0
                     val prog = c.onEpisode?.progress?.toInt() ?: 0
                     val effectivelyWatched = (c.onEpisode?.watched ?: false) &&
@@ -1097,13 +1097,13 @@ internal fun SectionRow(
                     val progressFraction = if (effectivelyWatched || dur <= 0 || prog <= 0) null
                         else (prog.toFloat() / dur).coerceIn(0f, 1f)
                     val description = if (showDescription) si.description else null
-                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, badge, progressFraction, description, null, effectivelyWatched, dur))
+                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, showTitle, progressFraction, description, null, effectivelyWatched, dur))
                 }
             section.onCardListSection != null ->
                 section.onCardListSection!!.items.items.forEach { si ->
                     val c = si.item ?: return@forEach
                     val episodeId = c.onEpisode?.id; val pageCode = c.onPage?.code; val seasonId = c.onSeason?.id; val showId = c.onShow?.id
-                    val badge = c.onEpisode?.season?.show?.title
+                    val showTitle = c.onEpisode?.season?.show?.title
                     val dur = c.onEpisode?.duration?.toInt() ?: 0
                     val prog = c.onEpisode?.progress?.toInt() ?: 0
                     val effectivelyWatched = (c.onEpisode?.watched ?: false) &&
@@ -1111,13 +1111,13 @@ internal fun SectionRow(
                     val progressFraction = if (effectivelyWatched || dur <= 0 || prog <= 0) null
                         else (prog.toFloat() / dur).coerceIn(0f, 1f)
                     val description = if (showDescription) si.description else null
-                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, badge, progressFraction, description, null, effectivelyWatched, dur))
+                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, showTitle, progressFraction, description, null, effectivelyWatched, dur))
                 }
             section.onListSection != null ->
                 section.onListSection!!.items.items.forEach { si ->
                     val c = si.item ?: return@forEach
                     val episodeId = c.onEpisode?.id; val pageCode = c.onPage?.code; val seasonId = c.onSeason?.id; val showId = c.onShow?.id
-                    val badge = c.onEpisode?.season?.show?.title
+                    val showTitle = c.onEpisode?.season?.show?.title
                     val dur = c.onEpisode?.duration?.toInt() ?: 0
                     val prog = c.onEpisode?.progress?.toInt() ?: 0
                     val effectivelyWatched = (c.onEpisode?.watched ?: false) &&
@@ -1125,13 +1125,13 @@ internal fun SectionRow(
                     val progressFraction = if (effectivelyWatched || dur <= 0 || prog <= 0) null
                         else (prog.toFloat() / dur).coerceIn(0f, 1f)
                     val description = if (showDescription) si.description else null
-                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, badge, progressFraction, description, null, effectivelyWatched, dur))
+                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, showTitle, progressFraction, description, null, effectivelyWatched, dur))
                 }
             section.onIconSection != null ->
                 section.onIconSection!!.items.items.forEach { si ->
                     val c = si.item ?: return@forEach
                     val episodeId = c.onEpisode?.id; val pageCode = c.onPage?.code; val seasonId = c.onSeason?.id; val showId = c.onShow?.id
-                    val badge = c.onEpisode?.season?.show?.title
+                    val showTitle = c.onEpisode?.season?.show?.title
                     val dur = c.onEpisode?.duration?.toInt() ?: 0
                     val prog = c.onEpisode?.progress?.toInt() ?: 0
                     val effectivelyWatched = (c.onEpisode?.watched ?: false) &&
@@ -1141,13 +1141,13 @@ internal fun SectionRow(
                     val timeRemaining = if (effectivelyWatched || dur <= 0 || prog <= 0) null
                         else { val mins = ((dur - prog) / 60).coerceAtLeast(1); context.getString(R.string.time_remaining, mins) }
                     val description = if (showDescription) si.description else null
-                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, badge, progressFraction, description, null, effectivelyWatched, dur))
+                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, showTitle, progressFraction, description, null, effectivelyWatched, dur))
                 }
             section.onLabelSection != null ->
                 section.onLabelSection!!.items.items.forEach { si ->
                     val c = si.item ?: return@forEach
                     val episodeId = c.onEpisode?.id; val pageCode = c.onPage?.code; val seasonId = c.onSeason?.id; val showId = c.onShow?.id
-                    val badge = c.onEpisode?.season?.show?.title
+                    val showTitle = c.onEpisode?.season?.show?.title
                     val dur = c.onEpisode?.duration?.toInt() ?: 0
                     val prog = c.onEpisode?.progress?.toInt() ?: 0
                     val effectivelyWatched = (c.onEpisode?.watched ?: false) &&
@@ -1155,13 +1155,13 @@ internal fun SectionRow(
                     val progressFraction = if (effectivelyWatched || dur <= 0 || prog <= 0) null
                         else (prog.toFloat() / dur).coerceIn(0f, 1f)
                     val description = if (showDescription) si.description else null
-                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, badge, progressFraction, description, null, effectivelyWatched, dur))
+                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, showTitle, progressFraction, description, null, effectivelyWatched, dur))
                 }
             section.onDefaultGridSection != null ->
                 section.onDefaultGridSection!!.items.items.forEach { si ->
                     val c = si.item ?: return@forEach
                     val episodeId = c.onEpisode?.id; val pageCode = c.onPage?.code; val seasonId = c.onSeason?.id; val showId = c.onShow?.id
-                    val badge = c.onEpisode?.season?.show?.title
+                    val showTitle = c.onEpisode?.season?.show?.title
                     val dur = c.onEpisode?.duration?.toInt() ?: 0
                     val prog = c.onEpisode?.progress?.toInt() ?: 0
                     val effectivelyWatched = (c.onEpisode?.watched ?: false) &&
@@ -1169,13 +1169,13 @@ internal fun SectionRow(
                     val progressFraction = if (effectivelyWatched || dur <= 0 || prog <= 0) null
                         else (prog.toFloat() / dur).coerceIn(0f, 1f)
                     val description = if (showDescription) si.description else null
-                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, badge, progressFraction, description, null, effectivelyWatched, dur))
+                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, showTitle, progressFraction, description, null, effectivelyWatched, dur))
                 }
             section.onPosterGridSection != null ->
                 section.onPosterGridSection!!.items.items.forEach { si ->
                     val c = si.item ?: return@forEach
                     val episodeId = c.onEpisode?.id; val pageCode = c.onPage?.code; val seasonId = c.onSeason?.id; val showId = c.onShow?.id
-                    val badge = c.onEpisode?.season?.show?.title
+                    val showTitle = c.onEpisode?.season?.show?.title
                     val dur = c.onEpisode?.duration?.toInt() ?: 0
                     val prog = c.onEpisode?.progress?.toInt() ?: 0
                     val effectivelyWatched = (c.onEpisode?.watched ?: false) &&
@@ -1185,13 +1185,13 @@ internal fun SectionRow(
                     val timeRemaining = if (effectivelyWatched || dur <= 0 || prog <= 0) null
                         else { val mins = ((dur - prog) / 60).coerceAtLeast(1); context.getString(R.string.time_remaining, mins) }
                     val description = if (showDescription) si.description else null
-                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, badge, progressFraction, description, null, effectivelyWatched, dur))
+                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, showTitle, progressFraction, description, null, effectivelyWatched, dur))
                 }
             section.onIconGridSection != null ->
                 section.onIconGridSection!!.items.items.forEach { si ->
                     val c = si.item ?: return@forEach
                     val episodeId = c.onEpisode?.id; val pageCode = c.onPage?.code; val seasonId = c.onSeason?.id; val showId = c.onShow?.id
-                    val badge = c.onEpisode?.season?.show?.title
+                    val showTitle = c.onEpisode?.season?.show?.title
                     val dur = c.onEpisode?.duration?.toInt() ?: 0
                     val prog = c.onEpisode?.progress?.toInt() ?: 0
                     val effectivelyWatched = (c.onEpisode?.watched ?: false) &&
@@ -1201,7 +1201,7 @@ internal fun SectionRow(
                     val timeRemaining = if (effectivelyWatched || dur <= 0 || prog <= 0) null
                         else { val mins = ((dur - prog) / 60).coerceAtLeast(1); context.getString(R.string.time_remaining, mins) }
                     val description = if (showDescription) si.description else null
-                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, badge, progressFraction, description, null, effectivelyWatched, dur))
+                    add(CardData(si.title.stripHtml(), si.image, episodeId, pageCode, seasonId, showId, showTitle, progressFraction, description, null, effectivelyWatched, dur))
                 }
         }
     }
@@ -1236,7 +1236,7 @@ internal fun SectionRow(
                         title = card.title,
                         imageUrl = card.imageUrl,
                         subtitle = card.subtitle,
-                        badge = card.badge,
+                        showTitle = card.showTitle,
                         watched = card.watched,
                         progressFraction = card.progressFraction,
                         description = card.description,
@@ -1286,7 +1286,7 @@ internal fun SectionRow(
                         title = card.title,
                         imageUrl = card.imageUrl,
                         subtitle = card.subtitle,
-                        badge = card.badge,
+                        showTitle = card.showTitle,
                         watched = card.watched,
                         progressFraction = card.progressFraction,
                         description = card.description,

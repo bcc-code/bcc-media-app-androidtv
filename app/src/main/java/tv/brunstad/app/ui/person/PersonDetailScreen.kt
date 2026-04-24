@@ -210,7 +210,7 @@ private fun PersonDetail(
                         ContentCard(
                             title = item.title,
                             imageUrl = item.imageUrl,
-                            badge = item.badge,
+                            showTitle = item.showTitle,
                             style = CardStyle.LANDSCAPE,
                             onClick = { onEpisodeClick(item.episodeId, item.startPosition) }
                         )

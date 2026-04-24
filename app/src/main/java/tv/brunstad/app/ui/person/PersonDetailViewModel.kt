@@ -19,7 +19,7 @@ data class ContributionItem(
     val title: String,
     val imageUrl: String?,
     val duration: Int,
-    val badge: String?,
+    val showTitle: String?,
     val episodeId: String,
     val startPosition: Int = 0
 )
@@ -82,7 +82,7 @@ class PersonDetailViewModel @Inject constructor(
                         title = ep.title,
                         imageUrl = ep.image,
                         duration = ep.duration ?: 0,
-                        badge = ep.season?.show?.title,
+                        showTitle = ep.season?.show?.title,
                         episodeId = ep.id,
                         startPosition = 0
                     )
@@ -93,7 +93,7 @@ class PersonDetailViewModel @Inject constructor(
                         title = ep.title,
                         imageUrl = ep.image,
                         duration = ch.duration ?: 0,
-                        badge = ep.season?.show?.title,
+                        showTitle = ep.season?.show?.title,
                         episodeId = ep.id,
                         startPosition = ch.start
                     )
@@ -122,7 +122,7 @@ class PersonDetailViewModel @Inject constructor(
                             title = ep.title,
                             imageUrl = ep.image,
                             duration = ep.duration ?: 0,
-                            badge = ep.season?.show?.title,
+                            showTitle = ep.season?.show?.title,
                             episodeId = ep.id,
                             startPosition = 0
                         )
@@ -133,7 +133,7 @@ class PersonDetailViewModel @Inject constructor(
                             title = ep.title,
                             imageUrl = ep.image,
                             duration = ch.duration ?: 0,
-                            badge = ep.season?.show?.title,
+                            showTitle = ep.season?.show?.title,
                             episodeId = ep.id,
                             startPosition = ch.start
                         )
