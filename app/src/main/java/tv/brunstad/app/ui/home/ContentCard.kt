@@ -169,6 +169,7 @@ fun ContentCard(
     watched: Boolean = false,
     progressFraction: Float? = null,
     description: String? = null,
+    durationSeconds: Int? = null,
     style: CardStyle = CardStyle.LANDSCAPE,
     scale: Float = 1f,
     focusRequester: FocusRequester? = null,
@@ -233,6 +234,28 @@ fun ContentCard(
                     }
                 }
 
+                // Duration badge — bottom-right corner
+                if (durationSeconds != null && durationSeconds > 0) {
+                    val h = durationSeconds / 3600
+                    val m = (durationSeconds % 3600) / 60
+                    val s = durationSeconds % 60
+                    val label = if (h > 0) "%d:%02d:%02d".format(h, m, s) else "%d:%02d".format(m, s)
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(6.dp)
+                            .background(Color.Black.copy(alpha = 0.7f), RoundedCornerShape(4.dp))
+                            .padding(horizontal = 4.dp, vertical = 2.dp)
+                    ) {
+                        Text(
+                            text = label,
+                            fontSize = 10.sp,
+                            color = Color.White,
+                            maxLines = 1
+                        )
+                    }
+                }
+
                 // Progress bar at the bottom of the image
                 if (progressFraction != null) {
                     Box(
@@ -258,7 +281,7 @@ fun ContentCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 6.dp),
+                .padding(top = 10.dp),
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(

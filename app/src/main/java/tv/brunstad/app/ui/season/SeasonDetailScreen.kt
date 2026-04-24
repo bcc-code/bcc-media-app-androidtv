@@ -132,6 +132,7 @@ private fun SeasonDetail(
                         imageUrl = episode.image,
                         watched = effectivelyWatched,
                         progressFraction = progressFraction,
+                        durationSeconds = dur,
                         subtitle = timeRemaining,
                         style = CardStyle.LANDSCAPE,
                         onClick = { onEpisodeClick(episode.id) },
