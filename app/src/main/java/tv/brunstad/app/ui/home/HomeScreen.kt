@@ -87,10 +87,15 @@ import androidx.tv.foundation.lazy.list.items
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
+import androidx.tv.material3.DrawerValue
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.MaterialTheme
+import androidx.tv.material3.NavigationDrawer
+import androidx.tv.material3.NavigationDrawerItem
+import androidx.tv.material3.NavigationDrawerItemDefaults
 import androidx.tv.material3.Text
+import androidx.tv.material3.rememberDrawerState
 import tv.brunstad.app.data.ShowBookmarkItem
 import tv.brunstad.app.graphql.GetMyListQuery
 import tv.brunstad.app.graphql.GetPageQuery
@@ -143,17 +148,12 @@ fun HomeScreen(
 
     val profileState by profileViewModel.state.collectAsState()
     val activeInitials = profileState.profiles.find { it.userId == profileState.activeProfileId }?.initials
-    var navExpanded by remember { mutableStateOf(false) }
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
     val homeCode = state.navItems.firstOrNull { it.icon == NavIcon.HOME }?.code ?: ""
     val navFocusRequester = remember { FocusRequester() }
-    // Intercept back only when there's something to do before exiting:
-    // 1. Nav hidden → focus the nav column (its onFocusChanged sets navExpanded=true,
-    //    and Compose routes focus to the selected child automatically)
-    // 2. Nav shown + not on Home → go Home, keep nav open
-    // When nav is shown and Home is already selected, enabled=false lets the system exit the app.
-    BackHandler(enabled = !navExpanded || state.selectedCode != homeCode) {
-        if (!navExpanded) {
+    BackHandler(enabled = drawerState.currentValue == DrawerValue.Closed || state.selectedCode != homeCode) {
+        if (drawerState.currentValue == DrawerValue.Closed) {
             runCatching { navFocusRequester.requestFocus() }
         } else {
             viewModel.selectPage(homeCode)
@@ -170,11 +170,6 @@ fun HomeScreen(
     val contentFocusRequester = remember { FocusRequester() }
     val searchBarFocusRequester = remember { FocusRequester() }
     val myListFocusRequester = remember { FocusRequester() }
-
-    val navItemFocusRequesters = remember(state.navItems.size) {
-        List(state.navItems.size) { FocusRequester() }
-    }
-    val selectedNavIndex = state.navItems.indexOfFirst { it.code == state.selectedCode }
 
     // One FocusRequester per section (points to the first card of that section row).
     val sections = state.pages[state.selectedCode]?.sections ?: emptyList()
@@ -205,19 +200,9 @@ fun HomeScreen(
     // Full-screen hero background image — set by HeroSection when it has focus
     var heroBackground by remember(state.selectedCode) { mutableStateOf<String?>(null) }
 
-    val navWidth by animateDpAsState(
-        targetValue = if (navExpanded) 190.dp else 68.dp,
-        animationSpec = tween(durationMillis = 200),
-        label = "navWidth"
-    )
-    val scrimAlpha by animateFloatAsState(
-        targetValue = if (navExpanded) 0.35f else 0f,
-        animationSpec = tween(durationMillis = 200),
-        label = "scrimAlpha"
-    )
-    // Only show text in nav items once the column is wide enough — prevents flicker
-    // where text appears while the column is still animating from the narrow width.
-    val itemsExpanded = navWidth > 150.dp
+    val context = LocalContext.current
+    val density = LocalDensity.current
+    var contentHeightPx by remember { mutableStateOf(context.resources.displayMetrics.heightPixels) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Full-screen hero background — crossfades between images as focus moves through hero cards
@@ -229,7 +214,6 @@ fun HomeScreen(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
                 )
-                // Gradient: transparent top half, fades to black on bottom half
                 Box(
                     Modifier.fillMaxSize().background(
                         Brush.verticalGradient(
@@ -242,153 +226,153 @@ fun HomeScreen(
             }
         }
 
-        // Content — always full width; left padding keeps it clear of the collapsed icon strip
-        // Initialize with displayMetrics height so the hero has a real size on frame 1,
-        // preventing TvLazyColumn from auto-scrolling to section rows before hero loads.
-        val context = LocalContext.current
-        val density = LocalDensity.current
-        var contentHeightPx by remember { mutableStateOf(context.resources.displayMetrics.heightPixels) }
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(start = 68.dp)
-                .focusRequester(contentFocusRequester)
-                .onSizeChanged { size ->
-                    contentHeightPx = size.height
-                }
-        ) {
-            val isMyList = state.selectedCode == MY_LIST_CODE
-            val isSearchPage = state.selectedCode == state.searchPageCode
-            val pageState = state.pages[state.selectedCode]
-            when {
-                isMyList -> {
-                    LaunchedEffect(Unit) {
-                        myListViewModel.reload()
-                        try { myListFocusRequester.requestFocus() } catch (_: Exception) {}
-                    }
-                    MyListContent(
-                        viewModel = myListViewModel,
-                        title = if (state.language == "en") stringResource(R.string.nav_bookmarks) else state.myListTitle.titleCaseForLanguage(state.language),
-                        firstRowFocusRequester = myListFocusRequester,
-                        onEpisodeClick = onEpisodeClick,
-                        onShowClick = onShowClick
-                    )
-                }
-                pageState == null || pageState.isLoading ->
-                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text(stringResource(R.string.loading), fontSize = 20.sp)
-                    }
-                pageState.error != null ->
-                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text(stringResource(R.string.error_prefix, pageState.error ?: ""), fontSize = 18.sp)
-                    }
-                isSearchPage -> {
-                    LaunchedEffect(state.selectedCode) { searchBarFocusRequester.requestFocus() }
-                    SearchContent(
-                        query = state.searchQuery,
-                        onQueryChange = { viewModel.onSearchQuery(it) },
-                        isSearching = state.isSearching,
-                        searchResults = state.searchResults,
-                        searchError = state.searchError,
-                        pageSections = pageState.sections,
-                        language = state.language,
-                        searchBarFocusRequester = searchBarFocusRequester,
-                        onEpisodeClick = onEpisodeClick,
-                        onPageClick = onPageClick,
-                        onSeasonClick = onSeasonClick,
-                        onShowClick = onShowClick,
-                        onPersonClick = onPersonClick,
-                        onSearchResultClicked = { position, type, id ->
-                            viewModel.trackSearchResultClicked(position, type, id, "search")
+        NavigationDrawer(
+            drawerState = drawerState,
+            modifier = Modifier.focusRequester(navFocusRequester),
+            drawerContent = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(vertical = 16.dp)
+                ) {
+                    NavigationDrawerItem(
+                        selected = false,
+                        onClick = onProfileClick,
+                        leadingContent = {
+                            if (activeInitials != null) {
+                                ProfileInitialsBadge(initials = activeInitials, sizeDp = 28)
+                            } else {
+                                androidx.compose.foundation.Image(
+                                    painter = painterResource(R.drawable.bcc_icon),
+                                    contentDescription = "BCC Media",
+                                    modifier = Modifier.size(26.dp)
+                                )
+                            }
+                        },
+                        content = {
+                            androidx.compose.foundation.Image(
+                                painter = painterResource(R.drawable.bcc_logo),
+                                contentDescription = "BCC Media",
+                                modifier = Modifier.height(20.dp).aspectRatio(129f / 20f)
+                            )
                         }
                     )
-                }
-                else -> {
-                    LaunchedEffect(state.selectedCode) { contentFocusRequester.requestFocus() }
-                    val heroHeight = with(density) { (contentHeightPx * 0.8f).toDp() }
-                    PageContent(
-                        sections = pageState.sections,
-                        heroHeight = heroHeight,
-                        preferGrid = state.selectedCode != "frontpage",
-                        pageTitle = pageState.pageTitle,
-                        language = state.language,
-                        sectionFocusRequesters = sectionFocusRequesters,
-                        onSectionFocused = { index -> lastFocusedSectionIndex = index },
-                        onHeroFocusChanged = { _, url -> heroBackground = url },
-                        onEpisodeClick = onEpisodeClick,
-                        onPageClick = onPageClick,
-                        onSeasonClick = onSeasonClick,
-                        onShowClick = onShowClick,
-                        onPersonClick = onPersonClick,
-                        onSectionItemClicked = { sectionIndex, sectionId, sectionName, sectionType, elementIndex, elementType, elementId, elementName ->
-                            viewModel.trackSectionClicked(sectionId, sectionName, sectionIndex, sectionType, elementIndex, elementType, elementId, elementName)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    state.navItems.forEach { item ->
+                        val isSelected = item.code == state.selectedCode
+                        val navTitle = when (item.icon) {
+                            NavIcon.HOME -> stringResource(R.string.nav_home)
+                            NavIcon.SEARCH -> stringResource(R.string.nav_search)
+                            NavIcon.BOOKMARK -> stringResource(R.string.nav_bookmarks)
+                            else -> item.title.titleCaseForLanguage(state.language)
                         }
+                        NavigationDrawerItem(
+                            selected = isSelected,
+                            onClick = { viewModel.selectPage(item.code) },
+                            leadingContent = {
+                                item.icon.vector()?.let { vec ->
+                                    Icon(
+                                        imageVector = vec,
+                                        contentDescription = navTitle,
+                                        modifier = Modifier.size(24.dp)
+                                    )
+                                }
+                            },
+                            content = { Text(navTitle) }
+                        )
+                    }
+                    Spacer(modifier = Modifier.weight(1f))
+                    NavigationDrawerItem(
+                        selected = false,
+                        onClick = onSettingsClick,
+                        leadingContent = {
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = stringResource(R.string.nav_settings),
+                                modifier = Modifier.size(24.dp)
+                            )
+                        },
+                        content = { Text(stringResource(R.string.nav_settings)) }
                     )
                 }
             }
-        }
-
-        // Scrim — fades in over content when nav is expanded
-        if (scrimAlpha > 0f) {
-            Box(modifier = Modifier.fillMaxSize().background(Color.Black.copy(alpha = scrimAlpha)))
-        }
-
-        // Nav — overlay on the left, drawn on top of content and scrim
-        Column(
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(navWidth)
-                .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.82f))
-                .padding(vertical = 16.dp)
-                .focusRequester(navFocusRequester)
-                .onFocusChanged { fs -> navExpanded = fs.hasFocus }
-                .onKeyEvent { event ->
-                    if (event.type != KeyEventType.KeyDown || event.key != Key.DirectionRight)
-                        return@onKeyEvent false
-                    when {
-                        state.selectedCode == state.searchPageCode ->
-                            searchBarFocusRequester.requestFocus()
-                        state.selectedCode == MY_LIST_CODE ->
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .focusRequester(contentFocusRequester)
+                    .onSizeChanged { size -> contentHeightPx = size.height }
+            ) {
+                val isMyList = state.selectedCode == MY_LIST_CODE
+                val isSearchPage = state.selectedCode == state.searchPageCode
+                val pageState = state.pages[state.selectedCode]
+                when {
+                    isMyList -> {
+                        LaunchedEffect(Unit) {
+                            myListViewModel.reload()
                             try { myListFocusRequester.requestFocus() } catch (_: Exception) {}
-                        else -> {
-                            val idx = lastFocusedSectionIndex ?: 0
-                            try {
-                                sectionFocusRequesters.getOrNull(idx)?.requestFocus()
-                            } catch (_: Exception) {}
                         }
+                        MyListContent(
+                            viewModel = myListViewModel,
+                            title = if (state.language == "en") stringResource(R.string.nav_bookmarks) else state.myListTitle.titleCaseForLanguage(state.language),
+                            firstRowFocusRequester = myListFocusRequester,
+                            onEpisodeClick = onEpisodeClick,
+                            onShowClick = onShowClick
+                        )
                     }
-                    true
+                    pageState == null || pageState.isLoading ->
+                        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                            Text(stringResource(R.string.loading), fontSize = 20.sp)
+                        }
+                    pageState.error != null ->
+                        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                            Text(stringResource(R.string.error_prefix, pageState.error ?: ""), fontSize = 18.sp)
+                        }
+                    isSearchPage -> {
+                        LaunchedEffect(state.selectedCode) { searchBarFocusRequester.requestFocus() }
+                        SearchContent(
+                            query = state.searchQuery,
+                            onQueryChange = { viewModel.onSearchQuery(it) },
+                            isSearching = state.isSearching,
+                            searchResults = state.searchResults,
+                            searchError = state.searchError,
+                            pageSections = pageState.sections,
+                            language = state.language,
+                            searchBarFocusRequester = searchBarFocusRequester,
+                            onEpisodeClick = onEpisodeClick,
+                            onPageClick = onPageClick,
+                            onSeasonClick = onSeasonClick,
+                            onShowClick = onShowClick,
+                            onPersonClick = onPersonClick,
+                            onSearchResultClicked = { position, type, id ->
+                                viewModel.trackSearchResultClicked(position, type, id, "search")
+                            }
+                        )
+                    }
+                    else -> {
+                        LaunchedEffect(state.selectedCode) { contentFocusRequester.requestFocus() }
+                        val heroHeight = with(density) { (contentHeightPx * 0.8f).toDp() }
+                        PageContent(
+                            sections = pageState.sections,
+                            heroHeight = heroHeight,
+                            preferGrid = state.selectedCode != "frontpage",
+                            pageTitle = pageState.pageTitle,
+                            language = state.language,
+                            sectionFocusRequesters = sectionFocusRequesters,
+                            onSectionFocused = { index -> lastFocusedSectionIndex = index },
+                            onHeroFocusChanged = { _, url -> heroBackground = url },
+                            onEpisodeClick = onEpisodeClick,
+                            onPageClick = onPageClick,
+                            onSeasonClick = onSeasonClick,
+                            onShowClick = onShowClick,
+                            onPersonClick = onPersonClick,
+                            onSectionItemClicked = { sectionIndex, sectionId, sectionName, sectionType, elementIndex, elementType, elementId, elementName ->
+                                viewModel.trackSectionClicked(sectionId, sectionName, sectionIndex, sectionType, elementIndex, elementType, elementId, elementName)
+                            }
+                        )
+                    }
                 }
-        ) {
-            NavLogo(expanded = itemsExpanded, activeInitials = activeInitials, onClick = onProfileClick)
-            Spacer(modifier = Modifier.height(8.dp))
-            state.navItems.forEachIndexed { index, item ->
-                val isSelected = item.code == state.selectedCode
-                val navTitle = when (item.icon) {
-                    NavIcon.HOME -> stringResource(R.string.nav_home)
-                    NavIcon.SEARCH -> stringResource(R.string.nav_search)
-                    NavIcon.BOOKMARK -> stringResource(R.string.nav_bookmarks)
-                    else -> item.title.titleCaseForLanguage(state.language)
-                }
-                NavRailItem(
-                    title = navTitle,
-                    icon = item.icon,
-                    selected = isSelected,
-                    expanded = itemsExpanded,
-                    focusable = navExpanded || isSelected,
-                    focusRequester = navItemFocusRequesters.getOrNull(index),
-                    onClick = { viewModel.selectPage(item.code) }
-                )
             }
-            Spacer(modifier = Modifier.weight(1f))
-            NavRailItem(
-                title = stringResource(R.string.nav_settings),
-                icon = NavIcon.SETTINGS,
-                selected = false,
-                expanded = itemsExpanded,
-                focusable = navExpanded,
-                onClick = onSettingsClick
-            )
         }
     }
 }
@@ -545,68 +529,6 @@ private fun ProfileInitialsBadge(initials: String, sizeDp: Int) {
             fontSize = (sizeDp * 0.38f).sp,
             color = MaterialTheme.colorScheme.onPrimary
         )
-    }
-}
-
-@OptIn(ExperimentalTvMaterial3Api::class)
-@Composable
-private fun NavRailItem(
-    title: String,
-    icon: NavIcon,
-    selected: Boolean,
-    expanded: Boolean,
-    focusable: Boolean = true,
-    focusRequester: FocusRequester? = null,
-    onClick: () -> Unit
-) {
-    var focused by remember { mutableStateOf(false) }
-
-    val background = when {
-        selected && focused -> MaterialTheme.colorScheme.primary.copy(alpha = 0.30f)
-        selected -> MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
-        focused  -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.15f)
-        else     -> Color.Transparent
-    }
-    val tint = when {
-        selected && focused -> MaterialTheme.colorScheme.primary
-        selected -> MaterialTheme.colorScheme.primary.copy(alpha = 0.55f)
-        focused  -> MaterialTheme.colorScheme.onSurface
-        else     -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-    }
-
-    val rowModifier = Modifier
-        .fillMaxWidth()
-        .padding(horizontal = 8.dp, vertical = 1.dp)
-        .background(background, shape = MaterialTheme.shapes.small)
-        .focusProperties { canFocus = focusable }
-        .onFocusChanged { focused = it.isFocused }
-        .clickable(onClick = onClick)
-        .padding(vertical = 6.dp)
-        .let { if (focusRequester != null) it.focusRequester(focusRequester) else it }
-
-    Row(
-        modifier = rowModifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        // Fixed-width icon zone = collapsed column width minus outer padding (68 - 16 = 52dp).
-        // Icon is always centred here, so it never moves when the menu expands/collapses.
-        Box(
-            modifier = Modifier.width(52.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            icon.vector()?.let {
-                Icon(
-                    imageVector = it,
-                    contentDescription = title,
-                    tint = tint,
-                    modifier = Modifier.size(28.dp)
-                )
-            }
-        }
-        if (expanded) {
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = title, style = MaterialTheme.typography.bodyMedium, color = tint)
-        }
     }
 }
 
