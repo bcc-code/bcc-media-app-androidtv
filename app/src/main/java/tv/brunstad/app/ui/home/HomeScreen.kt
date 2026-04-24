@@ -266,7 +266,7 @@ fun HomeScreen(
                                     Text(
                                         text = stringResource(R.string.settings_switch_account),
                                         style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        color = androidx.tv.material3.LocalContentColor.current.copy(alpha = 0.7f),
                                         maxLines = 1
                                     )
                                 }
