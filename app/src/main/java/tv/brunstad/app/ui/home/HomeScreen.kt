@@ -846,6 +846,7 @@ internal fun PageContent(
     TvLazyColumn(
         state = listState,
         contentPadding = PaddingValues(bottom = 24.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier.fillMaxSize()
     ) {
         if (showFallbackTitle) {
