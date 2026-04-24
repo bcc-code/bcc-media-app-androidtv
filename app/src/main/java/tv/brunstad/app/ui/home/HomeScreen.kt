@@ -28,6 +28,7 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.shape.CircleShape
@@ -147,7 +148,8 @@ fun HomeScreen(
     }
 
     val profileState by profileViewModel.state.collectAsState()
-    val activeInitials = profileState.profiles.find { it.userId == profileState.activeProfileId }?.initials
+    val activeProfile = profileState.profiles.find { it.userId == profileState.activeProfileId }
+    val activeInitials = activeProfile?.initials
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
     val homeCode = state.navItems.firstOrNull { it.icon == NavIcon.HOME }?.code ?: ""
@@ -239,22 +241,41 @@ fun HomeScreen(
                         selected = false,
                         onClick = onProfileClick,
                         leadingContent = {
-                            if (activeInitials != null) {
-                                ProfileInitialsBadge(initials = activeInitials, sizeDp = 28)
+                            if (activeProfile != null) {
+                                ProfileInitialsBadge(
+                                    initials = activeInitials ?: "?",
+                                    sizeDp = 32
+                                )
                             } else {
-                                androidx.compose.foundation.Image(
-                                    painter = painterResource(R.drawable.bcc_icon),
-                                    contentDescription = "BCC Media",
-                                    modifier = Modifier.size(26.dp)
+                                Icon(
+                                    imageVector = Icons.Default.Person,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(32.dp)
                                 )
                             }
                         },
                         content = {
-                            androidx.compose.foundation.Image(
-                                painter = painterResource(R.drawable.bcc_logo),
-                                contentDescription = "BCC Media",
-                                modifier = Modifier.height(20.dp).aspectRatio(129f / 20f)
-                            )
+                            if (activeProfile != null) {
+                                Column {
+                                    Text(
+                                        text = activeProfile.displayName,
+                                        style = MaterialTheme.typography.titleSmall,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                    Text(
+                                        text = stringResource(R.string.settings_switch_account),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        maxLines = 1
+                                    )
+                                }
+                            } else {
+                                Text(
+                                    text = stringResource(R.string.login_sign_in_title),
+                                    style = MaterialTheme.typography.titleSmall
+                                )
+                            }
                         }
                     )
                     Spacer(modifier = Modifier.height(8.dp))
