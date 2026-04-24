@@ -21,6 +21,7 @@ okhttp = "4.12.0"
 zxing = "3.5.3"
 npaw = "7.3.27"
 rudderstack = "1.0.0"
+sentry = "8.13.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -54,6 +55,7 @@ tvprovider = { group = "androidx.tvprovider", name = "tvprovider", version = "1.
 npaw-plugin = { group = "com.npaw.plugin", name = "plugin", version.ref = "npaw" }
 npaw-media3-exoplayer = { module = "com.npaw.plugin:plugin-media3-exoplayer", version = "1.4.1-7.3.27" }
 rudderstack-android = { group = "com.rudderstack.sdk.kotlin", name = "android", version.ref = "rudderstack" }
+sentry-android = { group = "io.sentry", name = "sentry-android", version.ref = "sentry" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

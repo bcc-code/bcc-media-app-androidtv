@@ -5,12 +5,23 @@ import com.npaw.NpawPluginProvider
 import com.npaw.core.options.AnalyticsOptions
 import com.npaw.core.util.extensions.Log
 import dagger.hilt.android.HiltAndroidApp
+import io.sentry.android.core.SentryAndroid
 import tv.brunstad.app.data.AnalyticsManager
 
 @HiltAndroidApp
 class BccMediaApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+
+        if (BuildConfig.SENTRY_DSN.isNotEmpty()) {
+            SentryAndroid.init(this) { options ->
+                options.dsn = BuildConfig.SENTRY_DSN
+                options.release = BuildConfig.VERSION_NAME
+                options.isAnrEnabled = true
+                options.environment = if (BuildConfig.DEBUG) "development" else "production"
+            }
+        }
+
         val options = AnalyticsOptions().apply {
             isAutoDetectBackground = true
             isParseManifest = true

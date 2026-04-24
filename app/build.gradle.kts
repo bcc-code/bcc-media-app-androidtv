@@ -39,6 +39,7 @@ android {
     defaultConfig.buildConfigField("String", "NPAW_ACCOUNT_CODE", "\"${localProps.getProperty("npaw.accountCode", "")}\"")
     defaultConfig.buildConfigField("String", "RUDDERSTACK_WRITE_KEY", "\"${localProps.getProperty("rudderstack.writeKey", "")}\"")
     defaultConfig.buildConfigField("String", "RUDDERSTACK_DATA_PLANE_URL", "\"${localProps.getProperty("rudderstack.dataPlaneUrl", "")}\"")
+    defaultConfig.buildConfigField("String", "SENTRY_DSN", "\"${localProps.getProperty("sentry.dsn", "")}\"")
 
     buildTypes {
         release {
@@ -128,6 +129,9 @@ dependencies {
 
     // Rudderstack Analytics
     implementation(libs.rudderstack.android)
+
+    // Sentry
+    implementation(libs.sentry.android)
 
     // NPAW Video Analytics
     implementation(libs.npaw.plugin)

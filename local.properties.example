@@ -6,3 +6,4 @@ signing.keyPassword=CHANGE_ME
 npaw.accountCode=
 rudderstack.writeKey=
 rudderstack.dataPlaneUrl=https://rs.bcc.media/
+sentry.dsn=
