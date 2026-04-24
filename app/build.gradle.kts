@@ -159,6 +159,8 @@ sentry {
 }
 
 // Sentry source-context tasks scan Apollo generated sources but don't declare the dependency
-tasks.matching { it.name.startsWith("generateSentryBundleId") }.configureEach {
+tasks.matching {
+    it.name.startsWith("generateSentryBundleId") || it.name.startsWith("sentryCollectSources")
+}.configureEach {
     dependsOn(tasks.matching { it.name.startsWith("generateBccmediaApollo") })
 }
