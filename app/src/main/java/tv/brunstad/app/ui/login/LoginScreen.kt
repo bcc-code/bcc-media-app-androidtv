@@ -62,29 +62,39 @@ fun LoginScreen(
 
                 is LoginUiState.ShowCode -> {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(64.dp),
+                        horizontalArrangement = Arrangement.spacedBy(72.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(48.dp)
                     ) {
-                        QrCode(content = s.verificationUriComplete, modifier = Modifier.size(240.dp))
+                        QrCode(content = s.verificationUriComplete, modifier = Modifier.size(260.dp))
 
-                        Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                        Column {
                             Text(
                                 text = stringResource(R.string.login_sign_in_title),
                                 style = MaterialTheme.typography.headlineLarge
                             )
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Text(stringResource(R.string.login_scan_qr), fontSize = 20.sp)
+                            Spacer(modifier = Modifier.height(32.dp))
+                            Text(
+                                text = stringResource(R.string.login_scan_qr),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
                             Text(
                                 text = stringResource(R.string.login_site),
                                 style = MaterialTheme.typography.titleLarge
                             )
+                            Spacer(modifier = Modifier.height(28.dp))
+                            Text(
+                                text = stringResource(R.string.login_enter_code),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                            )
                             Spacer(modifier = Modifier.height(8.dp))
-                            Text(stringResource(R.string.login_enter_code), fontSize = 20.sp)
                             Text(
                                 text = s.userCode,
-                                fontSize = 56.sp,
-                                letterSpacing = 6.sp,
+                                fontSize = 48.sp,
+                                letterSpacing = 8.sp,
                                 style = MaterialTheme.typography.displaySmall
                             )
                         }

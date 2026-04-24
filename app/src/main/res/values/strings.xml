@@ -56,7 +56,7 @@
     <!-- Login screen -->
     <string name="login_sign_in_title">Sign in to BCC Media</string>
     <string name="login_scan_qr">Scan the QR code, or go to:</string>
-    <string name="login_site">web.brunstad.tv/tvlogin</string>
+    <string name="login_site">login.bcc.no/activate</string>
     <string name="login_enter_code">And enter this code:</string>
     <string name="login_failed">Login failed: %s</string>
     <string name="login_try_again">Try again</string>
