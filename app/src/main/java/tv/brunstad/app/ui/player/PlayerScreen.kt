@@ -237,11 +237,16 @@ fun PlayerScreen(
 
         // Episode info overlay — shown when player controls are visible, sits above the PlayerView
         if (controlsVisible && (uiState.showTitle != null || uiState.episodeTitle != null)) {
+            androidx.tv.material3.Surface(
+                modifier = Modifier.padding(start = 32.dp, top = 32.dp),
+                shape = RoundedCornerShape(8.dp),
+                colors = androidx.tv.material3.SurfaceDefaults.colors(
+                    containerColor = Color.Black.copy(alpha = 0.5f),
+                    contentColor = Color.White
+                )
+            ) {
             Column(
-                modifier = Modifier
-                    .padding(start = 32.dp, top = 32.dp)
-                    .background(Color.Black.copy(alpha = 0.5f), shape = RoundedCornerShape(8.dp))
-                    .padding(horizontal = 16.dp, vertical = 10.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
             ) {
                 val seasonLabel = uiState.seasonTitle
                     ?: uiState.seasonNumber?.let { stringResource(R.string.season_label, it) }
@@ -261,6 +266,7 @@ fun PlayerScreen(
                 currentChapterTitle?.let {
                     Text(it, style = MaterialTheme.typography.bodyLarge, color = Color.White.copy(alpha = 0.6f))
                 }
+            }
             }
         }
 

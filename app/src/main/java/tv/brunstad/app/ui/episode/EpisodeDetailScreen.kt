@@ -141,24 +141,29 @@ fun EpisodeDetailScreen(
                             modifier = Modifier.fillMaxSize(),
                             contentAlignment = Alignment.BottomCenter
                         ) {
-                            Row(
-                                modifier = Modifier
-                                    .padding(bottom = 48.dp)
-                                    .background(Color.Black.copy(alpha = 0.75f), shape = RoundedCornerShape(8.dp))
-                                    .padding(horizontal = 24.dp, vertical = 12.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(24.dp)
-                            ) {
-                                Text(
-                                    text = stringResource(R.string.playing_in_seconds, autoPlayCountdown!!),
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    color = Color.White
+                            Surface(
+                                modifier = Modifier.padding(bottom = 48.dp),
+                                shape = RoundedCornerShape(8.dp),
+                                colors = androidx.tv.material3.SurfaceDefaults.colors(
+                                    containerColor = Color.Black.copy(alpha = 0.75f),
+                                    contentColor = Color.White
                                 )
-                                Button(
-                                    onClick = { viewModel.cancelAutoPlay() },
-                                    modifier = Modifier.focusRequester(cancelFocusRequester)
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(24.dp)
                                 ) {
-                                    Text(stringResource(R.string.cancel))
+                                    Text(
+                                        text = stringResource(R.string.playing_in_seconds, autoPlayCountdown!!),
+                                        style = MaterialTheme.typography.bodyLarge
+                                    )
+                                    Button(
+                                        onClick = { viewModel.cancelAutoPlay() },
+                                        modifier = Modifier.focusRequester(cancelFocusRequester)
+                                    ) {
+                                        Text(stringResource(R.string.cancel))
+                                    }
                                 }
                             }
                         }

@@ -487,54 +487,6 @@ private fun MyListContent(
     }
 }
 
-@Composable
-private fun NavLogo(expanded: Boolean, activeInitials: String?, onClick: () -> Unit) {
-    var focused by remember { mutableStateOf(false) }
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(44.dp)
-            .padding(horizontal = 8.dp, vertical = 2.dp)
-            .border(
-                width = if (focused) 2.dp else 0.dp,
-                color = if (focused) MaterialTheme.colorScheme.primary else Color.Transparent,
-                shape = MaterialTheme.shapes.small
-            )
-            .background(Color.Transparent, shape = MaterialTheme.shapes.small)
-            .onFocusChanged { focused = it.isFocused }
-            .clickable { onClick() },
-        contentAlignment = Alignment.Center
-    ) {
-        if (expanded) {
-            androidx.compose.foundation.layout.Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                androidx.compose.foundation.Image(
-                    painter = painterResource(R.drawable.bcc_logo),
-                    contentDescription = "BCC Media",
-                    modifier = Modifier.weight(1f).aspectRatio(129f / 20f)
-                )
-                if (activeInitials != null) {
-                    Spacer(Modifier.width(6.dp))
-                    ProfileInitialsBadge(initials = activeInitials, sizeDp = 28)
-                }
-            }
-        } else {
-            if (activeInitials != null) {
-                ProfileInitialsBadge(initials = activeInitials, sizeDp = 32)
-            } else {
-                androidx.compose.foundation.Image(
-                    painter = painterResource(R.drawable.bcc_icon),
-                    contentDescription = "BCC Media",
-                    modifier = Modifier.size(26.dp)
-                )
-            }
-        }
-    }
-}
-
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 private fun ProfileInitialsBadge(initials: String, sizeDp: Int) {
