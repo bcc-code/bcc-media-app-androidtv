@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.apollo)
+
+    id("io.sentry.android.gradle") version "6.5.0"
 }
 
 android {
@@ -144,4 +146,19 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+}
+
+
+sentry {
+    org.set("bcc-media-sti")
+    projectName.set("bccm-androidtv")
+
+    // this will upload your source code to Sentry to show it as part of the stack traces
+    // disable if you don't want to expose your sources
+    includeSourceContext.set(true)
+}
+
+// Sentry source-context tasks scan Apollo generated sources but don't declare the dependency
+tasks.matching { it.name.startsWith("generateSentryBundleId") }.configureEach {
+    dependsOn(tasks.matching { it.name.startsWith("generateBccmediaApollo") })
 }

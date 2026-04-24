@@ -14,6 +14,7 @@ blocks:
         - name: android-play-store-api-linux
         - name: android-npaw
         - name: android-rudderstack
+        - name: android-sentry
       prologue:
         commands:
           - checkout
@@ -44,6 +45,7 @@ blocks:
               npaw.accountCode=$NPAW_ACCOUNT_CODE
               rudderstack.writeKey=$RUDDERSTACK_WRITE_KEY
               rudderstack.dataPlaneUrl=$RUDDERSTACK_DATA_PLANE_URL
+              sentry.dsn=$SENTRY_DSN
               EOF
             - echo "NPAW_ACCOUNT_CODE is $([ -n \"$NPAW_ACCOUNT_CODE\" ] && echo 'set' || echo 'EMPTY')"
             - grep npaw local.properties | sed 's/=.*/=***/'

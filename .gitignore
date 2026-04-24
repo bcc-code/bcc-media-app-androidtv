@@ -26,3 +26,6 @@ local.properties
 /.bundle/
 vendor/bundle/
 /fastlane/.next_version_code
+
+# Sentry Config File
+sentry.properties
