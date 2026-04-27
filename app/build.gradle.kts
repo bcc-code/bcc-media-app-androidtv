@@ -20,7 +20,7 @@ android {
 
     defaultConfig {
         applicationId = "tv.brunstad.app"
-        minSdk = 23
+        minSdk = 24
         targetSdk = 36
         val buildNumber = (findProperty("buildNumber") as? String)?.toInt() ?: 2300258
         versionCode = buildNumber
