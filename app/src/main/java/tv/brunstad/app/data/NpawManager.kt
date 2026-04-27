@@ -29,27 +29,14 @@ class NpawManager @Inject constructor() {
         opts.username = anonymousId
     }
 
-    @androidx.media3.common.util.UnstableApi
     fun startVideoAdapter(context: Context, player: ExoPlayer) {
         stopVideoAdapter()
         if (!isAvailable) return
         val plugin = NpawPluginProvider.getInstance() ?: return
         try {
-            val adapter = Media3ExoPlayerAdapter(context, player)
             videoAdapter = plugin.videoBuilder()
-                .setPlayerAdapter(adapter)
+                .setPlayerAdapter(Media3ExoPlayerAdapter(context, player))
                 .build()
-
-            // NPAW's Media3ExoPlayerAdapter registers itself as an AnalyticsListener.
-            // If compiled against an older Media3 version, it may not implement newer
-            // interface methods (e.g. onSurfaceSizeChanged), causing a fatal
-            // AbstractMethodError when ExoPlayer dispatches that event.
-            // Remove it immediately — NPAW still tracks via Player.Listener which
-            // is a separate, compatible interface.
-            if (adapter is androidx.media3.exoplayer.analytics.AnalyticsListener) {
-                player.removeAnalyticsListener(adapter)
-                android.util.Log.i("NpawManager", "Removed NPAW AnalyticsListener to prevent AbstractMethodError")
-            }
         } catch (e: Exception) {
             android.util.Log.e("NpawManager", "Failed to start video adapter", e)
             videoAdapter = null
