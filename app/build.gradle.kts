@@ -138,8 +138,7 @@ dependencies {
     // NPAW Video Analytics
     implementation(libs.npaw.plugin)
     implementation(libs.npaw.media3.exoplayer) {
-        exclude(group = "androidx.media3", module = "media3-exoplayer")
-        exclude(group = "androidx.media3", module = "media3-datasource")
+        exclude(group = "androidx.media3")
     }
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
