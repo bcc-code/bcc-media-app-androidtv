@@ -22,6 +22,19 @@ class BccMediaApplication : Application() {
             }
         }
 
+        // Catch AbstractMethodError from NPAW's Media3 adapter (compiled against older
+        // AnalyticsListener interface missing onSurfaceSizeChanged). Without this the
+        // app would crash during video playback on affected devices.
+        val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            if (throwable is AbstractMethodError && throwable.message?.contains("AnalyticsListener") == true) {
+                android.util.Log.e("BccMediaApplication",
+                    "Caught NPAW/Media3 AbstractMethodError — suppressing crash", throwable)
+            } else {
+                defaultHandler?.uncaughtException(thread, throwable)
+            }
+        }
+
         val options = AnalyticsOptions().apply {
             isAutoDetectBackground = true
             isParseManifest = true
