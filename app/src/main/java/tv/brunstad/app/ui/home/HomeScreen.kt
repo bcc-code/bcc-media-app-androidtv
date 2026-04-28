@@ -81,6 +81,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.tv.foundation.PivotOffsets
 import androidx.tv.foundation.lazy.list.TvLazyColumn
 import androidx.tv.foundation.lazy.list.TvLazyListState
 import androidx.tv.foundation.lazy.list.TvLazyRow
@@ -1184,7 +1185,11 @@ internal fun SectionRow(
                 modifier = Modifier.padding(start = 48.dp, bottom = 16.dp)
             )
         }
-        TvLazyRow(contentPadding = PaddingValues(horizontal = 48.dp)) {
+        @Suppress("DEPRECATION")
+        TvLazyRow(
+            pivotOffsets = if (cardStyle == CardStyle.SQUARE) PivotOffsets(0f, 0f) else PivotOffsets(),
+            contentPadding = PaddingValues(horizontal = 48.dp)
+        ) {
             items(cards.size) { index ->
                 val card = cards[index]
                 val isPageLink = card.pageCode != null && card.imageUrl == null
