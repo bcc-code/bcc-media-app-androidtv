@@ -35,7 +35,7 @@
     <string name="results_count_plural">%d találat</string>
     <string name="login_sign_in_title">Bejelentkezés a BCC Mediába</string>
     <string name="login_scan_qr">Szkennelje be a QR-kódot, vagy látogasson el ide:</string>
-    <string name="login_site">web.brunstad.tv/tvlogin</string>
+    <string name="login_site">login.bcc.no/activate</string>
     <string name="login_enter_code">És adja meg ezt a kódot:</string>
     <string name="login_failed">Bejelentkezés sikertelen: %s</string>
     <string name="login_try_again">Próbálja újra</string>

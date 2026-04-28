@@ -35,7 +35,7 @@
     <string name="results_count_plural">%d rezultate</string>
     <string name="login_sign_in_title">Conectează-te la BCC Media</string>
     <string name="login_scan_qr">Scanează codul QR sau accesează:</string>
-    <string name="login_site">web.brunstad.tv/tvlogin</string>
+    <string name="login_site">login.bcc.no/activate</string>
     <string name="login_enter_code">Și introdu acest cod:</string>
     <string name="login_failed">Autentificare eșuată: %s</string>
     <string name="login_try_again">Încearcă din nou</string>

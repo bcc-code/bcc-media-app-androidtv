@@ -35,7 +35,7 @@
     <string name="results_count_plural">%d resultados</string>
     <string name="login_sign_in_title">Entrar no BCC Media</string>
     <string name="login_scan_qr">Digitalize o código QR ou acesse:</string>
-    <string name="login_site">web.brunstad.tv/tvlogin</string>
+    <string name="login_site">login.bcc.no/activate</string>
     <string name="login_enter_code">E insira este código:</string>
     <string name="login_failed">Falha no login: %s</string>
     <string name="login_try_again">Tentar novamente</string>

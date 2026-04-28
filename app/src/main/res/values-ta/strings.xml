@@ -35,7 +35,7 @@
     <string name="results_count_plural">%d முடிவுகள்</string>
     <string name="login_sign_in_title">BCC Media இல் உள்நுழைய</string>
     <string name="login_scan_qr">QR குறியீட்டை ஸ்கேன் செய்யுங்கள் அல்லது இங்கே செல்லுங்கள்:</string>
-    <string name="login_site">web.brunstad.tv/tvlogin</string>
+    <string name="login_site">login.bcc.no/activate</string>
     <string name="login_enter_code">இந்த குறியீட்டை உள்ளிடுங்கள்:</string>
     <string name="login_failed">உள்நுழைவு தோல்வியடைந்தது: %s</string>
     <string name="login_try_again">மீண்டும் முயற்சிக்கவும்</string>

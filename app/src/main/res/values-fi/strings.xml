@@ -35,7 +35,7 @@
     <string name="results_count_plural">%d tulosta</string>
     <string name="login_sign_in_title">Kirjaudu BCC Mediaan</string>
     <string name="login_scan_qr">Skannaa QR-koodi tai mene osoitteeseen:</string>
-    <string name="login_site">web.brunstad.tv/tvlogin</string>
+    <string name="login_site">login.bcc.no/activate</string>
     <string name="login_enter_code">Ja syötä tämä koodi:</string>
     <string name="login_failed">Kirjautuminen epäonnistui: %s</string>
     <string name="login_try_again">Yritä uudelleen</string>

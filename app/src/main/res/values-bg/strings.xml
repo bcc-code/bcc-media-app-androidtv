@@ -35,7 +35,7 @@
     <string name="results_count_plural">%d резултата</string>
     <string name="login_sign_in_title">Влезте в BCC Media</string>
     <string name="login_scan_qr">Сканирайте QR кода или отидете на:</string>
-    <string name="login_site">web.brunstad.tv/tvlogin</string>
+    <string name="login_site">login.bcc.no/activate</string>
     <string name="login_enter_code">И въведете този код:</string>
     <string name="login_failed">Входът не беше успешен: %s</string>
     <string name="login_try_again">Опитайте отново</string>

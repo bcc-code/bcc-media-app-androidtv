@@ -35,7 +35,7 @@
     <string name="results_count_plural">%d sonuç</string>
     <string name="login_sign_in_title">BCC Media\'ya giriş yap</string>
     <string name="login_scan_qr">QR kodunu tarayın veya şuraya gidin:</string>
-    <string name="login_site">web.brunstad.tv/tvlogin</string>
+    <string name="login_site">login.bcc.no/activate</string>
     <string name="login_enter_code">Ve bu kodu girin:</string>
     <string name="login_failed">Giriş başarısız: %s</string>
     <string name="login_try_again">Tekrar dene</string>

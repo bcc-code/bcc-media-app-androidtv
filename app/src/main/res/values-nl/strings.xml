@@ -35,7 +35,7 @@
     <string name="results_count_plural">%d resultaten</string>
     <string name="login_sign_in_title">Inloggen bij BCC Media</string>
     <string name="login_scan_qr">Scan de QR-code of ga naar:</string>
-    <string name="login_site">web.brunstad.tv/tvlogin</string>
+    <string name="login_site">login.bcc.no/activate</string>
     <string name="login_enter_code">En voer deze code in:</string>
     <string name="login_failed">Inloggen mislukt: %s</string>
     <string name="login_try_again">Opnieuw proberen</string>

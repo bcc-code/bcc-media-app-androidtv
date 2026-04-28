@@ -35,7 +35,7 @@
     <string name="results_count_plural">%d rezultatov</string>
     <string name="login_sign_in_title">Prijavite se v BCC Media</string>
     <string name="login_scan_qr">Skenirajte kodo QR ali pojdite na:</string>
-    <string name="login_site">web.brunstad.tv/tvlogin</string>
+    <string name="login_site">login.bcc.no/activate</string>
     <string name="login_enter_code">In vnesite to kodo:</string>
     <string name="login_failed">Prijava ni uspela: %s</string>
     <string name="login_try_again">Poskusite znova</string>
