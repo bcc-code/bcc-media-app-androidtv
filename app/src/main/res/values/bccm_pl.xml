@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">BCC Media</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Strona główna</string>
+    <string name="nav_search">Szukaj</string>
+    <string name="nav_settings">Ustawienia</string>
+    <string name="nav_bookmarks"></string>
+
+    <!-- Playback / episode detail -->
+    <string name="play">Odtwarzaj</string>
+    <string name="open">Otwórz</string>
+    <string name="continue_from"></string>
+    <string name="play_from"></string>
+    <string name="start_over"></string>
+    <string name="add_to_bookmarks"></string>
+    <string name="in_bookmarks"></string>
+    <string name="chapters">Rozdziały</string>
+    <string name="chapters_title">Rozdziały</string>
+    <string name="chapter_fallback">Rozdział</string>
+    <string name="season_label">Sezon</string>
+
+    <!-- Auto-play next episode -->
+    <string name="up_next_label">Następne</string>
+    <string name="playing_in_seconds"></string>
+    <string name="cancel">Anuluj</string>
+
+    <!-- Auto-play settings -->
+    <string name="settings_autoplay">Odtwarzanie automatyczne</string>
+    <string name="settings_autoplay_delay"></string>
+    <string name="settings_autoplay_on"></string>
+    <string name="settings_autoplay_off"></string>
+    <string name="autoplay_delay_seconds"></string>
+
+    <!-- Generic states -->
+    <string name="loading">Ładuję</string>
+    <string name="error_prefix">Błąd</string>
+    <string name="no_results"></string>
+    <string name="search_placeholder">Szukaj</string>
+    <string name="searching">Szukam...</string>
+    <string name="search_error"></string>
+    <string name="your_list_is_empty"></string>
+    <string name="play_random">Odtwarzanie losowe</string>
+    <string name="contributions_count"></string>
+    <string name="no_contributions"></string>
+    <string name="contributions_count_label">Wkład</string>
+    <string name="contributions_count_label_plural"></string>
+    <string name="filter_all">Wszystkie</string>
+    <string name="time_remaining">Zostało %d min</string>
+    <string name="results_count"></string>
+    <string name="results_count_plural">%d wyników</string>
+
+    <!-- Splash screen -->
+    <string name="splash_skip_hint"></string>
+
+    <!-- Login screen -->
+    <string name="login_sign_in_title"></string>
+    <string name="login_scan_qr"></string>
+    <string name="login_site"></string>
+    <string name="login_enter_code"></string>
+    <string name="login_failed">Logowanie nie powiodło się</string>
+    <string name="login_try_again">Spróbuj ponownie</string>
+    <string name="login_connecting"></string>
+
+    <!-- Settings screen -->
+    <string name="settings_app_language">Język aplikacji</string>
+    <string name="settings_preferred_audio"></string>
+    <string name="settings_subtitles">Napisy</string>
+    <string name="settings_subtitles_off"></string>
+    <string name="settings_log_out">Wyloguj się</string>
+    <string name="settings_switch_account"></string>
+    <string name="settings_remove_account"></string>
+
+    <!-- Profile picker -->
+    <string name="profile_picker_title"></string>
+    <string name="profile_add_account"></string>
+</resources>
