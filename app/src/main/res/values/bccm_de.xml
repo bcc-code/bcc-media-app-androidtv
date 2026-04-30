@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">BCC Media</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Suchen</string>
+    <string name="nav_settings">Einstellungen</string>
+    <string name="nav_bookmarks"></string>
+
+    <!-- Playback / episode detail -->
+    <string name="play">Abspielen</string>
+    <string name="open">Öffnen</string>
+    <string name="continue_from">Weiter von %s</string>
+    <string name="play_from">Abspielen von %s</string>
+    <string name="start_over">Von vorne anfangen</string>
+    <string name="add_to_bookmarks"></string>
+    <string name="in_bookmarks"></string>
+    <string name="chapters">Kapitel (%d)</string>
+    <string name="chapters_title">Kapitel</string>
+    <string name="chapter_fallback">Kapitel %d</string>
+    <string name="season_label">Saison %d</string>
+
+    <!-- Auto-play next episode -->
+    <string name="up_next_label">Nächste</string>
+    <string name="playing_in_seconds"></string>
+    <string name="cancel">Abbrechen</string>
+
+    <!-- Auto-play settings -->
+    <string name="settings_autoplay">Automatische Wiedergabe</string>
+    <string name="settings_autoplay_delay">Verzögerung bei der automatischen Wiedergabe</string>
+    <string name="settings_autoplay_on">An</string>
+    <string name="settings_autoplay_off">Aus</string>
+    <string name="autoplay_delay_seconds">%d Sekunden</string>
+
+    <!-- Generic states -->
+    <string name="loading">Wird geladen...</string>
+    <string name="error_prefix">Fehler: %s</string>
+    <string name="no_results">Keine Ergebnisse für „%s“</string>
+    <string name="search_placeholder">Suchen</string>
+    <string name="searching">Suche...</string>
+    <string name="search_error">Suchfehler: %s</string>
+    <string name="your_list_is_empty">Deine Liste ist leer.</string>
+    <string name="play_random">Zufällige Wiedergabe</string>
+    <string name="contributions_count">Beiträge (%dEinträge)</string>
+    <string name="no_contributions">Es sind keine Beiträge verfügbar</string>
+    <string name="contributions_count_label">Beitrag</string>
+    <string name="contributions_count_label_plural">%d Beiträge</string>
+    <string name="filter_all">Alle (%d)</string>
+    <string name="time_remaining">noch %d min</string>
+    <string name="results_count">%d Ergebnis</string>
+    <string name="results_count_plural">%d Ergebnisse</string>
+
+    <!-- Splash screen -->
+    <string name="splash_skip_hint">Drücke auf „OK“, um zu Überspringen</string>
+
+    <!-- Login screen -->
+    <string name="login_sign_in_title">Bei BCC Media anmelden</string>
+    <string name="login_scan_qr">Scanne den QR-Code oder geh auf:</string>
+    <string name="login_site">login.bcc.no/activate</string>
+    <string name="login_enter_code">Und gib diesen Code ein:</string>
+    <string name="login_failed">Anmeldung fehlgeschlagen: %s</string>
+    <string name="login_try_again">Erneut versuchen</string>
+    <string name="login_connecting">Wird verbunden…</string>
+
+    <!-- Settings screen -->
+    <string name="settings_app_language">App-Sprache</string>
+    <string name="settings_preferred_audio">Bevorzugte Audiosprache</string>
+    <string name="settings_subtitles">Untertitel</string>
+    <string name="settings_subtitles_off">Aus</string>
+    <string name="settings_log_out">Abmelden</string>
+    <string name="settings_switch_account">Konto wechseln</string>
+    <string name="settings_remove_account">Konto entfernen</string>
+
+    <!-- Profile picker -->
+    <string name="profile_picker_title">Wer schaut?</string>
+    <string name="profile_add_account">Konto hinzufügen</string>
+</resources>
