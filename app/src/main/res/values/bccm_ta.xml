@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">BCC Media</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">முகப்பு</string>
+    <string name="nav_search">தேடு</string>
+    <string name="nav_settings">அமைப்புகள்</string>
+    <string name="nav_bookmarks"></string>
+
+    <!-- Playback / episode detail -->
+    <string name="play">பிளே</string>
+    <string name="open">திற</string>
+    <string name="continue_from"></string>
+    <string name="play_from"></string>
+    <string name="start_over"></string>
+    <string name="add_to_bookmarks"></string>
+    <string name="in_bookmarks"></string>
+    <string name="chapters">அதிகாரங்கள்</string>
+    <string name="chapters_title">அதிகாரங்கள்</string>
+    <string name="chapter_fallback"></string>
+    <string name="season_label">சீசன்</string>
+
+    <!-- Auto-play next episode -->
+    <string name="up_next_label">அடுத்தது</string>
+    <string name="playing_in_seconds"></string>
+    <string name="cancel">ரத்து செய்</string>
+
+    <!-- Auto-play settings -->
+    <string name="settings_autoplay">தானியங்கி</string>
+    <string name="settings_autoplay_delay"></string>
+    <string name="settings_autoplay_on"></string>
+    <string name="settings_autoplay_off"></string>
+    <string name="autoplay_delay_seconds"></string>
+
+    <!-- Generic states -->
+    <string name="loading">ஏற்றுகிறது</string>
+    <string name="error_prefix">பிழை</string>
+    <string name="no_results"></string>
+    <string name="search_placeholder">தேடு</string>
+    <string name="searching"></string>
+    <string name="search_error"></string>
+    <string name="your_list_is_empty"></string>
+    <string name="play_random">தொடர்பின்றி பிளே செய்</string>
+    <string name="contributions_count"></string>
+    <string name="no_contributions"></string>
+    <string name="contributions_count_label"></string>
+    <string name="contributions_count_label_plural"></string>
+    <string name="filter_all">அனைத்து</string>
+    <string name="time_remaining">{0} நிமிடம் உள்ளது</string>
+    <string name="results_count"></string>
+    <string name="results_count_plural">முடிவுகள்</string>
+
+    <!-- Splash screen -->
+    <string name="splash_skip_hint"></string>
+
+    <!-- Login screen -->
+    <string name="login_sign_in_title"></string>
+    <string name="login_scan_qr"></string>
+    <string name="login_site">login.bcc.no/activate</string>
+    <string name="login_enter_code"></string>
+    <string name="login_failed">உள்நுழைவு தோல்வியடைந்தது</string>
+    <string name="login_try_again">மீண்டும் முயற்சி செய்</string>
+    <string name="login_connecting"></string>
+
+    <!-- Settings screen -->
+    <string name="settings_app_language">செயலி மொழி</string>
+    <string name="settings_preferred_audio"></string>
+    <string name="settings_subtitles">சப்டைட்டில்கள்</string>
+    <string name="settings_subtitles_off"></string>
+    <string name="settings_log_out">வெளியேறு</string>
+    <string name="settings_switch_account"></string>
+    <string name="settings_remove_account"></string>
+
+    <!-- Profile picker -->
+    <string name="profile_picker_title"></string>
+    <string name="profile_add_account"></string>
+</resources>

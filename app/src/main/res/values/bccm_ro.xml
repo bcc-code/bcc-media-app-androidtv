@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">BCC Media</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Acasă</string>
+    <string name="nav_search">Căutare</string>
+    <string name="nav_settings">Setări</string>
+    <string name="nav_bookmarks">Listă de vizionare</string>
+
+    <!-- Playback / episode detail -->
+    <string name="play">Redare</string>
+    <string name="open">Deschide</string>
+    <string name="continue_from">Continuă de la %s</string>
+    <string name="play_from">Redă de la %s</string>
+    <string name="start_over">Începe din nou</string>
+    <string name="add_to_bookmarks">Adaugă la Lista de vizionare</string>
+    <string name="in_bookmarks">În Lista de vizionare</string>
+    <string name="chapters">Capitolele (%d)</string>
+    <string name="chapters_title">Capitole</string>
+    <string name="chapter_fallback">Capitolul %d</string>
+    <string name="season_label">Sezonul %d</string>
+
+    <!-- Auto-play next episode -->
+    <string name="up_next_label">Urmează</string>
+    <string name="playing_in_seconds">Redare în %ds</string>
+    <string name="cancel">Anulare</string>
+
+    <!-- Auto-play settings -->
+    <string name="settings_autoplay">Redare automată</string>
+    <string name="settings_autoplay_delay">Întârziere la redarea automată</string>
+    <string name="settings_autoplay_on">Activat</string>
+    <string name="settings_autoplay_off">Dezactivat</string>
+    <string name="autoplay_delay_seconds">%d secunde</string>
+
+    <!-- Generic states -->
+    <string name="loading">Se încarcă...</string>
+    <string name="error_prefix">Eroare: %s</string>
+    <string name="no_results">Nici un rezultat găsit pentru „%s”</string>
+    <string name="search_placeholder">Căutare...</string>
+    <string name="searching">Se caută...</string>
+    <string name="search_error">Eroare de căutare: %s</string>
+    <string name="your_list_is_empty">Lista ta este goală.</string>
+    <string name="play_random">Redare Aleatorie</string>
+    <string name="contributions_count">Contribuții (%delemente)</string>
+    <string name="no_contributions">Nu sunt disponibile contribuții</string>
+    <string name="contributions_count_label">%d contribuție</string>
+    <string name="contributions_count_label_plural">%d contribuții</string>
+    <string name="filter_all">Tot (%d)</string>
+    <string name="time_remaining">%d minute rămase</string>
+    <string name="results_count">%d rezultat</string>
+    <string name="results_count_plural">%d rezultate</string>
+
+    <!-- Splash screen -->
+    <string name="splash_skip_hint">Apăsați OK pentru a sări peste</string>
+
+    <!-- Login screen -->
+    <string name="login_sign_in_title">Conectează-te la BCC Media</string>
+    <string name="login_scan_qr">Scanează codul QR sau accesează:</string>
+    <string name="login_site">login.bcc.no/activare</string>
+    <string name="login_enter_code">Și introduceți acest cod:</string>
+    <string name="login_failed">Autentificare eșuată: %s</string>
+    <string name="login_try_again">Încearcă din nou</string>
+    <string name="login_connecting">Se conectează…</string>
+
+    <!-- Settings screen -->
+    <string name="settings_app_language">Limba aplicației</string>
+    <string name="settings_preferred_audio">Limba preferată pentru sunet</string>
+    <string name="settings_subtitles">Subtitrări</string>
+    <string name="settings_subtitles_off">Dezactivat</string>
+    <string name="settings_log_out">Deconectare</string>
+    <string name="settings_switch_account">Schimbă contul</string>
+    <string name="settings_remove_account">Șterge contul</string>
+
+    <!-- Profile picker -->
+    <string name="profile_picker_title">Cine vizionează?</string>
+    <string name="profile_add_account">Adaugă cont</string>
+</resources>
