@@ -4,46 +4,46 @@
 
     <!-- Navigation -->
     <string name="nav_home">Início</string>
-    <string name="nav_search">Busca</string>
+    <string name="nav_search">Pesquisar</string>
     <string name="nav_settings">Configurações.</string>
-    <string name="nav_bookmarks"></string>
+    <string name="nav_bookmarks">Lista de observação</string>
 
     <!-- Playback / episode detail -->
     <string name="play">Jogar</string>
     <string name="open">Abrir</string>
-    <string name="continue_from"></string>
-    <string name="play_from"></string>
-    <string name="start_over"></string>
-    <string name="add_to_bookmarks"></string>
-    <string name="in_bookmarks"></string>
-    <string name="chapters">Capítulo</string>
-    <string name="chapters_title">Capítulo</string>
-    <string name="chapter_fallback">Capítulo 12</string>
-    <string name="season_label">Temporadas</string>
+    <string name="continue_from">Continuar a partir de %s</string>
+    <string name="play_from">Reproduzir a partir de %s</string>
+    <string name="start_over">Recomeçar</string>
+    <string name="add_to_bookmarks">Adicionar à lista de observação</string>
+    <string name="in_bookmarks">Na lista de observação</string>
+    <string name="chapters">Capítulos (%d)</string>
+    <string name="chapters_title">Capítulos</string>
+    <string name="chapter_fallback">Capítulo %d</string>
+    <string name="season_label">Temporada %d</string>
 
     <!-- Auto-play next episode -->
     <string name="up_next_label">A seguir</string>
-    <string name="playing_in_seconds"></string>
+    <string name="playing_in_seconds">Jogando em %ds</string>
     <string name="cancel">Cancelar</string>
 
     <!-- Auto-play settings -->
     <string name="settings_autoplay">Reprodução automática</string>
-    <string name="settings_autoplay_delay"></string>
-    <string name="settings_autoplay_on"></string>
-    <string name="settings_autoplay_off"></string>
-    <string name="autoplay_delay_seconds"></string>
+    <string name="settings_autoplay_delay">Atraso na reprodução automática</string>
+    <string name="settings_autoplay_on">Ligado</string>
+    <string name="settings_autoplay_off">Desligado</string>
+    <string name="autoplay_delay_seconds">%d segundos</string>
 
     <!-- Generic states -->
-    <string name="loading">Carregando</string>
-    <string name="error_prefix">Erro</string>
-    <string name="no_results"></string>
-    <string name="search_placeholder">Busca</string>
-    <string name="searching"></string>
-    <string name="search_error"></string>
-    <string name="your_list_is_empty"></string>
+    <string name="loading">Carregando...</string>
+    <string name="error_prefix">Erro: %s</string>
+    <string name="no_results">Sem resultados para \"%s\"</string>
+    <string name="search_placeholder">Pesquisar...</string>
+    <string name="searching">Pesquisando…</string>
+    <string name="search_error">Erro de pesquisa: %s</string>
+    <string name="your_list_is_empty">Sua lista está vazia.</string>
     <string name="play_random">Reprodução aleatória</string>
-    <string name="contributions_count"></string>
-    <string name="no_contributions"></string>
+    <string name="contributions_count">Contribuições (%ditens)</string>
+    <string name="no_contributions">Não há contribuições disponíveis</string>
     <string name="contributions_count_label"></string>
     <string name="contributions_count_label_plural"></string>
     <string name="filter_all">Todos</string>
@@ -67,7 +67,7 @@
     <string name="settings_app_language">Idioma do aplicativo</string>
     <string name="settings_preferred_audio"></string>
     <string name="settings_subtitles">Legendas</string>
-    <string name="settings_subtitles_off"></string>
+    <string name="settings_subtitles_off">Desligado</string>
     <string name="settings_log_out">Sair</string>
     <string name="settings_switch_account"></string>
     <string name="settings_remove_account"></string>
