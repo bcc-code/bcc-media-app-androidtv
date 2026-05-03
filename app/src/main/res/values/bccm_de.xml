@@ -6,7 +6,7 @@
     <string name="nav_home">Home</string>
     <string name="nav_search">Suchen</string>
     <string name="nav_settings">Einstellungen</string>
-    <string name="nav_bookmarks"></string>
+    <string name="nav_bookmarks">Watchlist</string>
 
     <!-- Playback / episode detail -->
     <string name="play">Abspielen</string>
@@ -14,8 +14,8 @@
     <string name="continue_from">Weiter von %s</string>
     <string name="play_from">Abspielen von %s</string>
     <string name="start_over">Von vorne anfangen</string>
-    <string name="add_to_bookmarks"></string>
-    <string name="in_bookmarks"></string>
+    <string name="add_to_bookmarks">Zur Watchlist hinzufügen</string>
+    <string name="in_bookmarks">In der Watchlist</string>
     <string name="chapters">Kapitel (%d)</string>
     <string name="chapters_title">Kapitel</string>
     <string name="chapter_fallback">Kapitel %d</string>
@@ -23,12 +23,12 @@
 
     <!-- Auto-play next episode -->
     <string name="up_next_label">Nächste</string>
-    <string name="playing_in_seconds"></string>
+    <string name="playing_in_seconds">Wird in %ds abgespielt</string>
     <string name="cancel">Abbrechen</string>
 
     <!-- Auto-play settings -->
     <string name="settings_autoplay">Automatische Wiedergabe</string>
-    <string name="settings_autoplay_delay">Verzögerung bei der automatischen Wiedergabe</string>
+    <string name="settings_autoplay_delay">Verzögerung der automatischen Wiedergabe</string>
     <string name="settings_autoplay_on">An</string>
     <string name="settings_autoplay_off">Aus</string>
     <string name="autoplay_delay_seconds">%d Sekunden</string>
@@ -37,14 +37,14 @@
     <string name="loading">Wird geladen...</string>
     <string name="error_prefix">Fehler: %s</string>
     <string name="no_results">Keine Ergebnisse für „%s“</string>
-    <string name="search_placeholder">Suchen</string>
-    <string name="searching">Suche...</string>
+    <string name="search_placeholder">Suchen ...</string>
+    <string name="searching">Suche läuft ...</string>
     <string name="search_error">Suchfehler: %s</string>
     <string name="your_list_is_empty">Deine Liste ist leer.</string>
     <string name="play_random">Zufällige Wiedergabe</string>
-    <string name="contributions_count">Beiträge (%dEinträge)</string>
-    <string name="no_contributions">Es sind keine Beiträge verfügbar</string>
-    <string name="contributions_count_label">Beitrag</string>
+    <string name="contributions_count">Beiträge (%d Einträge)</string>
+    <string name="no_contributions">Keine Beiträge verfügbar</string>
+    <string name="contributions_count_label">%d Beitrag</string>
     <string name="contributions_count_label_plural">%d Beiträge</string>
     <string name="filter_all">Alle (%d)</string>
     <string name="time_remaining">noch %d min</string>
@@ -52,7 +52,7 @@
     <string name="results_count_plural">%d Ergebnisse</string>
 
     <!-- Splash screen -->
-    <string name="splash_skip_hint">Drücke auf „OK“, um zu Überspringen</string>
+    <string name="splash_skip_hint">Drücke OK, um zu überspringen</string>
 
     <!-- Login screen -->
     <string name="login_sign_in_title">Bei BCC Media anmelden</string>
@@ -73,6 +73,6 @@
     <string name="settings_remove_account">Konto entfernen</string>
 
     <!-- Profile picker -->
-    <string name="profile_picker_title">Wer schaut?</string>
+    <string name="profile_picker_title">Wer schaut gerade?</string>
     <string name="profile_add_account">Konto hinzufügen</string>
 </resources>
