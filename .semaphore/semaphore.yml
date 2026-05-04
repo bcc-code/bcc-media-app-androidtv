@@ -29,29 +29,31 @@ blocks:
             - test -n "$BUILD_NUMBER" && test "$BUILD_NUMBER" -gt 0
             - keystore_path="$(pwd)/release.keystore"
             - echo "$KEYSTORE_FILE" | base64 -d > "$keystore_path"
-            - cat >> local.properties << EOF
-            - signing.storeFile=$keystore_path
-            - signing.storePassword=$KEYSTORE_PASSWORD
-            - signing.keyAlias=$KEY_ALIAS
-            - signing.keyPassword=$KEY_PASSWORD
-            - npaw.accountCode=$NPAW_ACCOUNT_CODE
-            - rudderstack.writeKey=$RUDDERSTACK_WRITE_KEY
-            - rudderstack.dataPlaneUrl=$RUDDERSTACK_DATA_PLANE_URL
-            - sentry.dsn=$SENTRY_DSN
-            - EOF
-            - 'echo "NPAW_ACCOUNT_CODE is $([ -n \"$NPAW_ACCOUNT_CODE\" ] && echo ''set'' || echo ''EMPTY'')"'
+            - |
+              cat >> local.properties << EOF
+              signing.storeFile=$keystore_path
+              signing.storePassword=$KEYSTORE_PASSWORD
+              signing.keyAlias=$KEY_ALIAS
+              signing.keyPassword=$KEY_PASSWORD
+              npaw.accountCode=$NPAW_ACCOUNT_CODE
+              rudderstack.writeKey=$RUDDERSTACK_WRITE_KEY
+              rudderstack.dataPlaneUrl=$RUDDERSTACK_DATA_PLANE_URL
+              sentry.dsn=$SENTRY_DSN
+              EOF
+            - echo "NPAW_ACCOUNT_CODE is $([ -n \"$NPAW_ACCOUNT_CODE\" ] && echo 'set' || echo 'EMPTY')"
             - grep npaw local.properties | sed 's/=.*/=***/'
             - export ANDROID_HOME="$HOME/android-sdk"
             - cache restore android-sdk
-            - 'if [ ! -d "$ANDROID_HOME/platforms/android-36" ]; then'
-            - '  mkdir -p "$ANDROID_HOME/cmdline-tools"'
-            - '  curl -sSL -o /tmp/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip'
-            - '  unzip -q /tmp/cmdline-tools.zip -d "$ANDROID_HOME/cmdline-tools"'
-            - '  mv "$ANDROID_HOME/cmdline-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"'
-            - '  yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null'
-            - '  "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "platforms;android-36" "build-tools;36.0.0"'
-            - fi
-            - cache store android-sdk $ANDROID_HOME
+            - |
+              if [ ! -d "$ANDROID_HOME/platforms/android-36" ]; then
+                mkdir -p "$ANDROID_HOME/cmdline-tools"
+                curl -sSL -o /tmp/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+                unzip -q /tmp/cmdline-tools.zip -d "$ANDROID_HOME/cmdline-tools"
+                mv "$ANDROID_HOME/cmdline-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
+                yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null
+                "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+              fi
+            - cache store android-sdk $ANDROID_HOME || true
             - 'cache restore gradle-$(checksum gradle/libs.versions.toml),gradle'
             - ./gradlew bundleRelease -PbuildNumber=$BUILD_NUMBER --no-daemon --console=plain --warning-mode=summary
             - cache store gradle-$(checksum gradle/libs.versions.toml) ~/.gradle/caches || true
