@@ -30,11 +30,14 @@ import android.content.ContextWrapper
 import tv.brunstad.app.R
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
+import android.net.Uri
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import android.view.LayoutInflater
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
+import androidx.media3.session.MediaSession
 import androidx.media3.ui.PlayerView
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import kotlinx.coroutines.delay
@@ -64,6 +67,11 @@ fun PlayerScreen(
     val trackSelector = remember { DefaultTrackSelector(context) }
     val player = remember {
         ExoPlayer.Builder(context).setTrackSelector(trackSelector).build()
+    }
+    val mediaSession = remember(player) {
+        MediaSession.Builder(context, player)
+            .setId("BCCMediaPlayer-${viewModel.episodeId}")
+            .build()
     }
     val npawManager = viewModel.npawManager
 
@@ -139,7 +147,18 @@ fun PlayerScreen(
 
     LaunchedEffect(uiState.streamUrl) {
         val url = uiState.streamUrl ?: return@LaunchedEffect
-        player.setMediaItem(MediaItem.fromUri(url))
+        val metadata = MediaMetadata.Builder()
+            .setTitle(uiState.episodeTitle)
+            .setArtist(uiState.showTitle)
+            .setDescription(uiState.episodeDescription)
+            .setArtworkUri(uiState.episodeImageUrl?.let { Uri.parse(it) })
+            .build()
+        player.setMediaItem(
+            MediaItem.Builder()
+                .setUri(url)
+                .setMediaMetadata(metadata)
+                .build()
+        )
         // Set NPAW content metadata before prepare() so the "start" event includes it
         npawManager.updateContentMetadata(
             contentId = viewModel.episodeId,
@@ -213,6 +232,7 @@ fun PlayerScreen(
             if (pos > 0 && dur > 0) {
                 scope.launch { viewModel.saveProgress((pos / 1000).toInt(), (dur / 1000).toInt()) }
             }
+            mediaSession.release()
             player.release()
         }
     }

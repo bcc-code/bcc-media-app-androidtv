@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
     private fun handleDeepLinkIntent(intent: Intent?, nav: NavController?) {
         val uri = intent?.data ?: return
         analyticsManager.trackDeepLinkOpened(uri.toString())
-        if (uri.scheme == "bccmediatv" && uri.host == "episode") {
+        if (uri.scheme == "tv.brunstad.app" && uri.host == "episode") {
             val episodeId = uri.lastPathSegment ?: return
             nav?.navigate("episode/$episodeId") {
                 // If already on the episode page for this ID, don't duplicate it
@@ -161,7 +161,7 @@ class MainActivity : ComponentActivity() {
                     // Show splash only on a true fresh launch — not on Activity recreation
                     // (e.g. language change causes a recreation with non-null savedInstanceState)
                     // Also skip splash when launched from a deep link (Continue Watching)
-                    val hasDeepLink = intent?.data?.scheme == "bccmediatv"
+                    val hasDeepLink = intent?.data?.scheme == "tv.brunstad.app"
                     var showSplash by remember { mutableStateOf(loggedIn && savedInstanceState == null && !hasDeepLink) }
 
                     Box(modifier = Modifier.fillMaxSize()) {
