@@ -46,27 +46,29 @@ platform :android do
       track: 'tv:internal',
       aab: 'app/build/outputs/bundle/release/app-release.aab',
       json_key: 'fastlane/google-play-service-account.json',
-      skip_upload_changelogs: true,
+      skip_upload_apk: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,
-      skip_upload_metadata: true,
-      skip_upload_apk: true
+      skip_upload_metadata: true
     )
   end
 
-  desc "Promote a specific Internal versionCode (BUILD_NUMBER env var) to Beta on Google Play"
-  lane :beta do
+  desc "Promote a specific versionCode between Google Play tracks (env vars: BUILD_NUMBER, SOURCE_TRACK, DEST_TRACK)"
+  lane :promote_track do
     build_number = ENV.fetch('BUILD_NUMBER').to_i
+    source_track = ENV.fetch('SOURCE_TRACK')
+    dest_track = ENV.fetch('DEST_TRACK')
     UI.user_error!("BUILD_NUMBER must be a positive integer (got #{ENV['BUILD_NUMBER'].inspect})") unless build_number > 0
+    UI.user_error!("SOURCE_TRACK must not be empty") if source_track.empty?
+    UI.user_error!("DEST_TRACK must not be empty") if dest_track.empty?
     upload_to_play_store(
-      track: 'tv:internal',
-      track_promote_to: 'tv:beta',
+      track: source_track,
+      track_promote_to: dest_track,
       track_promote_release_status: 'completed',
       version_code: build_number,
       json_key: 'fastlane/google-play-service-account.json',
       skip_upload_aab: true,
       skip_upload_apk: true,
-      skip_upload_changelogs: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,
       skip_upload_metadata: true

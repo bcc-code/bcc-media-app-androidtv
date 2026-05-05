@@ -1,5 +1,5 @@
 version: v1.0
-name: Promote to Beta
+name: Promote between Google Play tracks
 agent:
   machine:
     type: e1-standard-2
@@ -10,13 +10,14 @@ blocks:
       secrets:
         - name: android-play-store-api-linux
       jobs:
-        - name: Promote Internal to Beta on Google Play
+        - name: Promote on Google Play
           commands:
             - checkout
             - cp /home/semaphore/google-play-service-account.json fastlane/google-play-service-account.json
             - artifact pull workflow build-number -d build-number
             - export BUILD_NUMBER=$(cat build-number)
-            - echo "Promoting versionCode=$BUILD_NUMBER from tv:internal to tv:beta"
+            - echo "Promoting versionCode=$BUILD_NUMBER from $SOURCE_TRACK to $DEST_TRACK"
             - test -n "$BUILD_NUMBER" && test "$BUILD_NUMBER" -gt 0
+            - test -n "$SOURCE_TRACK" && test -n "$DEST_TRACK"
             - bundle install
-            - bundle exec fastlane beta
+            - bundle exec fastlane promote_track

@@ -46,5 +46,28 @@ blocks:
             - bundle exec fastlane internal
 promotions:
   - name: Promote to Beta
-    pipeline_file: promote-beta.yml
+    pipeline_file: promote-track.yml
     deployment_target: beta
+    parameters:
+      env_vars:
+        - name: SOURCE_TRACK
+          required: true
+          default_value: tv:internal
+          description: Google Play track the build is currently on
+        - name: DEST_TRACK
+          required: true
+          default_value: tv:beta
+          description: Google Play track to promote to
+  - name: Promote to Prod
+    pipeline_file: promote-track.yml
+    deployment_target: prod
+    parameters:
+      env_vars:
+        - name: SOURCE_TRACK
+          required: true
+          default_value: tv:beta
+          description: Google Play track the build is currently on
+        - name: DEST_TRACK
+          required: true
+          default_value: tv:production
+          description: Google Play track to promote to
