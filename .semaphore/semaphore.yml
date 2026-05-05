@@ -69,10 +69,10 @@ promotions:
       env_vars:
         - name: SOURCE_TRACK
           required: true
-          default_value: 'tv:beta'
+          default_value: 'tv:internal'
           description: Google Play track the build is currently on
           options:
-            - 'tv:beta'
+            - 'tv:internal'
         - name: DEST_TRACK
           required: true
           default_value: 'tv:production'
