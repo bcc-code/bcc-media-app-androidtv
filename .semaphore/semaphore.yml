@@ -40,7 +40,7 @@ blocks:
               rudderstack.dataPlaneUrl=$RUDDERSTACK_DATA_PLANE_URL
               sentry.dsn=$SENTRY_DSN
               EOF
-            - echo "NPAW_ACCOUNT_CODE is $([ -n \"$NPAW_ACCOUNT_CODE\" ] && echo 'set' || echo 'EMPTY')"
+            - 'echo "NPAW_ACCOUNT_CODE is $([ -n \"$NPAW_ACCOUNT_CODE\" ] && echo ''set'' || echo ''EMPTY'')"'
             - grep npaw local.properties | sed 's/=.*/=***/'
             - export ANDROID_HOME="$HOME/android-sdk"
             - cache restore android-sdk
@@ -75,3 +75,4 @@ blocks:
 promotions:
   - name: Promote to Beta
     pipeline_file: promote-beta.yml
+    deployment_target: beta
