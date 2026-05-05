@@ -72,3 +72,6 @@ blocks:
             - artifact pull workflow app-release.aab -d app/build/outputs/bundle/release/app-release.aab
             - bundle install
             - bundle exec fastlane internal
+promotions:
+  - name: Promote to Beta
+    pipeline_file: promote-beta.yml

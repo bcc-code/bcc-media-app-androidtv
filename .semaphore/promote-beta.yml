@@ -1,0 +1,18 @@
+version: v1.0
+name: Promote to Beta
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2404
+blocks:
+  - name: Promote
+    task:
+      secrets:
+        - name: android-play-store-api-linux
+      jobs:
+        - name: Promote Internal to Beta on Google Play
+          commands:
+            - checkout
+            - cp /home/semaphore/google-play-service-account.json fastlane/google-play-service-account.json
+            - bundle install
+            - bundle exec fastlane beta

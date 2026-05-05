@@ -53,4 +53,19 @@ platform :android do
       skip_upload_apk: true
     )
   end
+
+  desc "Promote the current Internal build to Beta on Google Play"
+  lane :beta do
+    upload_to_play_store(
+      track: 'tv:internal',
+      track_promote_to: 'tv:beta',
+      json_key: 'fastlane/google-play-service-account.json',
+      skip_upload_aab: true,
+      skip_upload_apk: true,
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_metadata: true
+    )
+  end
 end
