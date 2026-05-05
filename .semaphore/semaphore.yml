@@ -52,12 +52,16 @@ promotions:
       env_vars:
         - name: SOURCE_TRACK
           required: true
-          default_value: tv:internal
+          default_value: 'tv:internal'
           description: Google Play track the build is currently on
+          options:
+            - 'tv:internal'
         - name: DEST_TRACK
           required: true
-          default_value: tv:beta
+          default_value: 'tv:beta'
           description: Google Play track to promote to
+          options:
+            - 'tv:beta'
   - name: Promote to Prod
     pipeline_file: promote-track.yml
     deployment_target: prod
@@ -65,9 +69,13 @@ promotions:
       env_vars:
         - name: SOURCE_TRACK
           required: true
-          default_value: tv:beta
+          default_value: 'tv:beta'
           description: Google Play track the build is currently on
+          options:
+            - 'tv:beta'
         - name: DEST_TRACK
           required: true
-          default_value: tv:production
+          default_value: 'tv:production'
           description: Google Play track to promote to
+          options:
+            - 'tv:production'
