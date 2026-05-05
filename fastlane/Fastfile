@@ -54,11 +54,15 @@ platform :android do
     )
   end
 
-  desc "Promote the current Internal build to Beta on Google Play"
+  desc "Promote a specific Internal versionCode (BUILD_NUMBER env var) to Beta on Google Play"
   lane :beta do
+    build_number = ENV.fetch('BUILD_NUMBER').to_i
+    UI.user_error!("BUILD_NUMBER must be a positive integer (got #{ENV['BUILD_NUMBER'].inspect})") unless build_number > 0
     upload_to_play_store(
       track: 'tv:internal',
       track_promote_to: 'tv:beta',
+      track_promote_release_status: 'completed',
+      version_code: build_number,
       json_key: 'fastlane/google-play-service-account.json',
       skip_upload_aab: true,
       skip_upload_apk: true,
