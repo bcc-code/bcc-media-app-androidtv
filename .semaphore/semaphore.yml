@@ -30,6 +30,8 @@ blocks:
             - cache store gradle-$(checksum gradle/libs.versions.toml) ~/.gradle/caches || true
             - artifact push workflow app/build/outputs/bundle/release/app-release.aab -d app-release.aab
             - artifact push workflow fastlane/.next_version_code -d build-number
+    run:
+      when: branch = 'main'
   - name: Deploy
     dependencies:
       - Build
@@ -69,10 +71,10 @@ promotions:
       env_vars:
         - name: SOURCE_TRACK
           required: true
-          default_value: 'tv:internal'
+          default_value: 'tv:beta'
           description: Google Play track the build is currently on
           options:
-            - 'tv:internal'
+            - 'tv:beta'
         - name: DEST_TRACK
           required: true
           default_value: 'tv:production'
