@@ -6,16 +6,16 @@
     <string name="nav_home">Hjem</string>
     <string name="nav_search">Søg</string>
     <string name="nav_settings">Indstillinger</string>
-    <string name="nav_bookmarks"></string>
+    <string name="nav_bookmarks">Overvågningsliste</string>
 
     <!-- Playback / episode detail -->
     <string name="play">Afspil</string>
     <string name="open">Åben</string>
-    <string name="continue_from"></string>
-    <string name="play_from"></string>
-    <string name="start_over"></string>
-    <string name="add_to_bookmarks"></string>
-    <string name="in_bookmarks"></string>
+    <string name="continue_from">Fortsæt fra %s</string>
+    <string name="play_from">Afspil fra %s</string>
+    <string name="start_over">Start forfra</string>
+    <string name="add_to_bookmarks">Tilføj til overvågningslisten</string>
+    <string name="in_bookmarks">I overvågningslisten</string>
     <string name="chapters">Kapitler</string>
     <string name="chapters_title">Kapitler</string>
     <string name="chapter_fallback">Kapitel 13</string>
@@ -23,56 +23,56 @@
 
     <!-- Auto-play next episode -->
     <string name="up_next_label">Næste</string>
-    <string name="playing_in_seconds"></string>
+    <string name="playing_in_seconds">Afspiller om %ds</string>
     <string name="cancel">Annuller</string>
 
     <!-- Auto-play settings -->
     <string name="settings_autoplay">Automatisk afspilning</string>
-    <string name="settings_autoplay_delay"></string>
-    <string name="settings_autoplay_on"></string>
-    <string name="settings_autoplay_off"></string>
-    <string name="autoplay_delay_seconds"></string>
+    <string name="settings_autoplay_delay">Auto-afspil forsinkelse</string>
+    <string name="settings_autoplay_on">Tændt</string>
+    <string name="settings_autoplay_off">Slukket</string>
+    <string name="autoplay_delay_seconds">%d sekunder</string>
 
     <!-- Generic states -->
     <string name="loading">Indlæser</string>
     <string name="error_prefix">Fejl</string>
-    <string name="no_results"></string>
+    <string name="no_results">Ingen resultater for \"%s\"</string>
     <string name="search_placeholder">Søg</string>
     <string name="searching">Søger...</string>
-    <string name="search_error"></string>
-    <string name="your_list_is_empty"></string>
+    <string name="search_error">Søgefejl: %s</string>
+    <string name="your_list_is_empty">Din liste er tom.</string>
     <string name="play_random">Afspil tilfældig</string>
-    <string name="contributions_count"></string>
-    <string name="no_contributions"></string>
+    <string name="contributions_count">Bidrag (%d emner)</string>
+    <string name="no_contributions">Ingen bidrag tilgængelige</string>
     <string name="contributions_count_label">Bidrag</string>
-    <string name="contributions_count_label_plural"></string>
+    <string name="contributions_count_label_plural">%d bidrag</string>
     <string name="filter_all">Alle</string>
     <string name="time_remaining">{0} minutter tilbage</string>
-    <string name="results_count"></string>
+    <string name="results_count">%d resultat</string>
     <string name="results_count_plural">%d resultater</string>
 
     <!-- Splash screen -->
-    <string name="splash_skip_hint"></string>
+    <string name="splash_skip_hint">Tryk OK for at springe over</string>
 
     <!-- Login screen -->
-    <string name="login_sign_in_title"></string>
-    <string name="login_scan_qr"></string>
+    <string name="login_sign_in_title">Log ind på BCC Media</string>
+    <string name="login_scan_qr">Scan QR-koden, eller gå til:</string>
     <string name="login_site">login.bcc.no/activate</string>
-    <string name="login_enter_code"></string>
+    <string name="login_enter_code">Og indtast denne kode:</string>
     <string name="login_failed">Login fejlede</string>
     <string name="login_try_again">Prøv igen</string>
-    <string name="login_connecting"></string>
+    <string name="login_connecting">Forbinder…</string>
 
     <!-- Settings screen -->
     <string name="settings_app_language">App-sprog</string>
-    <string name="settings_preferred_audio"></string>
+    <string name="settings_preferred_audio">Foretrukket lydsprog</string>
     <string name="settings_subtitles">Undertekster</string>
-    <string name="settings_subtitles_off"></string>
+    <string name="settings_subtitles_off">Slukket</string>
     <string name="settings_log_out">Log ud</string>
-    <string name="settings_switch_account"></string>
-    <string name="settings_remove_account"></string>
+    <string name="settings_switch_account">Skift konto</string>
+    <string name="settings_remove_account">Fjern konto</string>
 
     <!-- Profile picker -->
-    <string name="profile_picker_title"></string>
-    <string name="profile_add_account"></string>
+    <string name="profile_picker_title">Hvem ser med?</string>
+    <string name="profile_add_account">Tilføj konto</string>
 </resources>
