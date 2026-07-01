@@ -6,16 +6,16 @@
     <string name="nav_home">Etusivu</string>
     <string name="nav_search">Haku</string>
     <string name="nav_settings">Asetukset</string>
-    <string name="nav_bookmarks"></string>
+    <string name="nav_bookmarks">Seurantaluettelo</string>
 
     <!-- Playback / episode detail -->
     <string name="play">Toista</string>
     <string name="open">Avaa</string>
-    <string name="continue_from"></string>
-    <string name="play_from"></string>
-    <string name="start_over"></string>
-    <string name="add_to_bookmarks"></string>
-    <string name="in_bookmarks"></string>
+    <string name="continue_from">Jatka kohdasta %s</string>
+    <string name="play_from">Soita kohdasta %s</string>
+    <string name="start_over">Aloita alusta</string>
+    <string name="add_to_bookmarks">Lisää seurantaluetteloon</string>
+    <string name="in_bookmarks">Seurantaluettelossa</string>
     <string name="chapters">Luvut</string>
     <string name="chapters_title">Luvut</string>
     <string name="chapter_fallback">Luku</string>
@@ -23,56 +23,56 @@
 
     <!-- Auto-play next episode -->
     <string name="up_next_label">Tulossa</string>
-    <string name="playing_in_seconds"></string>
+    <string name="playing_in_seconds">Soitetaan %d sekunnin kuluttua</string>
     <string name="cancel">Peru</string>
 
     <!-- Auto-play settings -->
     <string name="settings_autoplay">Automaattinen toisto</string>
-    <string name="settings_autoplay_delay"></string>
-    <string name="settings_autoplay_on"></string>
-    <string name="settings_autoplay_off"></string>
-    <string name="autoplay_delay_seconds"></string>
+    <string name="settings_autoplay_delay">Automaattinen toisto viive</string>
+    <string name="settings_autoplay_on">Päällä</string>
+    <string name="settings_autoplay_off">Pois päältä</string>
+    <string name="autoplay_delay_seconds">%d sekuntia</string>
 
     <!-- Generic states -->
     <string name="loading">Ladataan</string>
     <string name="error_prefix">Virhe</string>
-    <string name="no_results"></string>
+    <string name="no_results">Ei tuloksia hakusanalle \"%s\"</string>
     <string name="search_placeholder">Haku</string>
-    <string name="searching"></string>
-    <string name="search_error"></string>
-    <string name="your_list_is_empty"></string>
+    <string name="searching">Etsitään…</string>
+    <string name="search_error">Hakuvirhe: %s</string>
+    <string name="your_list_is_empty">Luettelosi on tyhjentynyt.</string>
     <string name="play_random">Satunnaistoisto</string>
-    <string name="contributions_count"></string>
-    <string name="no_contributions"></string>
+    <string name="contributions_count">Panostukset (%d kohdetta)</string>
+    <string name="no_contributions">Ei saatavilla olevia panostuksia</string>
     <string name="contributions_count_label">Summa</string>
-    <string name="contributions_count_label_plural"></string>
+    <string name="contributions_count_label_plural">%d panostusta</string>
     <string name="filter_all">Ei ikärajaa</string>
     <string name="time_remaining">{0} minuuttia jäljellä</string>
-    <string name="results_count"></string>
+    <string name="results_count">%d tulos</string>
     <string name="results_count_plural">Tulokset</string>
 
     <!-- Splash screen -->
-    <string name="splash_skip_hint"></string>
+    <string name="splash_skip_hint">Paina OK ohittaaksesi</string>
 
     <!-- Login screen -->
-    <string name="login_sign_in_title"></string>
-    <string name="login_scan_qr"></string>
-    <string name="login_site"></string>
-    <string name="login_enter_code"></string>
+    <string name="login_sign_in_title">Kirjaudu sisään BCC Mediaan</string>
+    <string name="login_scan_qr">Skannaa QR-koodi tai siirry osoitteeseen:</string>
+    <string name="login_site">login.bcc.no/activate</string>
+    <string name="login_enter_code">Ja syötä tämä koodi:</string>
     <string name="login_failed">Kirjautuminen epäonnistui</string>
     <string name="login_try_again">Koita uudelleen</string>
-    <string name="login_connecting"></string>
+    <string name="login_connecting">Yhdistetään…</string>
 
     <!-- Settings screen -->
     <string name="settings_app_language">Sovelluksen kieli</string>
-    <string name="settings_preferred_audio"></string>
+    <string name="settings_preferred_audio">Suositeltu ääni kieli</string>
     <string name="settings_subtitles">Tekstitys</string>
-    <string name="settings_subtitles_off"></string>
+    <string name="settings_subtitles_off">Pois päältä</string>
     <string name="settings_log_out">Kirjaudu ulos</string>
-    <string name="settings_switch_account"></string>
-    <string name="settings_remove_account"></string>
+    <string name="settings_switch_account">Vaihda tiliä</string>
+    <string name="settings_remove_account">Poista tili</string>
 
     <!-- Profile picker -->
-    <string name="profile_picker_title"></string>
-    <string name="profile_add_account"></string>
+    <string name="profile_picker_title">Kuka katsoo?</string>
+    <string name="profile_add_account">Lisää tili</string>
 </resources>
