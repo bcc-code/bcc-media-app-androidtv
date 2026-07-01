@@ -6,16 +6,16 @@
     <string name="nav_home">Home</string>
     <string name="nav_search">Cerca</string>
     <string name="nav_settings">Impostazioni</string>
-    <string name="nav_bookmarks"></string>
+    <string name="nav_bookmarks">Lista di osservazione</string>
 
     <!-- Playback / episode detail -->
     <string name="play">Riproduci</string>
     <string name="open">Apri</string>
-    <string name="continue_from"></string>
-    <string name="play_from"></string>
-    <string name="start_over"></string>
-    <string name="add_to_bookmarks"></string>
-    <string name="in_bookmarks"></string>
+    <string name="continue_from">Continua da %s</string>
+    <string name="play_from">Riproduci da %s</string>
+    <string name="start_over">Ricomincia</string>
+    <string name="add_to_bookmarks">Aggiungi alla lista di osservazione</string>
+    <string name="in_bookmarks">In lista di osservazione</string>
     <string name="chapters">Capitoli</string>
     <string name="chapters_title">Capitoli</string>
     <string name="chapter_fallback">Capitolo 2</string>
@@ -23,56 +23,56 @@
 
     <!-- Auto-play next episode -->
     <string name="up_next_label">Al prossimo</string>
-    <string name="playing_in_seconds"></string>
+    <string name="playing_in_seconds">In riproduzione tra %ds</string>
     <string name="cancel">Annulla</string>
 
     <!-- Auto-play settings -->
     <string name="settings_autoplay">Riproduzione automatica</string>
-    <string name="settings_autoplay_delay"></string>
-    <string name="settings_autoplay_on"></string>
+    <string name="settings_autoplay_delay">Ritardo di riproduzione automatica</string>
+    <string name="settings_autoplay_on">Attivo</string>
     <string name="settings_autoplay_off">Off</string>
-    <string name="autoplay_delay_seconds"></string>
+    <string name="autoplay_delay_seconds">%d secondi</string>
 
     <!-- Generic states -->
     <string name="loading">In fase di caricamento</string>
     <string name="error_prefix">Errore</string>
-    <string name="no_results"></string>
+    <string name="no_results">Nessun risultato per \"%s\"</string>
     <string name="search_placeholder">Cerca</string>
-    <string name="searching"></string>
-    <string name="search_error"></string>
-    <string name="your_list_is_empty"></string>
+    <string name="searching">Ricerca in corso…</string>
+    <string name="search_error">Errore di ricerca: %s</string>
+    <string name="your_list_is_empty">La tua lista è vuota.</string>
     <string name="play_random">Riproduzione casuale</string>
-    <string name="contributions_count"></string>
-    <string name="no_contributions"></string>
-    <string name="contributions_count_label"></string>
-    <string name="contributions_count_label_plural"></string>
+    <string name="contributions_count">Contributi (%d elementi)</string>
+    <string name="no_contributions">Nessun contributo disponibile</string>
+    <string name="contributions_count_label">%d contributo</string>
+    <string name="contributions_count_label_plural">%d contributi</string>
     <string name="filter_all">Tutto</string>
     <string name="time_remaining">{0} min rimasti</string>
-    <string name="results_count"></string>
+    <string name="results_count">%d risultato</string>
     <string name="results_count_plural">Risultati</string>
 
     <!-- Splash screen -->
-    <string name="splash_skip_hint"></string>
+    <string name="splash_skip_hint">Premi OK per saltare</string>
 
     <!-- Login screen -->
-    <string name="login_sign_in_title"></string>
-    <string name="login_scan_qr"></string>
-    <string name="login_site"></string>
-    <string name="login_enter_code"></string>
+    <string name="login_sign_in_title">Accedi a BCC Media</string>
+    <string name="login_scan_qr">Scansiona il codice QR, oppure vai a:</string>
+    <string name="login_site">login.bcc.no/attiva</string>
+    <string name="login_enter_code">E inserisci questo codice:</string>
     <string name="login_failed">Accesso non riuscito</string>
     <string name="login_try_again">Riprova</string>
-    <string name="login_connecting"></string>
+    <string name="login_connecting">Connessione in corso…</string>
 
     <!-- Settings screen -->
     <string name="settings_app_language">Lingua dell\'applicazione</string>
-    <string name="settings_preferred_audio"></string>
+    <string name="settings_preferred_audio">Lingua audio preferita</string>
     <string name="settings_subtitles">Sottotitoli</string>
     <string name="settings_subtitles_off">Off</string>
     <string name="settings_log_out">Esci</string>
-    <string name="settings_switch_account"></string>
-    <string name="settings_remove_account"></string>
+    <string name="settings_switch_account">Cambia account</string>
+    <string name="settings_remove_account">Rimuovi account</string>
 
     <!-- Profile picker -->
-    <string name="profile_picker_title"></string>
-    <string name="profile_add_account"></string>
+    <string name="profile_picker_title">Chi sta guardando?</string>
+    <string name="profile_add_account">Aggiungi account</string>
 </resources>
