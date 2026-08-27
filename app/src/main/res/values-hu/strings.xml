@@ -1,57 +1,78 @@
-<resources>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">BCC Media</string>
+
+    <!-- Navigation -->
     <string name="nav_home">Főoldal</string>
     <string name="nav_search">Keresés</string>
     <string name="nav_settings">Beállítások</string>
-    <string name="nav_bookmarks">Listám</string>
-    <string name="open">Megnyitás</string>
+    <string name="nav_bookmarks">Figyelőlista</string>
+
+    <!-- Playback / episode detail -->
     <string name="play">Lejátszás</string>
-    <string name="continue_from">Folytatás innen: %s</string>
-    <string name="play_from">Lejátszás innen: %s</string>
-    <string name="start_over">Kezdés elölről</string>
-    <string name="add_to_bookmarks">Hozzáadás a listához</string>
-    <string name="in_bookmarks">A listában</string>
-    <string name="chapters">Fejezetek (%d)</string>
-    <string name="chapter_fallback">Fejezet %d</string>
+    <string name="open">Megnyitás</string>
+    <string name="continue_from">Folytatás %s-től</string>
+    <string name="play_from">Lejátszás %s-től</string>
+    <string name="start_over">Újrakezdés</string>
+    <string name="add_to_bookmarks">Figyelőlistához hozzáadása</string>
+    <string name="in_bookmarks">Figyelőlistában</string>
+    <string name="chapters">Fejezetek  (%d)</string>
     <string name="chapters_title">Fejezetek</string>
-    <string name="season_label">%d. évad</string>
+    <string name="chapter_fallback"> %d rész</string>
+    <string name="season_label"> %d Sorozat</string>
+
+    <!-- Auto-play next episode -->
     <string name="up_next_label">Következő</string>
-    <string name="playing_in_seconds">Lejátszás %d mp múlva</string>
+    <string name="playing_in_seconds">Lejátszás %smásodperc múlva</string>
     <string name="cancel">Mégse</string>
-    <string name="loading">Betöltés…</string>
+
+    <!-- Auto-play settings -->
+    <string name="settings_autoplay">Automatikus lejátszás</string>
+    <string name="settings_autoplay_delay">Automatikus lejátszás késleltetése</string>
+    <string name="settings_autoplay_on">Be</string>
+    <string name="settings_autoplay_off">Ki</string>
+    <string name="autoplay_delay_seconds">%s másodperc</string>
+
+    <!-- Generic states -->
+    <string name="loading">Betöltés...</string>
     <string name="error_prefix">Hiba: %s</string>
-    <string name="no_results">Nincs találat erre: \"%s\"</string>
-    <string name="search_placeholder">Keresés…</string>
-    <string name="searching">Keresés…</string>
+    <string name="no_results">Nincs eredmény „%s“</string>
+    <string name="search_placeholder">Keresés...</string>
+    <string name="searching">Keresés...</string>
     <string name="search_error">Keresési hiba: %s</string>
     <string name="your_list_is_empty">A listád üres.</string>
     <string name="play_random">Véletlenszerű lejátszás</string>
-    <string name="contributions_count">Hozzájárulások (%d elem)</string>
-    <string name="no_contributions">Nincs elérhető hozzájárulás</string>
-    <string name="contributions_count_label">%d hozzájárulás</string>
-    <string name="contributions_count_label_plural">%d hozzájárulás</string>
-    <string name="filter_all">Összes (%d)</string>
+    <string name="contributions_count">Hozzájárulás (%s tétel)</string>
+    <string name="no_contributions">Nincs elérhető hozzászólás</string>
+    <string name="contributions_count_label">%s Hozzászólás</string>
+    <string name="contributions_count_label_plural">%s Hozzászólás</string>
+    <string name="filter_all">Összes (%s)</string>
     <string name="time_remaining">%d perc van hátra</string>
-    <string name="results_count">%d találat</string>
-    <string name="results_count_plural">%d találat</string>
-    <string name="login_sign_in_title">Bejelentkezés a BCC Mediába</string>
-    <string name="login_scan_qr">Szkennelje be a QR-kódot, vagy látogasson el ide:</string>
+    <string name="results_count">%s eredmény</string>
+    <string name="results_count_plural">%d eredmény</string>
+
+    <!-- Splash screen -->
+    <string name="splash_skip_hint">Az „OK” gomb megnyomásával ugorhatsz tovább</string>
+
+    <!-- Login screen -->
+    <string name="login_sign_in_title">Jelentkezz be a BCC Media-ba</string>
+    <string name="login_scan_qr">Olvassa be a QR-kódot, vagy látogasd el a következő oldalt:</string>
     <string name="login_site">login.bcc.no/activate</string>
-    <string name="login_enter_code">És adja meg ezt a kódot:</string>
-    <string name="login_failed">Bejelentkezés sikertelen: %s</string>
-    <string name="login_try_again">Próbálja újra</string>
-    <string name="login_connecting">Csatlakozás…</string>
+    <string name="login_enter_code">És add be ezt a kódot:</string>
+    <string name="login_failed">Sikertelen bejelentkezés: %d </string>
+    <string name="login_try_again">Próbáld újra</string>
+    <string name="login_connecting">Kapcsolódás...</string>
+
+    <!-- Settings screen -->
     <string name="settings_app_language">Alkalmazás nyelve</string>
-    <string name="settings_preferred_audio">Előnyben részesített hangnyelv</string>
-    <string name="settings_subtitles">Feliratok</string>
-    <string name="settings_subtitles_off">Kikapcsolva</string>
-    <string name="settings_autoplay">Automatikus lejátszás</string>
-    <string name="settings_autoplay_delay">Késleltetés</string>
-    <string name="settings_autoplay_on">Be</string>
-    <string name="settings_autoplay_off">Ki</string>
-    <string name="autoplay_delay_seconds">%d másodperc</string>
+    <string name="settings_preferred_audio">Kívánt audio nyelv</string>
+    <string name="settings_subtitles">Felíratok</string>
+    <string name="settings_subtitles_off">Ki</string>
     <string name="settings_log_out">Kijelentkezés</string>
-    <string name="settings_switch_account">Fiók váltása</string>
-    <string name="settings_remove_account">Fiók eltávolítása</string>
-    <string name="profile_picker_title">Ki néz?</string>
+    <string name="settings_switch_account">Fiókváltás</string>
+    <string name="settings_remove_account">Fiók törlése</string>
+
+    <!-- Profile picker -->
+    <string name="profile_picker_title">Ki nézi?</string>
     <string name="profile_add_account">Fiók hozzáadása</string>
 </resources>
