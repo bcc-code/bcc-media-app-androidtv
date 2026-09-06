@@ -9,7 +9,7 @@
     <string name="nav_bookmarks">Lista de observação</string>
 
     <!-- Playback / episode detail -->
-    <string name="play">Jogar</string>
+    <string name="play">Reproduzir</string>
     <string name="open">Abrir</string>
     <string name="continue_from">Continuar a partir de %s</string>
     <string name="play_from">Reproduzir a partir de %s</string>
