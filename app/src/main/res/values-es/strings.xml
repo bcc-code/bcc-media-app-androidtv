@@ -1,57 +1,78 @@
-<resources>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">BCC Media</string>
+
+    <!-- Navigation -->
     <string name="nav_home">Inicio</string>
     <string name="nav_search">Buscar</string>
-    <string name="nav_settings">Ajustes</string>
-    <string name="nav_bookmarks">Mi lista</string>
-    <string name="open">Abrir</string>
+    <string name="nav_settings">Configuración</string>
+    <string name="nav_bookmarks"></string>
+
+    <!-- Playback / episode detail -->
     <string name="play">Reproducir</string>
-    <string name="continue_from">Continuar desde %s</string>
-    <string name="play_from">Reproducir desde %s</string>
-    <string name="start_over">Empezar de nuevo</string>
-    <string name="add_to_bookmarks">Añadir a mi lista</string>
-    <string name="in_bookmarks">En mi lista</string>
-    <string name="chapters">Capítulos (%d)</string>
-    <string name="chapter_fallback">Capítulo %d</string>
+    <string name="open">Abierta</string>
+    <string name="continue_from"></string>
+    <string name="play_from"></string>
+    <string name="start_over"></string>
+    <string name="add_to_bookmarks"></string>
+    <string name="in_bookmarks"></string>
+    <string name="chapters">Capítulos</string>
     <string name="chapters_title">Capítulos</string>
-    <string name="season_label">Temporada %d</string>
-    <string name="up_next_label">A continuación</string>
-    <string name="playing_in_seconds">Reproduciendo en %ds</string>
+    <string name="chapter_fallback">Capitulo 13</string>
+    <string name="season_label">Temporada</string>
+
+    <!-- Auto-play next episode -->
+    <string name="up_next_label">Siguiente</string>
+    <string name="playing_in_seconds"></string>
     <string name="cancel">Cancelar</string>
-    <string name="loading">Cargando…</string>
-    <string name="error_prefix">Error: %s</string>
-    <string name="no_results">Sin resultados para \"%s\"</string>
-    <string name="search_placeholder">Buscar…</string>
-    <string name="searching">Buscando…</string>
-    <string name="search_error">Error de búsqueda: %s</string>
-    <string name="your_list_is_empty">Tu lista está vacía.</string>
+
+    <!-- Auto-play settings -->
+    <string name="settings_autoplay">Auto-reproducción</string>
+    <string name="settings_autoplay_delay"></string>
+    <string name="settings_autoplay_on"></string>
+    <string name="settings_autoplay_off"></string>
+    <string name="autoplay_delay_seconds"></string>
+
+    <!-- Generic states -->
+    <string name="loading">Cargando</string>
+    <string name="error_prefix">Error</string>
+    <string name="no_results"></string>
+    <string name="search_placeholder">Buscar</string>
+    <string name="searching"></string>
+    <string name="search_error"></string>
+    <string name="your_list_is_empty"></string>
     <string name="play_random">Reproducción aleatoria</string>
-    <string name="contributions_count">Contribuciones (%d elementos)</string>
-    <string name="no_contributions">No hay contribuciones disponibles</string>
-    <string name="contributions_count_label">%d contribución</string>
-    <string name="contributions_count_label_plural">%d contribuciones</string>
-    <string name="filter_all">Todos (%d)</string>
-    <string name="time_remaining">%d min restante</string>
-    <string name="results_count">%d resultado</string>
-    <string name="results_count_plural">%d resultados</string>
-    <string name="login_sign_in_title">Iniciar sesión en BCC Media</string>
-    <string name="login_scan_qr">Escanea el código QR o ve a:</string>
-    <string name="login_site">login.bcc.no/activate</string>
-    <string name="login_enter_code">E introduce este código:</string>
-    <string name="login_failed">Error al iniciar sesión: %s</string>
-    <string name="login_try_again">Intentar de nuevo</string>
-    <string name="login_connecting">Conectando…</string>
-    <string name="settings_app_language">Idioma de la app</string>
-    <string name="settings_preferred_audio">Idioma de audio preferido</string>
-    <string name="settings_subtitles">Subtítulos</string>
-    <string name="settings_subtitles_off">Desactivado</string>
-    <string name="settings_autoplay">Reproducción automática</string>
-    <string name="settings_autoplay_delay">Retraso</string>
-    <string name="settings_autoplay_on">Activado</string>
-    <string name="settings_autoplay_off">Desactivado</string>
-    <string name="autoplay_delay_seconds">%d segundos</string>
+    <string name="contributions_count"></string>
+    <string name="no_contributions"></string>
+    <string name="contributions_count_label"></string>
+    <string name="contributions_count_label_plural"></string>
+    <string name="filter_all">Todo</string>
+    <string name="time_remaining">Quedan {0} minutos</string>
+    <string name="results_count"></string>
+    <string name="results_count_plural">Resultados</string>
+
+    <!-- Splash screen -->
+    <string name="splash_skip_hint"></string>
+
+    <!-- Login screen -->
+    <string name="login_sign_in_title"></string>
+    <string name="login_scan_qr"></string>
+    <string name="login_site"></string>
+    <string name="login_enter_code"></string>
+    <string name="login_failed">Inicio de Sesión fallido</string>
+    <string name="login_try_again">Inténtalo nuevamente</string>
+    <string name="login_connecting"></string>
+
+    <!-- Settings screen -->
+    <string name="settings_app_language">Idioma de la aplicación</string>
+    <string name="settings_preferred_audio"></string>
+    <string name="settings_subtitles">Subtitulos</string>
+    <string name="settings_subtitles_off"></string>
     <string name="settings_log_out">Cerrar sesión</string>
-    <string name="settings_switch_account">Cambiar de cuenta</string>
-    <string name="settings_remove_account">Eliminar cuenta</string>
-    <string name="profile_picker_title">¿Quién está mirando?</string>
-    <string name="profile_add_account">Añadir cuenta</string>
+    <string name="settings_switch_account"></string>
+    <string name="settings_remove_account"></string>
+
+    <!-- Profile picker -->
+    <string name="profile_picker_title"></string>
+    <string name="profile_add_account"></string>
 </resources>
