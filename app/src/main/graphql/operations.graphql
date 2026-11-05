@@ -319,6 +319,7 @@ query GetEpisodeDetail($episodeId: ID!) {
     progress
     watched
     locked
+    overrideUrl
     ageRating
     season {
       id

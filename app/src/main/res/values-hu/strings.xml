@@ -54,4 +54,5 @@
     <string name="settings_remove_account">Fiók eltávolítása</string>
     <string name="profile_picker_title">Ki néz?</string>
     <string name="profile_add_account">Fiók hozzáadása</string>
+    <string name="override_open_failed">A tartalom nem nyitható meg</string>
 </resources>

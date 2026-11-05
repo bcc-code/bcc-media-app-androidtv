@@ -54,4 +54,5 @@
     <string name="settings_remove_account">கணக்கை நீக்கு</string>
     <string name="profile_picker_title">யார் பார்க்கிறார்கள்?</string>
     <string name="profile_add_account">கணக்கு சேர்</string>
+    <string name="override_open_failed">இந்த உள்ளடக்கத்தைத் திறக்க முடியவில்லை</string>
 </resources>

@@ -54,4 +54,5 @@
     <string name="settings_remove_account">Account verwijderen</string>
     <string name="profile_picker_title">Wie kijkt er?</string>
     <string name="profile_add_account">Account toevoegen</string>
+    <string name="override_open_failed">Kan deze inhoud niet openen</string>
 </resources>

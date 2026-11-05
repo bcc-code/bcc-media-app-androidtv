@@ -1,5 +1,10 @@
 package tv.brunstad.app.ui.episode
 
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.ui.graphics.Color
@@ -40,6 +46,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -97,10 +104,21 @@ fun EpisodeDetailScreen(
                 val isBookmarked by viewModel.isBookmarked.collectAsState()
                 val playOffset = if (chapterOffset > 0) chapterOffset
                                  else s.episode.progress?.toInt() ?: 0
+                val context = LocalContext.current
+                val overrideUrl = s.episode.overrideUrl?.takeIf { it.isNotBlank() }
+                    ?.let(EpisodeDetailViewModel::resolveOverrideUrl)
+
+                // Episode has an override: open it instead of playing (once per visit)
+                LaunchedEffect(overrideUrl) {
+                    if (overrideUrl != null && viewModel.consumeOverrideAutoOpen()) {
+                        viewModel.cancelAutoPlay()
+                        openOverrideUrl(context, overrideUrl)
+                    }
+                }
 
                 // Start countdown once when arriving via auto-play
-                LaunchedEffect(fromAutoplay) {
-                    if (fromAutoplay) viewModel.startAutoPlayCountdown()
+                LaunchedEffect(fromAutoplay, overrideUrl) {
+                    if (fromAutoplay && overrideUrl == null) viewModel.startAutoPlayCountdown()
                 }
 
                 // Auto-trigger play when countdown reaches 0 — always restart (not resume)
@@ -129,6 +147,7 @@ fun EpisodeDetailScreen(
                         onResume = { viewModel.cancelAutoPlay(); onPlay(playOffset) },
                         onRestart = { viewModel.cancelAutoPlay(); onPlay(0) },
                         onPlayFromChapter = { start -> viewModel.cancelAutoPlay(); onPlay(start) },
+                        onOpenOverride = overrideUrl?.let { url -> { openOverrideUrl(context, url) } },
                         onShowClick = onShowClick,
                         onSeasonClick = onSeasonClick,
                         isBookmarked = isBookmarked,
@@ -174,6 +193,17 @@ fun EpisodeDetailScreen(
     }
 }
 
+/** Hands the episode's override URL to whichever app handles it (usually another BCC app). */
+private fun openOverrideUrl(context: Context, url: String) {
+    try {
+        context.startActivity(
+            Intent(Intent.ACTION_VIEW, Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
+    } catch (_: ActivityNotFoundException) {
+        Toast.makeText(context, R.string.override_open_failed, Toast.LENGTH_LONG).show()
+    }
+}
+
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 private fun EpisodeDetail(
@@ -182,6 +212,7 @@ private fun EpisodeDetail(
     onResume: () -> Unit,
     onRestart: () -> Unit,
     onPlayFromChapter: (Int) -> Unit = {},
+    onOpenOverride: (() -> Unit)? = null,
     onShowClick: (String) -> Unit = {},
     onSeasonClick: (String) -> Unit = {},
     isBookmarked: Boolean = false,
@@ -310,7 +341,16 @@ private fun EpisodeDetail(
             val primaryFocusRequester = remember { FocusRequester() }
             LaunchedEffect(Unit) { primaryFocusRequester.requestFocus() }
 
-            if (hasProgress) {
+            if (onOpenOverride != null) {
+                Button(
+                    onClick = onOpenOverride,
+                    modifier = Modifier.focusRequester(primaryFocusRequester)
+                ) {
+                    Icon(Icons.Default.OpenInNew, contentDescription = null, modifier = Modifier.size(20.dp))
+                    Spacer(Modifier.width(8.dp))
+                    Text(stringResource(R.string.open), fontSize = 18.sp)
+                }
+            } else if (hasProgress) {
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     Button(
                         onClick = onResume,
@@ -373,7 +413,7 @@ private fun EpisodeDetail(
                     Spacer(Modifier.width(8.dp))
                     Text(if (isBookmarked) stringResource(R.string.in_bookmarks) else stringResource(R.string.add_to_bookmarks), fontSize = 16.sp)
                 }
-                if (!episode.chapters.isNullOrEmpty()) {
+                if (onOpenOverride == null && !episode.chapters.isNullOrEmpty()) {
                     Button(onClick = { showChapters = true }) {
                         Icon(Icons.Default.List, contentDescription = null, modifier = Modifier.size(20.dp))
                         Spacer(Modifier.width(6.dp))

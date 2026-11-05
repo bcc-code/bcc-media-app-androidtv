@@ -74,4 +74,5 @@
     <!-- Profile picker -->
     <string name="profile_picker_title">Who\'s watching?</string>
     <string name="profile_add_account">Add Account</string>
+    <string name="override_open_failed">Couldn\'t open this content</string>
 </resources>

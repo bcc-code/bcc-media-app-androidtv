@@ -54,4 +54,5 @@
     <string name="settings_remove_account">Remover conta</string>
     <string name="profile_picker_title">Quem está assistindo?</string>
     <string name="profile_add_account">Adicionar conta</string>
+    <string name="override_open_failed">Não foi possível abrir este conteúdo</string>
 </resources>

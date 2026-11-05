@@ -286,6 +286,7 @@ type Episode {
   progress: Float
   watched: Boolean
   locked: Boolean
+  overrideUrl: String
   ageRating: String
   season: Season
   chapters: [Chapter!]

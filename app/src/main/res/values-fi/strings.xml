@@ -54,4 +54,5 @@
     <string name="settings_remove_account">Poista tili</string>
     <string name="profile_picker_title">Kuka katsoo?</string>
     <string name="profile_add_account">Lisää tili</string>
+    <string name="override_open_failed">Sisältöä ei voitu avata</string>
 </resources>

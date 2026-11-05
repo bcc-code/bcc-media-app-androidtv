@@ -54,4 +54,5 @@
     <string name="settings_remove_account">Удалить аккаунт</string>
     <string name="profile_picker_title">Кто смотрит?</string>
     <string name="profile_add_account">Добавить аккаунт</string>
+    <string name="override_open_failed">Не удалось открыть этот контент</string>
 </resources>

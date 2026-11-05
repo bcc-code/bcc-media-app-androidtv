@@ -54,4 +54,5 @@
     <string name="settings_remove_account">Eliminar cuenta</string>
     <string name="profile_picker_title">¿Quién está mirando?</string>
     <string name="profile_add_account">Añadir cuenta</string>
+    <string name="override_open_failed">No se pudo abrir este contenido</string>
 </resources>

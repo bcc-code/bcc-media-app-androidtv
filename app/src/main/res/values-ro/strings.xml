@@ -54,4 +54,5 @@
     <string name="settings_remove_account">Elimină contul</string>
     <string name="profile_picker_title">Cine urmărește?</string>
     <string name="profile_add_account">Adaugă cont</string>
+    <string name="override_open_failed">Acest conținut nu a putut fi deschis</string>
 </resources>
