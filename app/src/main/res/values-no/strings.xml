@@ -54,4 +54,5 @@
     <string name="settings_remove_account">Fjern konto</string>
     <string name="profile_picker_title">Hvem ser på?</string>
     <string name="profile_add_account">Legg til konto</string>
+    <string name="override_open_failed">Kunne ikke åpne innholdet</string>
 </resources>

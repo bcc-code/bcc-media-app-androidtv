@@ -64,6 +64,15 @@ class EpisodeDetailViewModel @Inject constructor(
         _autoPlayCountdown.value = null
     }
 
+    // reload() on resume would otherwise reopen the override when the user comes back.
+    private var overrideOpened = false
+
+    fun consumeOverrideAutoOpen(): Boolean {
+        if (overrideOpened) return false
+        overrideOpened = true
+        return true
+    }
+
     sealed class UiState {
         object Loading : UiState()
         data class Ready(val episode: GetEpisodeDetailQuery.Episode) : UiState()
@@ -104,5 +113,12 @@ class EpisodeDetailViewModel @Inject constructor(
                 if (_state.value !is UiState.Ready) _state.value = UiState.Error(e.message ?: "Failed to load episode")
             }
         }
+    }
+
+    companion object {
+        private const val WEB_BASE_URL = "https://app.bcc.media"
+
+        fun resolveOverrideUrl(url: String): String =
+            if (url.startsWith("/") && !url.startsWith("//")) WEB_BASE_URL + url else url
     }
 }

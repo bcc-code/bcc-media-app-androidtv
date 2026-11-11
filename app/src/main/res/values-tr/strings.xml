@@ -54,4 +54,5 @@
     <string name="settings_remove_account">Hesabı kaldır</string>
     <string name="profile_picker_title">Kim izliyor?</string>
     <string name="profile_add_account">Hesap ekle</string>
+    <string name="override_open_failed">Bu içerik açılamadı</string>
 </resources>

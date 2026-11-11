@@ -54,4 +54,5 @@
     <string name="settings_remove_account">Премахване на акаунт</string>
     <string name="profile_picker_title">Кой гледа?</string>
     <string name="profile_add_account">Добавяне на акаунт</string>
+    <string name="override_open_failed">Съдържанието не може да бъде отворено</string>
 </resources>
