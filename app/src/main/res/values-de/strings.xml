@@ -75,4 +75,5 @@
     <!-- Profile picker -->
     <string name="profile_picker_title">Wer schaut gerade?</string>
     <string name="profile_add_account">Konto hinzufügen</string>
+    <string name="override_open_failed">Dieser Inhalt konnte nicht geöffnet werden</string>
 </resources>
