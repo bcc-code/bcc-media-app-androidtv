@@ -108,7 +108,6 @@ fun EpisodeDetailScreen(
                 val overrideUrl = s.episode.overrideUrl?.takeIf { it.isNotBlank() }
                     ?.let(EpisodeDetailViewModel::resolveOverrideUrl)
 
-                // Episode has an override: open it instead of playing (once per visit)
                 LaunchedEffect(overrideUrl) {
                     if (overrideUrl != null && viewModel.consumeOverrideAutoOpen()) {
                         viewModel.cancelAutoPlay()
@@ -193,7 +192,6 @@ fun EpisodeDetailScreen(
     }
 }
 
-/** Hands the episode's override URL to whichever app handles it (usually another BCC app). */
 private fun openOverrideUrl(context: Context, url: String) {
     try {
         context.startActivity(

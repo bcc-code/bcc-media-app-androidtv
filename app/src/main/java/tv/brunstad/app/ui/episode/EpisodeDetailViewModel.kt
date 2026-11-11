@@ -64,11 +64,9 @@ class EpisodeDetailViewModel @Inject constructor(
         _autoPlayCountdown.value = null
     }
 
-    // Auto-open the override only once per screen visit, so returning via Back
-    // (which triggers reload()) doesn't bounce the user straight back out.
+    // reload() on resume would otherwise reopen the override when the user comes back.
     private var overrideOpened = false
 
-    /** Returns true the first time it is called; false afterwards. */
     fun consumeOverrideAutoOpen(): Boolean {
         if (overrideOpened) return false
         overrideOpened = true
@@ -120,7 +118,6 @@ class EpisodeDetailViewModel @Inject constructor(
     companion object {
         private const val WEB_BASE_URL = "https://app.bcc.media"
 
-        /** Relative paths (e.g. "/episode/123") are resolved against the web app. */
         fun resolveOverrideUrl(url: String): String =
             if (url.startsWith("/") && !url.startsWith("//")) WEB_BASE_URL + url else url
     }
