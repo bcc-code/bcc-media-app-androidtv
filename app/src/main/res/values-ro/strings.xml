@@ -14,10 +14,10 @@
     <string name="continue_from">Continuă de la %s</string>
     <string name="play_from">Redă de la %s</string>
     <string name="start_over">Începe din nou</string>
-    <string name="add_to_bookmarks">Adaugă la Lista de vizionare</string>
+    <string name="add_to_bookmarks">Adaugă la lista de vizionare</string>
     <string name="in_bookmarks">În Lista de vizionare</string>
     <string name="chapters">Capitolele (%d)</string>
-    <string name="chapters_title">Capitole</string>
+    <string name="chapters_title">Capitolele</string>
     <string name="chapter_fallback">Capitolul %d</string>
     <string name="season_label">Sezonul %d</string>
 
@@ -41,13 +41,13 @@
     <string name="searching">Se caută...</string>
     <string name="search_error">Eroare de căutare: %s</string>
     <string name="your_list_is_empty">Lista ta este goală.</string>
-    <string name="play_random">Redare Aleatorie</string>
+    <string name="play_random">Redare aleatorie</string>
     <string name="contributions_count">Contribuții (%delemente)</string>
     <string name="no_contributions">Nu sunt disponibile contribuții</string>
     <string name="contributions_count_label">%d contribuție</string>
     <string name="contributions_count_label_plural">%d contribuții</string>
     <string name="filter_all">Tot (%d)</string>
-    <string name="time_remaining">%d minute rămase</string>
+    <string name="time_remaining">%d min rămase</string>
     <string name="results_count">%d rezultat</string>
     <string name="results_count_plural">%d rezultate</string>
 
@@ -75,4 +75,5 @@
     <!-- Profile picker -->
     <string name="profile_picker_title">Cine vizionează?</string>
     <string name="profile_add_account">Adaugă cont</string>
+    <string name="override_open_failed">Nu s-a putut deschide acest conținut</string>
 </resources>
