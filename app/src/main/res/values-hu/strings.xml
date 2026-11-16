@@ -75,4 +75,5 @@
     <!-- Profile picker -->
     <string name="profile_picker_title">Ki nézi?</string>
     <string name="profile_add_account">Fiók hozzáadása</string>
+    <string name="override_open_failed">Nem sikerült megnyitni ezt a tartalmat</string>
 </resources>
