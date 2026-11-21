@@ -75,4 +75,5 @@
     <!-- Profile picker -->
     <string name="profile_picker_title">Wie kijkt er?</string>
     <string name="profile_add_account">Account toevoegen</string>
+    <string name="override_open_failed">Deze inhoud kon niet worden geopend.</string>
 </resources>
