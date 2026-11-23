@@ -75,4 +75,5 @@
     <!-- Profile picker -->
     <string name="profile_picker_title">Hvem ser på?</string>
     <string name="profile_add_account">Legg til konto</string>
+    <string name="override_open_failed">Kunne ikke åpne dette innholdet</string>
 </resources>
